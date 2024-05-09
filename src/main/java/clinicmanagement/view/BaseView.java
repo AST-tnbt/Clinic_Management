@@ -14,7 +14,6 @@ public class BaseView extends javax.swing.JFrame {
 
     @Override
     public void setVisible(boolean visible) {
-        System.out.print("test" + String.valueOf(SwingUtilities.isEventDispatchThread()));
         if (!this.isVisible() && visible) {
             SwingUtilities.invokeLater(() -> {
                 repaintComponents.forEach(component -> {

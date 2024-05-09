@@ -2,58 +2,54 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package clinicmanagement.controller.AddEmployee;
+package clinicmanagement.controller.modifyemployee;
 
 import clinicmanagement.constant.AddEmployeeName;
+import clinicmanagement.constant.ModifyEmployeeName;
 import clinicmanagement.controller.database.DatabaseContext;
-import clinicmanagement.controller.employeemanagement.DefaultEmployeeManagementShowEmployee;
 import clinicmanagement.controller.employeemanagement.worker.ShowEmployeeWorker;
 import clinicmanagement.model.service.EmployeeService;
 import clinicmanagement.util.DocumentUtil;
 import clinicmanagement.view.manager.AddEmployee_Admin;
 import clinicmanagement.view.manager.EmployeeManagement_Admin;
+import clinicmanagement.view.manager.ModifyEmployee_Admin;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 import jakarta.inject.Named;
+
 import javax.swing.*;
 import javax.swing.text.Document;
 import java.awt.event.ActionEvent;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.concurrent.ExecutionException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
  * @author tin-ast
  */
-public class DefaultAddEmployeeSubmitListener implements AddEmployeeSubmitListener{
+public class DefaultModifyEmployeeSubmitListener implements ModifyEmployeeSubmitListener {
     @Inject
     private EmployeeManagement_Admin employeeManagement;
     @Inject
-    private AddEmployee_Admin addEmployee;
-    @Inject @Named(AddEmployeeName.E_ID)
+    private ModifyEmployee_Admin modifyEmployeeAdmin;
+    @Inject @Named(ModifyEmployeeName.E_ID)
     private Document emp_ID;
-    @Inject @Named(AddEmployeeName.E_NAME)
+    @Inject @Named(ModifyEmployeeName.E_NAME)
     private Document emp_Name;
-    @Inject @Named(AddEmployeeName.E_POSITION)
+    @Inject @Named(ModifyEmployeeName.E_POSITION)
     private ComboBoxModel emp_Position;
-    @Inject @Named(AddEmployeeName.E_SEX)
+    @Inject @Named(ModifyEmployeeName.E_SEX)
     private ComboBoxModel emp_Sex;
-    @Inject @Named(AddEmployeeName.E_ADDRESS)
+    @Inject @Named(ModifyEmployeeName.E_ADDRESS)
     private Document emp_Address;
-    @Inject @Named(AddEmployeeName.E_DAYOFBIRTH)
+    @Inject @Named(ModifyEmployeeName.E_DAYOFBIRTH)
     private Document emp_DayOfBirth;
-    @Inject @Named(AddEmployeeName.E_PHONENUMBER)
+    @Inject @Named(ModifyEmployeeName.E_PHONENUMBER)
     private Document emp_PhoneNumber;
-    @Inject @Named(AddEmployeeName.E_USERNAME)
+    @Inject @Named(ModifyEmployeeName.E_USERNAME)
     private Document emp_Username;
-    @Inject @Named(AddEmployeeName.E_PASSWORD)
+    @Inject @Named(ModifyEmployeeName.E_PASSWORD)
     private Document emp_Password;
-    @Inject
-    private DatabaseContext databaseContext;
     @Inject 
     private Provider<ShowEmployeeWorker> showEmployeeWorkerProvider;
     @Inject
@@ -80,8 +76,8 @@ public class DefaultAddEmployeeSubmitListener implements AddEmployeeSubmitListen
                 return false;
             }
             try {
-                employeeService.addEmployee(id, name, phone, position, dateOfBirth, sex, username, password,  address);
-                employeeManagement.setVisible(true); 
+                employeeService.modifyEmployee(id, name, phone, position, dateOfBirth, sex, username, password,  address);
+                modifyEmployeeAdmin.setVisible(false);
             } catch (SQLException ex) {
 //                Logger.getLogger(DefaultAddEmployeeSubmitListener.class.getName()).log(Level.SEVERE, null, ex);
                 return false;
@@ -98,11 +94,11 @@ public class DefaultAddEmployeeSubmitListener implements AddEmployeeSubmitListen
             DocumentUtil.removeText(emp_PhoneNumber);
             DocumentUtil.removeText(emp_Username);
             DocumentUtil.removeText(emp_Password);
-            addEmployee.setVisible(false);
+            modifyEmployeeAdmin.setVisible(false);
             try {
                 if (get()) {
+                    JOptionPane.showMessageDialog(null, "Sửa thành công");
                     showEmployeeWorkerProvider.get().refreshTable(employeeService.getListEmployee());
-                    JOptionPane.showMessageDialog(null, "Thêm thành công");
                 }
             } catch (InterruptedException | ExecutionException e) {
                 throw new RuntimeException(e);

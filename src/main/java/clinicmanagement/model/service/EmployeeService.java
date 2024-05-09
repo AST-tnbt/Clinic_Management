@@ -6,6 +6,7 @@ import clinicmanagement.model.entity.Employee;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import com.google.inject.name.Named;
+import org.checkerframework.checker.formatter.qual.ReturnsFormat;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -60,11 +61,13 @@ public class EmployeeService {
         pst.executeUpdate();
     }
 
-    public void deleteById(String id) throws SQLException {
-        for (int i = 0; i < listEmployee.size(); i++) {
-            if (listEmployee.get(i).getId().equals(id)) {
-                listEmployee.remove(i);
-                break;
+    public void deleteById(String id, ArrayList<String> listId) throws SQLException {
+        for (String tmpId : listId) {
+            for (int i = 0; i < listEmployee.size(); i++) {
+                if (listEmployee.get(i).getId().equals(tmpId)) {
+                    listEmployee.remove(i);
+                    break;
+                }
             }
         }
         Connection con = databaseContext.getConnection();
@@ -85,5 +88,54 @@ public class EmployeeService {
 
     public ArrayList<Employee> getListEmployee() {
         return listEmployee;
+    }
+
+    public String getUserNameById(String id) {
+        for (Employee emp : listEmployee) {
+            if (emp.getId().equals(id)) {
+                return emp.getUsername();
+            }
+        }
+        return "";
+    }
+
+    public String getPasswordById(String id) {
+        for (Employee emp : listEmployee) {
+            if (emp.getId().equals(id)) {
+                return emp.getPassword();
+            }
+        }
+        return "";
+    }
+
+    public void modifyEmployee(String id, String name, String phone, String position, String dateOfBirth, String sex, String username, String password, String address) throws SQLException {
+        for (Employee emp : listEmployee) {
+            if (emp.getId().equals(id)) {
+                emp.setName(name);
+                emp.setPhoneNum(phone);
+                emp.setPosition(position);
+                emp.setSex(sex);
+                emp.setDateOfBirth(dateOfBirth);
+                emp.setUsername(username);
+                emp.setPassword(password);
+                emp.setAddress(address);
+                System.out.print(emp.toString());
+                break;
+            }
+        }
+        Connection con = databaseContext.getConnection();
+        String sqlQuery = "update NHANVIEN set HoTen = ?, ChucVu = ?, NgaySinh = ?, GioiTinh = ?, DiaChi = ?, SoDT = ?, TaiKhoan = ?, MatKhau = ? where MaNv = ?";
+        PreparedStatement pst;
+        pst = con.prepareStatement(sqlQuery);
+        pst.setString(1, name);
+        pst.setString(2, position);
+        pst.setString(3, dateOfBirth);
+        pst.setString(4, sex);
+        pst.setString(5, address);
+        pst.setString(6, phone);
+        pst.setString(7, username);
+        pst.setString(8, password);
+        pst.setString(9, id);
+        pst.executeUpdate();
     }
 }

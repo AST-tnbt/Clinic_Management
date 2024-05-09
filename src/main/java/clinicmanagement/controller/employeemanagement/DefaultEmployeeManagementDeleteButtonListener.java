@@ -24,6 +24,7 @@ import java.awt.event.MouseEvent;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.concurrent.ExecutionException;
 
@@ -37,20 +38,18 @@ public class DefaultEmployeeManagementDeleteButtonListener extends MouseAdapter 
     @Inject @Named(EmployeeManagementName.EMPLOYEE_TABLE_LIST_SELECTION)
     TableListModelSelectionWrapper tableListModelSelectionWrapper;
     @Inject
-    EmployeeManagement_Admin employeeManagement;
-    @Inject
-    DatabaseContext databaseContext;
-    @Inject
     private Provider<ShowEmployeeWorker> showEmployeeWorkerProvider;
     @Inject
     private EmployeeService employeeService;
+
+    private ArrayList<String> listId = new ArrayList<>();
 
     private String idDel;
     class Worker extends SwingWorker<Boolean, Integer> {
         @Override
         protected Boolean doInBackground() throws Exception {
             try {
-                employeeService.deleteById(idDel);
+                employeeService.deleteById(idDel, listId);
             } catch (SQLException e) {
                 return false;
             }
@@ -74,6 +73,7 @@ public class DefaultEmployeeManagementDeleteButtonListener extends MouseAdapter 
         StringBuilder idDelBuilder = new StringBuilder();
 
         for (int i = 0; i < rows.length; i++) {
+            listId.add((String) tableModelWrapper.getModel().getValueAt(rows[i], 0));
             idDelBuilder.append("MaNV='").append((String) tableModelWrapper.getModel().getValueAt(rows[i], 0)).append("'");
             if (i < rows.length - 1) {
                 idDelBuilder.append(" OR ");

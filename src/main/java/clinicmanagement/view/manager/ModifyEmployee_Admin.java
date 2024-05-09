@@ -4,9 +4,11 @@
  */
 package clinicmanagement.view.manager;
 
-import clinicmanagement.constant.AddEmployeeName;
+import clinicmanagement.constant.ModifyEmployeeName;
 import clinicmanagement.controller.addemployee.AddEmployeeCancelListener;
 import clinicmanagement.controller.addemployee.AddEmployeeSubmitListener;
+import clinicmanagement.controller.modifyemployee.ModifyEmployeeCancelListener;
+import clinicmanagement.controller.modifyemployee.ModifyEmployeeSubmitListener;
 import clinicmanagement.view.BaseView;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
@@ -20,12 +22,12 @@ import javax.swing.text.Document;
  * @author tin-ast
  */
 @Singleton
-public class AddEmployee_Admin extends BaseView {
+public class ModifyEmployee_Admin extends BaseView {
 
     /**
      * Creates new form addEmployee
      */
-    public AddEmployee_Admin() {
+    public ModifyEmployee_Admin() {
         initComponents();
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setTitle("TWP clinic management - Thêm nhân sự");
@@ -82,6 +84,7 @@ public class AddEmployee_Admin extends BaseView {
         jLabel5.setFont(new java.awt.Font("FreeSans", 0, 18)); // NOI18N
         jLabel5.setText("Chức vụ");
 
+        inputEmpID.setEditable(false);
         inputEmpID.setFont(new java.awt.Font("FreeSans", 0, 18)); // NOI18N
 
         inputEmpDayOfBirth.setFont(new java.awt.Font("FreeSans", 0, 18)); // NOI18N
@@ -91,7 +94,7 @@ public class AddEmployee_Admin extends BaseView {
         submitBtn.setBackground(new java.awt.Color(252, 104, 26));
         submitBtn.setFont(new java.awt.Font("FreeSans", 1, 18)); // NOI18N
         submitBtn.setForeground(new java.awt.Color(255, 255, 255));
-        submitBtn.setText("Xác nhận");
+        submitBtn.setText("Cập nhật");
 
         cancelBtn.setFont(new java.awt.Font("FreeSans", 1, 18)); // NOI18N
         cancelBtn.setForeground(new java.awt.Color(252, 104, 26));
@@ -272,15 +275,15 @@ public class AddEmployee_Admin extends BaseView {
     // End of variables declaration//GEN-END:variables
     @Inject
     public void setModels(
-        @Named(AddEmployeeName.E_ID) Document inputEmpID,
-        @Named(AddEmployeeName.E_NAME) Document inputEmpName,
-        @Named(AddEmployeeName.E_POSITION) ComboBoxModel inputEmpPosstion,
-        @Named(AddEmployeeName.E_SEX) ComboBoxModel inputEmpSex,
-        @Named(AddEmployeeName.E_ADDRESS) Document inputEmpAddress,
-        @Named(AddEmployeeName.E_DAYOFBIRTH) Document inputEmpDayOfBirth,
-        @Named(AddEmployeeName.E_PHONENUMBER) Document inputEmpPhoneNum,
-        @Named(AddEmployeeName.E_USERNAME) Document inputEmpUsername,
-        @Named(AddEmployeeName.E_PASSWORD) Document inputEmpPassword
+        @Named(ModifyEmployeeName.E_ID) Document inputEmpID,
+        @Named(ModifyEmployeeName.E_NAME) Document inputEmpName,
+        @Named(ModifyEmployeeName.E_POSITION) ComboBoxModel inputEmpPosstion,
+        @Named(ModifyEmployeeName.E_SEX) ComboBoxModel inputEmpSex,
+        @Named(ModifyEmployeeName.E_ADDRESS) Document inputEmpAddress,
+        @Named(ModifyEmployeeName.E_DAYOFBIRTH) Document inputEmpDayOfBirth,
+        @Named(ModifyEmployeeName.E_PHONENUMBER) Document inputEmpPhoneNum,
+        @Named(ModifyEmployeeName.E_USERNAME) Document inputEmpUsername,
+        @Named(ModifyEmployeeName.E_PASSWORD) Document inputEmpPassword
     ) {
         this.inputEmpID.setDocument(inputEmpID);
         this.inputEmpName.setDocument(inputEmpName);
@@ -305,10 +308,10 @@ public class AddEmployee_Admin extends BaseView {
     }
     @Inject
     public void setListeners(
-        AddEmployeeSubmitListener addEmployeeSubmitListener,
-        AddEmployeeCancelListener addEmployeeCancelListener
+        ModifyEmployeeCancelListener modifyEmployeeCancelListener,
+        ModifyEmployeeSubmitListener modifyEmployeeSubmitListener
     ) {
-        this.submitBtn.addActionListener(addEmployeeSubmitListener);
-        this.cancelBtn.addActionListener(addEmployeeCancelListener);
+        this.cancelBtn.addActionListener(modifyEmployeeCancelListener);
+        this.submitBtn.addActionListener(modifyEmployeeSubmitListener);
     }
 }

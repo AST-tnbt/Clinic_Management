@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package clinicmanagement.controller.AddEmployee;
+package clinicmanagement.controller.addemployee;
 
 import clinicmanagement.constant.AddEmployeeName;
 import clinicmanagement.util.DocumentUtil;

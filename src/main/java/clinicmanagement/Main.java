@@ -4,10 +4,7 @@
  */
 package clinicmanagement;
 
-import clinicmanagement.model.factory.AddEmployeeFactory;
-import clinicmanagement.model.factory.EmployeeManagementFactory;
-import clinicmanagement.model.factory.EntityModelFactory;
-import clinicmanagement.model.factory.LoginModelFactory;
+import clinicmanagement.model.factory.*;
 import clinicmanagement.view.Login;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
@@ -22,7 +19,8 @@ public class Main {
             new LoginModelFactory(),
             new AddEmployeeFactory(),
             new EmployeeManagementFactory(),
-            new EntityModelFactory()
+            new EntityModelFactory(),
+            new ModifyEmployeeFactory()
         );
         java.awt.EventQueue.invokeLater(() -> injector.getInstance(Login.class).setVisible(true));
     }
