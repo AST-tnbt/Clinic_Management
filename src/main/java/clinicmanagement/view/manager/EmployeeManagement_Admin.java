@@ -209,7 +209,8 @@ public class EmployeeManagement_Admin extends javax.swing.JFrame {
         EmployeeManagementShowEmployee employeeManagementShowEmployee,
         EmployeeManagementDeleteButtonListener employeeManagementDeleteButtonListener,
         EmployeeManagementSearchButtonListener employeeManagementSearchButtonListener,
-        EmployeeManagementModifyButtonListener employeeManagementModifyButtonListener
+        EmployeeManagementModifyButtonListener employeeManagementModifyButtonListener,
+        EmployeeManagementSearchBarKeyPress employeeManagementSearchBarKeyPress
     ) {
         this.addButton.addMouseListener(employeeManagementAddButton);
         this.backDashboardBtn.addMouseListener(employeeManagementBackDashboard);
@@ -218,5 +219,6 @@ public class EmployeeManagement_Admin extends javax.swing.JFrame {
         this.searchButton.addActionListener(employeeManagementSearchButtonListener);
         this.searchBar.addActionListener(employeeManagementSearchButtonListener);
         this.modifyButton.addMouseListener(employeeManagementModifyButtonListener);
+        this.searchBar.addKeyListener(employeeManagementSearchBarKeyPress);
     }
 }

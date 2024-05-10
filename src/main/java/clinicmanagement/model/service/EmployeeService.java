@@ -119,7 +119,6 @@ public class EmployeeService {
                 emp.setUsername(username);
                 emp.setPassword(password);
                 emp.setAddress(address);
-                System.out.print(emp.toString());
                 break;
             }
         }
