@@ -11,7 +11,7 @@ public class Employee {
     private String password;
     private String address;
 
-    public Employee(String id, String name, String phoneNum, String position, String dateOfBirth, String sex, String username, String password, String address) {
+    public Employee(String id, String name, String position, String dateOfBirth, String sex, String address, String phoneNum, String username, String password) {
         this.id = id;
         this.name = name;
         this.phoneNum = phoneNum;
@@ -95,18 +95,4 @@ public class Employee {
         this.address = address;
     }
 
-    @Override
-    public String toString() {
-        return "Employee{" +
-                "id='" + id + '\'' +
-                ", name='" + name + '\'' +
-                ", phoneNum='" + phoneNum + '\'' +
-                ", position='" + position + '\'' +
-                ", dateOfBirth='" + dateOfBirth + '\'' +
-                ", sex='" + sex + '\'' +
-                ", username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                ", address='" + address + '\'' +
-                '}';
-    }
 }

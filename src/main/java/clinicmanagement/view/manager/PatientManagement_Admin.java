@@ -4,6 +4,8 @@
  */
 package clinicmanagement.view.manager;
 
+import clinicmanagement.controller.patientManagement.PatientManagementBackDashboard;
+import com.google.inject.Inject;
 import com.google.inject.Singleton;
 
 /**
@@ -113,4 +115,11 @@ public class PatientManagement_Admin extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     // End of variables declaration//GEN-END:variables
+
+    @Inject
+    public void setListeners(
+           PatientManagementBackDashboard patientManagementBackDashboard
+    ) {
+        this.backDashboard.addMouseListener(patientManagementBackDashboard);
+    }
 }

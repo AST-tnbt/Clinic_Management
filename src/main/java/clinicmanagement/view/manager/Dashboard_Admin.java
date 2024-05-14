@@ -4,6 +4,7 @@
  */
 package clinicmanagement.view.manager;
 
+import clinicmanagement.controller.dashboard.DashboardAppointmentListener;
 import clinicmanagement.controller.dashboard.DashboardEmployeeListener;
 import clinicmanagement.controller.dashboard.DashboardLogoutListener;
 import clinicmanagement.controller.dashboard.DashboardPatientManagementListener;
@@ -417,10 +418,12 @@ public class Dashboard_Admin extends javax.swing.JFrame {
     public void setListeners(
         DashboardEmployeeListener dashboardEmployeeListener,
         DashboardLogoutListener dashboardLogoutListener,
-        DashboardPatientManagementListener dashboardPatientManagementListener
+        DashboardPatientManagementListener dashboardPatientManagementListener,
+        DashboardAppointmentListener dashboardAppointmentListener
     ) {
         this.employeePanel.addMouseListener(dashboardEmployeeListener);
         this.logoutBtn.addMouseListener(dashboardLogoutListener);
         this.patientPanel.addMouseListener(dashboardPatientManagementListener);
+        this.appointmentPanel.addMouseListener(dashboardAppointmentListener);
     }
 }

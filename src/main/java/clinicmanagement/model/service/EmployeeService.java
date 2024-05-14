@@ -30,23 +30,23 @@ public class EmployeeService {
                 Employee employee = new Employee(
                         rs.getString(1),
                         rs.getString(2),
-                        rs.getString(7),
                         rs.getString(3),
                         rs.getString(4),
                         rs.getString(5),
+                        rs.getString(6),
+                        rs.getString(7),
                         rs.getString(8),
-                        rs.getString(9),
-                        rs.getString(6)
+                        rs.getString(9)
                 );
                 listEmployee.add(employee);
             }
 
     }
 
-    public void addEmployee(String id, String name, String phone, String position, String dateOfBirth, String sex, String username, String password, String address) throws SQLException {
-        this.listEmployee.add(new Employee(id, name, phone, position, dateOfBirth, sex, username, password,  address));
+    public void addEmployee(String id, String name, String position, String dateOfBirth, String sex, String address, String phoneNum, String username, String password) throws SQLException {
+        this.listEmployee.add(new Employee(id, name, position, dateOfBirth, sex, address, phoneNum, username, password));
         Connection con = databaseContext.getConnection();
-        String sqlquery = "insert into NHANVIEN (MaNV, HoTen, ChucVu, NgaySinh, GioiTinh, DiaChi, SoDT, TaiKhoan, MatKhau) values (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        String sqlquery = "insert into NHANVIEN (MaNV, HoTen, ChucVu, NgaySinh, GioiTinh, DiaChi, SoDT, NgayVL, TaiKhoan, MatKhau) values (?, ?, ?, ?, ?, ?, ?, ?, ?)";
         PreparedStatement pst;
         pst = con.prepareStatement(sqlquery);
         pst.setString(1, id);
@@ -55,9 +55,9 @@ public class EmployeeService {
         pst.setString(4, dateOfBirth);
         pst.setString(5, sex);
         pst.setString(6, address);
-        pst.setString(7, phone);
-        pst.setString(8, username);
-        pst.setString(9, password);
+        pst.setString(7, phoneNum);
+        pst.setString(9, username);
+        pst.setString(10, password);
         pst.executeUpdate();
     }
 
