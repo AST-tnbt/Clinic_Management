@@ -22,12 +22,6 @@ import javax.swing.text.PlainDocument;
 public class AddEmployeeFactory extends AbstractModule {
     @Provides
     @Singleton
-    @Named(AddEmployeeName.E_ID)
-    static Document provideIdModel() {
-        return new PlainDocument();
-    }
-    @Provides
-    @Singleton
     @Named(AddEmployeeName.E_NAME)
     static Document provideNameModel() {
         return new PlainDocument();

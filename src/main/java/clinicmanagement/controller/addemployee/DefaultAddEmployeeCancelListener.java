@@ -20,8 +20,6 @@ import javax.swing.text.Document;
 public class DefaultAddEmployeeCancelListener implements AddEmployeeCancelListener{
     @Inject
     private AddEmployee_Admin addEmployee;
-    @Inject @Named(AddEmployeeName.E_ID)
-    private Document emp_ID;
     @Inject @Named(AddEmployeeName.E_NAME)
     private Document emp_Name;
     @Inject @Named(AddEmployeeName.E_POSITION)
@@ -41,7 +39,6 @@ public class DefaultAddEmployeeCancelListener implements AddEmployeeCancelListen
     @Override
     public void actionPerformed(ActionEvent e) {
 //        System.out.print(SwingUtilities.isEventDispatchThread());
-        DocumentUtil.removeText(this.emp_ID);
         DocumentUtil.removeText(this.emp_Name);
         DocumentUtil.removeText(this.emp_Address);
         DocumentUtil.removeText(this.emp_DayOfBirth);

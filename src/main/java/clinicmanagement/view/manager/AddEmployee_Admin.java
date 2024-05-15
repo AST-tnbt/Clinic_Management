@@ -42,11 +42,9 @@ public class AddEmployee_Admin extends BaseView {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        inputEmpID = new javax.swing.JTextField();
         inputEmpDayOfBirth = new javax.swing.JTextField();
         inputEmpAddress = new javax.swing.JTextField();
         submitBtn = new javax.swing.JButton();
@@ -70,9 +68,6 @@ public class AddEmployee_Admin extends BaseView {
         jLabel1.setFont(new java.awt.Font("FreeSans", 1, 24)); // NOI18N
         jLabel1.setText("Thông tin nhân sự");
 
-        jLabel2.setFont(new java.awt.Font("FreeSans", 0, 18)); // NOI18N
-        jLabel2.setText("Mã nhân viên");
-
         jLabel3.setFont(new java.awt.Font("FreeSans", 0, 18)); // NOI18N
         jLabel3.setText("Địa chỉ");
 
@@ -81,8 +76,6 @@ public class AddEmployee_Admin extends BaseView {
 
         jLabel5.setFont(new java.awt.Font("FreeSans", 0, 18)); // NOI18N
         jLabel5.setText("Chức vụ");
-
-        inputEmpID.setFont(new java.awt.Font("FreeSans", 0, 18)); // NOI18N
 
         inputEmpDayOfBirth.setFont(new java.awt.Font("FreeSans", 0, 18)); // NOI18N
 
@@ -150,19 +143,6 @@ public class AddEmployee_Admin extends BaseView {
                             .addGap(18, 18, 18)
                             .addComponent(cancelBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(inputEmpID, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel2))
-                            .addGap(18, 18, 18)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel6)
-                                .addComponent(inputEmpName, javax.swing.GroupLayout.PREFERRED_SIZE, 366, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                            .addComponent(jLabel5)
-                            .addGap(202, 202, 202)
-                            .addComponent(jLabel8)
-                            .addGap(145, 145, 145))
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                             .addComponent(inputEmpPosition, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addGroup(jPanel1Layout.createSequentialGroup()
@@ -176,26 +156,30 @@ public class AddEmployee_Admin extends BaseView {
                             .addComponent(inputEmpDayOfBirth, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGap(18, 18, 18)
                             .addComponent(inputEmpPhoneNum, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addComponent(inputEmpAddress)))
+                        .addComponent(inputEmpAddress)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(inputEmpName, javax.swing.GroupLayout.PREFERRED_SIZE, 519, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel5)
+                                .addGap(202, 202, 202)
+                                .addComponent(jLabel8)
+                                .addGap(145, 145, 145))
+                            .addComponent(jLabel6))))
                 .addContainerGap(70, Short.MAX_VALUE))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(210, 210, 210)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(215, 215, 215))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(42, 42, 42)
+                .addGap(45, 45, 45)
                 .addComponent(jLabel1)
-                .addGap(61, 61, 61)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel6))
+                .addGap(58, 58, 58)
+                .addComponent(jLabel6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(inputEmpID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(inputEmpName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(inputEmpName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(46, 46, 46)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
@@ -250,7 +234,6 @@ public class AddEmployee_Admin extends BaseView {
     private javax.swing.JButton cancelBtn;
     private javax.swing.JTextField inputEmpAddress;
     private javax.swing.JTextField inputEmpDayOfBirth;
-    private javax.swing.JTextField inputEmpID;
     private javax.swing.JTextField inputEmpName;
     private javax.swing.JTextField inputEmpPassword;
     private javax.swing.JTextField inputEmpPhoneNum;
@@ -259,7 +242,6 @@ public class AddEmployee_Admin extends BaseView {
     private javax.swing.JTextField inputEmpUsername;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -272,7 +254,6 @@ public class AddEmployee_Admin extends BaseView {
     // End of variables declaration//GEN-END:variables
     @Inject
     public void setModels(
-        @Named(AddEmployeeName.E_ID) Document inputEmpID,
         @Named(AddEmployeeName.E_NAME) Document inputEmpName,
         @Named(AddEmployeeName.E_POSITION) ComboBoxModel inputEmpPosstion,
         @Named(AddEmployeeName.E_SEX) ComboBoxModel inputEmpSex,
@@ -282,7 +263,6 @@ public class AddEmployee_Admin extends BaseView {
         @Named(AddEmployeeName.E_USERNAME) Document inputEmpUsername,
         @Named(AddEmployeeName.E_PASSWORD) Document inputEmpPassword
     ) {
-        this.inputEmpID.setDocument(inputEmpID);
         this.inputEmpName.setDocument(inputEmpName);
         this.inputEmpPosition.setModel(inputEmpPosstion);
         this.inputEmpSex.setModel(inputEmpSex);
@@ -292,7 +272,6 @@ public class AddEmployee_Admin extends BaseView {
         this.inputEmpUsername.setDocument(inputEmpUsername);
         this.inputEmpPassword.setDocument(inputEmpPassword);
         this.addRepaintComponent(
-                this.inputEmpID,
                 this.inputEmpName,
                 this.inputEmpPosition,
                 this.inputEmpSex,

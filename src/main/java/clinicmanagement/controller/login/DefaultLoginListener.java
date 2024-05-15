@@ -3,6 +3,7 @@ package clinicmanagement.controller.login;
 import clinicmanagement.constant.LoginName;
 import clinicmanagement.controller.database.DatabaseContext;
 import clinicmanagement.model.service.EmployeeService;
+import clinicmanagement.model.service.PatientService;
 import clinicmanagement.util.DocumentUtil;
 import clinicmanagement.view.manager.Dashboard_Admin;
 import clinicmanagement.view.Login;
@@ -34,6 +35,8 @@ public class DefaultLoginListener implements LoginListener {
     private DatabaseContext databaseContext;
     @Inject
     private EmployeeService employeeService;
+    @Inject
+    private PatientService patientService;
 
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -44,6 +47,7 @@ public class DefaultLoginListener implements LoginListener {
             if (employeeService.getAccount(username, password).equals("Quản lý")) {
                 login.setVisible(false);
                 dashboard.setVisible(true);
+                patientService.getDatabase();
             }
             else if (employeeService.getAccount(username, password).equals("Sai thông tin đăng nhập")) {
                 JOptionPane.showMessageDialog(null, employeeService.getAccount(username, password));

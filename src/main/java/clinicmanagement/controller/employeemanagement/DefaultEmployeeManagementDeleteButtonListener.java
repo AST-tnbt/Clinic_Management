@@ -42,14 +42,12 @@ public class DefaultEmployeeManagementDeleteButtonListener extends MouseAdapter 
     @Inject
     private EmployeeService employeeService;
 
-    private ArrayList<String> listId = new ArrayList<>();
-
-    private String idDel;
+    private ArrayList<Integer> listId = new ArrayList<>();
     class Worker extends SwingWorker<Boolean, Integer> {
         @Override
         protected Boolean doInBackground() throws Exception {
             try {
-                employeeService.deleteById(idDel, listId);
+                employeeService.deleteById(listId);
             } catch (SQLException e) {
                 return false;
             }
@@ -70,16 +68,9 @@ public class DefaultEmployeeManagementDeleteButtonListener extends MouseAdapter 
     @Override
     public void mouseClicked(MouseEvent e) {
         int []rows = tableListModelSelectionWrapper.getSelectionModel().getSelectedIndices();
-        StringBuilder idDelBuilder = new StringBuilder();
-
-        for (int i = 0; i < rows.length; i++) {
-            listId.add((String) tableModelWrapper.getModel().getValueAt(rows[i], 0));
-            idDelBuilder.append("MaNV='").append((String) tableModelWrapper.getModel().getValueAt(rows[i], 0)).append("'");
-            if (i < rows.length - 1) {
-                idDelBuilder.append(" OR ");
-            }
+        for (int row : rows) {
+            listId.add(Integer.parseInt((String) tableModelWrapper.getModel().getValueAt(row, 0)));
         }
-        this.idDel = idDelBuilder.toString();
         new Worker().execute();
     }
     

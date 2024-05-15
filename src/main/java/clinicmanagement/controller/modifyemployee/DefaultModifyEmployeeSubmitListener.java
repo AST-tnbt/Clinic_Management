@@ -58,7 +58,7 @@ public class DefaultModifyEmployeeSubmitListener implements ModifyEmployeeSubmit
     class Worker extends SwingWorker<Boolean, Integer> {
         @Override
         protected Boolean doInBackground() throws Exception {
-            String id = DocumentUtil.getText(emp_ID);
+            int id = Integer.parseInt(DocumentUtil.getText(emp_ID));
             String name = DocumentUtil.getText(emp_Name);
             String position = emp_Position.getSelectedItem().toString();
             String sex = emp_Sex.getSelectedItem().toString();
@@ -68,7 +68,7 @@ public class DefaultModifyEmployeeSubmitListener implements ModifyEmployeeSubmit
             String username = DocumentUtil.getText(emp_Username);
             String password = DocumentUtil.getText(emp_Password);
             if (
-                id.equals("") || name.equals("") ||
+                name.equals("") ||
                 address.equals("") || dateOfBirth.equals("") ||
                 phone.equals("") || username.equals("") || password.equals("")
             ) {

@@ -1,0 +1,33 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package clinicmanagement.controller.patientManagement.worker;
+
+import clinicmanagement.constant.EmployeeManagementName;
+import clinicmanagement.constant.PatientManagementName;
+import clinicmanagement.model.base.TableModelWrapper;
+import clinicmanagement.model.entity.Employee;
+import clinicmanagement.model.entity.Patient;
+import com.google.inject.Inject;
+import com.google.inject.name.Named;
+
+import javax.swing.table.DefaultTableModel;
+import java.util.ArrayList;
+
+/**
+ *
+ * @author tin-ast
+ */
+public class ShowPatientWorker {
+    @Inject @Named(PatientManagementName.PATIENT_TABLE)
+    private TableModelWrapper tableModelWrapper;
+    
+    public void refreshTable(ArrayList<Patient> patientsArrayList) {
+            DefaultTableModel tableModel = (DefaultTableModel) tableModelWrapper.getModel();
+            tableModel.setRowCount(0);
+            for (Patient patient : patientsArrayList) {
+                tableModel.addRow(new String[]{patient.getId(), patient.getName(), patient.getDateOfBirth(), patient.getSex(), patient.getPhoneNum(), patient.getAddress()});
+            }
+    }
+}

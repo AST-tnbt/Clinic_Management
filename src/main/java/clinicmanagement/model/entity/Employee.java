@@ -1,7 +1,7 @@
 package clinicmanagement.model.entity;
 
 public class Employee {
-    private String id;
+    private int id;
     private String name;
     private String phoneNum;
     private String position;
@@ -11,7 +11,7 @@ public class Employee {
     private String password;
     private String address;
 
-    public Employee(String id, String name, String position, String dateOfBirth, String sex, String address, String phoneNum, String username, String password) {
+    public Employee(int id, String name, String position, String dateOfBirth, String sex, String address, String phoneNum, String username, String password) {
         this.id = id;
         this.name = name;
         this.phoneNum = phoneNum;
@@ -23,7 +23,7 @@ public class Employee {
         this.address = address;
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
@@ -59,7 +59,7 @@ public class Employee {
         return address;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 

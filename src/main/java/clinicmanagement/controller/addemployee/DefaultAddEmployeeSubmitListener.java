@@ -29,8 +29,6 @@ public class DefaultAddEmployeeSubmitListener implements AddEmployeeSubmitListen
     private EmployeeManagement_Admin employeeManagement;
     @Inject
     private AddEmployee_Admin addEmployee;
-    @Inject @Named(AddEmployeeName.E_ID)
-    private Document emp_ID;
     @Inject @Named(AddEmployeeName.E_NAME)
     private Document emp_Name;
     @Inject @Named(AddEmployeeName.E_POSITION)
@@ -57,7 +55,6 @@ public class DefaultAddEmployeeSubmitListener implements AddEmployeeSubmitListen
     class Worker extends SwingWorker<Boolean, Integer> {
         @Override
         protected Boolean doInBackground() throws Exception {
-            String id = DocumentUtil.getText(emp_ID);
             String name = DocumentUtil.getText(emp_Name);
             String position = emp_Position.getSelectedItem().toString();
             String sex = emp_Sex.getSelectedItem().toString();
@@ -67,15 +64,14 @@ public class DefaultAddEmployeeSubmitListener implements AddEmployeeSubmitListen
             String username = DocumentUtil.getText(emp_Username);
             String password = DocumentUtil.getText(emp_Password);
             if (
-                id.equals("") || name.equals("") ||
-                address.equals("") || dateOfBirth.equals("") ||
+                name.equals("") || address.equals("") || dateOfBirth.equals("") ||
                 phone.equals("") || username.equals("") || password.equals("")
             ) {
                 JOptionPane.showMessageDialog(null, "Vui lòng nhập đầy đủ thông tin.");
                 return false;
             }
             try {
-                employeeService.addEmployee(id, name, phone, position, dateOfBirth, sex, username, password,  address);
+                employeeService.addEmployee(name, position, dateOfBirth, sex, address, phone, username, password);
                 employeeManagement.setVisible(true); 
             } catch (SQLException ex) {
 //                Logger.getLogger(DefaultAddEmployeeSubmitListener.class.getName()).log(Level.SEVERE, null, ex);
@@ -86,7 +82,6 @@ public class DefaultAddEmployeeSubmitListener implements AddEmployeeSubmitListen
 
         @Override
         protected void done() {
-            DocumentUtil.removeText(emp_ID);
             DocumentUtil.removeText(emp_Name);
             DocumentUtil.removeText(emp_Address);
             DocumentUtil.removeText(emp_DayOfBirth);

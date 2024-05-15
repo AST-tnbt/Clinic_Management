@@ -12,7 +12,6 @@ public final class AddEmployeeName {
     public AddEmployeeName() {
         throw new UnsupportedOperationException("Constant class");
     }
-    public static final String E_ID = "INPUT_ID";
     public static final String E_NAME = "INPUT_NAME";
     public static final String E_POSITION = "INPUT_POSITION";
     public static final String E_SEX = "INPUT_SEX";

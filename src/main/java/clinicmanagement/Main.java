@@ -20,7 +20,8 @@ public class Main {
             new AddEmployeeFactory(),
             new EmployeeManagementFactory(),
             new EntityModelFactory(),
-            new ModifyEmployeeFactory()
+            new ModifyEmployeeFactory(),
+            new PatientManagementFactory()
         );
         java.awt.EventQueue.invokeLater(() -> injector.getInstance(Login.class).setVisible(true));
     }

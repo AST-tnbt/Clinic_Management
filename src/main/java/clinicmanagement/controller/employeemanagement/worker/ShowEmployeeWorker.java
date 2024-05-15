@@ -32,7 +32,7 @@ public class ShowEmployeeWorker {
             DefaultTableModel tableModel = (DefaultTableModel) tableModelWrapper.getModel();
             tableModel.setRowCount(0);
             for (Employee emp : employeeArrayList) {
-                tableModel.addRow(new String[]{emp.getId(), emp.getName(), emp.getPosition(), emp.getDateOfBirth(), emp.getSex(), emp.getAddress(), emp.getPhoneNum()});
+                tableModel.addRow(new String[]{String.valueOf(emp.getId()), emp.getName(), emp.getPosition(), emp.getDateOfBirth(), emp.getSex(), emp.getAddress(), emp.getPhoneNum()});
             }
     }
 }

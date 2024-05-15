@@ -63,8 +63,8 @@ public class DefaultEmployeeManagementModifyButtonListener extends MouseAdapter 
                 emp_DayOfBirth.insertString(0, (String) tableModelWrapper.getModel().getValueAt(rows[0], 3), null);
                 emp_PhoneNumber.insertString(0, (String) tableModelWrapper.getModel().getValueAt(rows[0], 6), null);
                 emp_Address.insertString(0, (String) tableModelWrapper.getModel().getValueAt(rows[0], 5), null);
-                emp_Username.insertString(0, employeeService.getUserNameById((String) tableModelWrapper.getModel().getValueAt(rows[0], 0)), null);
-                emp_Password.insertString(0, employeeService.getPasswordById((String) tableModelWrapper.getModel().getValueAt(rows[0], 0)), null);
+                emp_Username.insertString(0, employeeService.getUserNameById(Integer.parseInt((String) tableModelWrapper.getModel().getValueAt(rows[0], 0))), null);
+                emp_Password.insertString(0, employeeService.getPasswordById(Integer.parseInt((String) tableModelWrapper.getModel().getValueAt(rows[0], 0))), null);
             } catch (BadLocationException ex) {
                 throw new RuntimeException(ex);
             }
