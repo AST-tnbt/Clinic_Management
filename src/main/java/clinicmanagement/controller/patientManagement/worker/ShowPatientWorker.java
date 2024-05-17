@@ -13,6 +13,7 @@ import com.google.inject.Inject;
 import com.google.inject.name.Named;
 
 import javax.swing.table.DefaultTableModel;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 /**
@@ -27,7 +28,7 @@ public class ShowPatientWorker {
             DefaultTableModel tableModel = (DefaultTableModel) tableModelWrapper.getModel();
             tableModel.setRowCount(0);
             for (Patient patient : patientsArrayList) {
-                tableModel.addRow(new String[]{patient.getId(), patient.getName(), patient.getDateOfBirth(), patient.getSex(), patient.getPhoneNum(), patient.getAddress()});
+                tableModel.addRow(new String[]{String.valueOf(patient.getId()), patient.getName(), String.valueOf(patient.getDateOfBirth().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"))), patient.getSex(), patient.getPhoneNum(), patient.getAddress()});
             }
     }
 }

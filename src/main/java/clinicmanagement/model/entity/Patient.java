@@ -1,15 +1,18 @@
 package clinicmanagement.model.entity;
 
+import java.math.BigDecimal;
+import java.time.LocalDate;
+
 public class Patient {
-    private String id;
+    private int id;
     private String name;
-    private String dateOfBirth;
+    private LocalDate dateOfBirth;
     private String sex;
     private String address;
     private String phoneNum;
-    private Integer totalCost;
+    private BigDecimal totalCost;
 
-    public Patient(String id, String name, String dateOfBirth, String sex, String address, String phoneNum, Integer totalCost) {
+    public Patient(int id, String name, LocalDate dateOfBirth, String sex, String address, String phoneNum, BigDecimal totalCost) {
         this.id = id;
         this.name = name;
         this.dateOfBirth = dateOfBirth;
@@ -19,11 +22,11 @@ public class Patient {
         this.totalCost = totalCost;
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -35,11 +38,11 @@ public class Patient {
         this.name = name;
     }
 
-    public String getDateOfBirth() {
+    public LocalDate getDateOfBirth() {
         return dateOfBirth;
     }
 
-    public void setDateOfBirth(String dateOfBirth) {
+    public void setDateOfBirth(LocalDate dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
 
@@ -67,11 +70,11 @@ public class Patient {
         this.phoneNum = phoneNum;
     }
 
-    public Integer getTotalCost() {
+    public BigDecimal getTotalCost() {
         return totalCost;
     }
 
-    public void setTotalCost(Integer totalCost) {
+    public void setTotalCost(BigDecimal totalCost) {
         this.totalCost = totalCost;
     }
 }

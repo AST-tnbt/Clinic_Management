@@ -8,6 +8,8 @@ import com.google.inject.Singleton;
 import com.google.inject.name.Named;
 
 import java.sql.*;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.concurrent.Callable;
 
@@ -28,7 +30,7 @@ public class EmployeeService {
                         rs.getInt(1),
                         rs.getString(2),
                         rs.getString(3),
-                        rs.getString(4),
+                        rs.getDate(4).toLocalDate(),
                         rs.getString(5),
                         rs.getString(6),
                         rs.getString(7),
@@ -41,14 +43,15 @@ public class EmployeeService {
     }
 
     public void addEmployee(String name, String position, String dateOfBirth, String sex, String address, String phoneNum, String username, String password) throws SQLException {
-        this.listEmployee.add(new Employee(listEmployee.size()+1, name, position, dateOfBirth, sex, address, phoneNum, username, password));
+        LocalDate realDateOfBirth = LocalDate.parse(dateOfBirth, DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+        this.listEmployee.add(new Employee(listEmployee.size()+1, name, position, realDateOfBirth, sex, address, phoneNum, username, password));
         Connection con = databaseContext.getConnection();
         String sqlQuery = "{CALL sp_ThemNhanVien(?, ?, ?, ?, ?, ?, ?, ?)}";
         CallableStatement stm;
         stm = con.prepareCall(sqlQuery);
         stm.setString(1, name);
         stm.setString(2, position);
-        stm.setString(3, dateOfBirth);
+        stm.setDate(3, Date.valueOf(realDateOfBirth));
         stm.setString(4, sex);
         stm.setString(5, address);
         stm.setString(6, phoneNum);
@@ -108,13 +111,14 @@ public class EmployeeService {
     }
 
     public void modifyEmployee(int id, String name, String phone, String position, String dateOfBirth, String sex, String username, String password, String address) throws SQLException {
+        LocalDate realDateOfBirth = LocalDate.parse(dateOfBirth, DateTimeFormatter.ofPattern("dd-MM-yyyy"));
         for (Employee emp : listEmployee) {
             if (emp.getId() == id) {
                 emp.setName(name);
                 emp.setPhoneNum(phone);
                 emp.setPosition(position);
                 emp.setSex(sex);
-                emp.setDateOfBirth(dateOfBirth);
+                emp.setDateOfBirth(realDateOfBirth);
                 emp.setUsername(username);
                 emp.setPassword(password);
                 emp.setAddress(address);
@@ -128,7 +132,7 @@ public class EmployeeService {
         pst.setInt(1, id);
         pst.setString(2, name);
         pst.setString(3, position);
-        pst.setString(4, dateOfBirth);
+        pst.setDate(4, Date.valueOf(realDateOfBirth));
         pst.setString(5, sex);
         pst.setString(6, address);
         pst.setString(7, phone);

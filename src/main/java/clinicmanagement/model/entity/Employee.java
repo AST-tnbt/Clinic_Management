@@ -1,17 +1,19 @@
 package clinicmanagement.model.entity;
 
+import java.time.LocalDate;
+
 public class Employee {
     private int id;
     private String name;
     private String phoneNum;
     private String position;
-    private String dateOfBirth;
+    private LocalDate dateOfBirth;
     private String sex;
     private String username;
     private String password;
     private String address;
 
-    public Employee(int id, String name, String position, String dateOfBirth, String sex, String address, String phoneNum, String username, String password) {
+    public Employee(int id, String name, String position, LocalDate dateOfBirth, String sex, String address, String phoneNum, String username, String password) {
         this.id = id;
         this.name = name;
         this.phoneNum = phoneNum;
@@ -39,7 +41,7 @@ public class Employee {
         return position;
     }
 
-    public String getDateOfBirth() {
+    public LocalDate getDateOfBirth() {
         return dateOfBirth;
     }
 
@@ -75,7 +77,7 @@ public class Employee {
         this.position = position;
     }
 
-    public void setDateOfBirth(String dateOfBirth) {
+    public void setDateOfBirth(LocalDate dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
 

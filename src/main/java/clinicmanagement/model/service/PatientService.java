@@ -8,10 +8,7 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import com.google.inject.name.Named;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 
 @Singleton
@@ -23,22 +20,22 @@ public class PatientService {
 
     public void getDatabase() throws SQLException {
         Connection con = databaseContext.getConnection();
-            String sqlQuery = "select * from BENHNHAN";
-            PreparedStatement pst = con.prepareStatement(sqlQuery);
-            ResultSet rs = pst.executeQuery();
+            String sqlQuery = "{CALL LayTatBenhNhan()}";
+            CallableStatement stm = con.prepareCall(sqlQuery);
+            ResultSet rs = stm.executeQuery();
             while (rs.next()) {
                 Patient patient = new Patient(
-                        rs.getString(1),
+                        rs.getInt(1),
                         rs.getString(2),
-                        rs.getString(3),
+                        rs.getDate(3).toLocalDate(),
                         rs.getString(4),
                         rs.getString(5),
                         rs.getString(6),
-                        rs.getInt(7)
+                        rs.getBigDecimal(7)
                 );
                 listPatient.add(patient);
             }
-
+        con.close();
     }
 
 //    public void addPatients(String id, String name, String position, String dateOfBirth, String sex, String address, String phoneNum, String username, String password) throws SQLException {

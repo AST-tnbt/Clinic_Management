@@ -5,10 +5,7 @@
 package clinicmanagement.view.manager;
 
 import clinicmanagement.constant.PatientManagementName;
-import clinicmanagement.controller.patientManagement.PatientManagementBackDashboard;
-import clinicmanagement.controller.patientManagement.PatientManagementSearchBarKeyPress;
-import clinicmanagement.controller.patientManagement.PatientManagementSearchButtonListener;
-import clinicmanagement.controller.patientManagement.PatientManagementShowPatient;
+import clinicmanagement.controller.patientManagement.*;
 import clinicmanagement.model.base.TableListModelSelectionWrapper;
 import clinicmanagement.model.base.TableModelWrapper;
 import com.google.inject.Inject;
@@ -47,6 +44,7 @@ public class PatientManagement_Admin extends javax.swing.JFrame {
         patientTable = new javax.swing.JTable();
         searchBar = new javax.swing.JTextField();
         searchButton = new javax.swing.JButton();
+        viewMedicalRecord = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -126,33 +124,38 @@ public class PatientManagement_Admin extends javax.swing.JFrame {
         searchButton.setForeground(new java.awt.Color(255, 255, 255));
         searchButton.setText("Tìm");
 
+        viewMedicalRecord.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/medicalRecordIcon.png"))); // NOI18N
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(167, 167, 167)
-                        .addComponent(searchBar, javax.swing.GroupLayout.PREFERRED_SIZE, 650, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(searchButton, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(73, 73, 73)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 945, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(144, 144, 144)
+                .addComponent(searchBar, javax.swing.GroupLayout.PREFERRED_SIZE, 650, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(searchButton, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(51, 51, 51)
+                .addComponent(jScrollPane1)
+                .addGap(18, 18, 18)
+                .addComponent(viewMedicalRecord)
+                .addGap(39, 39, 39))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(27, 27, 27)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(searchButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(searchBar, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 377, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 377, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(viewMedicalRecord))
                 .addContainerGap(32, Short.MAX_VALUE))
         );
 
@@ -169,6 +172,7 @@ public class PatientManagement_Admin extends javax.swing.JFrame {
     private javax.swing.JTable patientTable;
     private javax.swing.JTextField searchBar;
     private javax.swing.JButton searchButton;
+    private javax.swing.JLabel viewMedicalRecord;
     // End of variables declaration//GEN-END:variables
 
     @Inject
@@ -187,12 +191,14 @@ public class PatientManagement_Admin extends javax.swing.JFrame {
         PatientManagementBackDashboard patientManagementBackDashboard,
         PatientManagementShowPatient patientManagementShowPatient,
         PatientManagementSearchButtonListener patientManagementSearchButtonListener,
-        PatientManagementSearchBarKeyPress patientManagementSearchBarKeyPress
+        PatientManagementSearchBarKeyPress patientManagementSearchBarKeyPress,
+        PatientManagementViewRecordListener patientManagementViewRecordListener
     ) {
         this.backDashboardBtn.addMouseListener(patientManagementBackDashboard);
         this.addComponentListener(patientManagementShowPatient);
         this.searchButton.addActionListener(patientManagementSearchButtonListener);
         this.searchBar.addActionListener(patientManagementSearchButtonListener);
         this.searchBar.addKeyListener(patientManagementSearchBarKeyPress);
+        this.viewMedicalRecord.addMouseListener(patientManagementViewRecordListener);
     }
 }
