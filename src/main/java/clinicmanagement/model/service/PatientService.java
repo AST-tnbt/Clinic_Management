@@ -16,7 +16,7 @@ public class PatientService {
     @Inject @Named(EntityName.PATIENT_MODEL)
     private ArrayList<Patient> listPatient;
     @Inject
-    DatabaseContext databaseContext;
+    private DatabaseContext databaseContext;
 
     public void getDatabase() throws SQLException {
         Connection con = databaseContext.getConnection();

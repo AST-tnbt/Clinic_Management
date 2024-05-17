@@ -18,28 +18,27 @@ public class EmployeeService {
     @Inject @Named(EntityName.EMPLOYEE_MODEL)
     private ArrayList<Employee> listEmployee;
     @Inject
-    DatabaseContext databaseContext;
+    private DatabaseContext databaseContext;
 
     public void getDatabase() throws SQLException {
         Connection con = databaseContext.getConnection();
-            String sqlQuery = "{CALL sp_LayTatCaNhanVien()}";
-            CallableStatement pst = con.prepareCall(sqlQuery);
-            ResultSet rs = pst.executeQuery();
-            while (rs.next()) {
-                Employee employee = new Employee(
-                        rs.getInt(1),
-                        rs.getString(2),
-                        rs.getString(3),
-                        rs.getDate(4).toLocalDate(),
-                        rs.getString(5),
-                        rs.getString(6),
-                        rs.getString(7),
-                        rs.getString(8),
-                        rs.getString(9)
-                );
-                listEmployee.add(employee);
-            }
-
+        String sqlQuery = "{CALL sp_LayTatCaNhanVien()}";
+        CallableStatement pst = con.prepareCall(sqlQuery);
+        ResultSet rs = pst.executeQuery();
+        while (rs.next()) {
+            Employee employee = new Employee(
+                    rs.getInt(1),
+                    rs.getString(2),
+                    rs.getString(3),
+                    rs.getDate(4).toLocalDate(),
+                    rs.getString(5),
+                    rs.getString(6),
+                    rs.getString(7),
+                    rs.getString(8),
+                    rs.getString(9)
+            );
+            listEmployee.add(employee);
+        }
     }
 
     public void addEmployee(String name, String position, String dateOfBirth, String sex, String address, String phoneNum, String username, String password) throws SQLException {

@@ -1,8 +1,7 @@
 package clinicmanagement.controller.dashboard;
 
 import clinicmanagement.constant.LoginName;
-import clinicmanagement.model.service.EmployeeService;
-import clinicmanagement.model.service.PatientService;
+import clinicmanagement.model.service.*;
 import clinicmanagement.util.DocumentUtil;
 import clinicmanagement.view.manager.Dashboard_Admin;
 import clinicmanagement.view.Login;
@@ -26,6 +25,12 @@ public class DefaultDashboardLogoutListener extends MouseAdapter implements Dash
     private EmployeeService employeeService;
     @Inject
     private PatientService patientService;
+    @Inject
+    private MedicalRecordService medicalRecordService;
+    @Inject
+    private PrescriptionDetailService prescriptionDetailService;
+    @Inject
+    private MedicineService medicineService;
 
     @Override
     public void mouseClicked(MouseEvent e) {
@@ -35,5 +40,8 @@ public class DefaultDashboardLogoutListener extends MouseAdapter implements Dash
         this.login.setVisible(true);
         employeeService.removeAllObject();
         patientService.removeAllObject();
+        medicalRecordService.removeAllObject();
+        prescriptionDetailService.removeAllObject();
+        medicineService.removeAllObject();
     }
 }

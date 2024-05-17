@@ -84,6 +84,7 @@ public class MedicalRecord_Admin extends javax.swing.JFrame {
         diagnosis.setEditable(false);
         diagnosis.setBackground(new java.awt.Color(255, 255, 255));
         diagnosis.setColumns(20);
+        diagnosis.setFont(new java.awt.Font("FreeSans", 0, 18)); // NOI18N
         diagnosis.setRows(5);
         jScrollPane1.setViewportView(diagnosis);
 
@@ -93,6 +94,7 @@ public class MedicalRecord_Admin extends javax.swing.JFrame {
         prescription.setEditable(false);
         prescription.setBackground(new java.awt.Color(255, 255, 255));
         prescription.setColumns(20);
+        prescription.setFont(new java.awt.Font("FreeSans", 0, 18)); // NOI18N
         prescription.setRows(5);
         jScrollPane2.setViewportView(prescription);
 
