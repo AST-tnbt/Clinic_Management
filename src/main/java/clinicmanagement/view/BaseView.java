@@ -16,9 +16,7 @@ public class BaseView extends javax.swing.JFrame {
     public void setVisible(boolean visible) {
         if (!this.isVisible() && visible) {
             SwingUtilities.invokeLater(() -> {
-                repaintComponents.forEach(component -> {
-                    component.repaint();
-                });
+                repaintComponents.forEach(Component::repaint);
             });
         }
         super.setVisible(visible);

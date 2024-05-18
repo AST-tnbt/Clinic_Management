@@ -143,4 +143,11 @@ public class EmployeeService {
     public void removeAllObject() {
         this.listEmployee.removeAll(listEmployee);
     }
+
+    public String getNameById(int doctorId) {
+        for (Employee employee : listEmployee) {
+            if (employee.getId() == doctorId) return employee.getName();
+        }
+        return "";
+    }
 }

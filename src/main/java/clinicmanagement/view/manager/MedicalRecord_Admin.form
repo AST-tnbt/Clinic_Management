@@ -233,8 +233,10 @@
             <StringItem index="1" value="N&#x1eef;"/>
           </StringArray>
         </Property>
+        <Property name="enabled" type="boolean" value="false"/>
       </Properties>
       <AuxValues>
+        <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="sex.setRenderer(new DefaultListCellRenderer() {&#xa;        @Override&#xa;        public void paint(Graphics g) {&#xa;            setForeground(Color.BLACK);&#xa;            super.paint(g);&#xa;        }&#xa;    });"/>
         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
       </AuxValues>
     </Component>
@@ -248,6 +250,7 @@
     </Component>
     <Component class="javax.swing.JTextField" name="appointmentDate">
       <Properties>
+        <Property name="editable" type="boolean" value="false"/>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="FreeSans" size="18" style="0"/>
         </Property>
@@ -273,8 +276,15 @@
             <StringItem index="2" value="&#x110;&#xe3; xu&#x1ea5;t vi&#x1ec7;n"/>
           </StringArray>
         </Property>
+        <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
+          <Color id="Default Cursor"/>
+        </Property>
+        <Property name="enabled" type="boolean" value="false"/>
+        <Property name="focusable" type="boolean" value="false"/>
+        <Property name="requestFocusEnabled" type="boolean" value="false"/>
       </Properties>
       <AuxValues>
+        <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="status.setRenderer(new DefaultListCellRenderer() {&#xa;        @Override&#xa;        public void paint(Graphics g) {&#xa;            setForeground(Color.BLACK);&#xa;            super.paint(g);&#xa;        }&#xa;    });"/>
         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
       </AuxValues>
     </Component>
@@ -288,6 +298,7 @@
     </Component>
     <Component class="javax.swing.JTextField" name="room">
       <Properties>
+        <Property name="editable" type="boolean" value="false"/>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="FreeSans" size="18" style="0"/>
         </Property>

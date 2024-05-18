@@ -8,6 +8,8 @@ import clinicmanagement.constant.MedicalRecordName;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import com.google.inject.name.Named;
+import java.awt.Color;
+import java.awt.Graphics;
 
 import javax.swing.*;
 import javax.swing.text.Document;
@@ -100,10 +102,19 @@ public class MedicalRecord_Admin extends javax.swing.JFrame {
 
         sex.setFont(new java.awt.Font("FreeSans", 0, 18)); // NOI18N
         sex.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Nam", "Nữ" }));
+        sex.setEnabled(false);
+        sex.setRenderer(new DefaultListCellRenderer() {
+            @Override
+            public void paint(Graphics g) {
+                setForeground(Color.BLACK);
+                super.paint(g);
+            }
+        });
 
         jLabel7.setFont(new java.awt.Font("FreeSans", 0, 18)); // NOI18N
         jLabel7.setText("Ngày khám:");
 
+        appointmentDate.setEditable(false);
         appointmentDate.setFont(new java.awt.Font("FreeSans", 0, 18)); // NOI18N
 
         jLabel8.setFont(new java.awt.Font("FreeSans", 0, 18)); // NOI18N
@@ -111,10 +122,22 @@ public class MedicalRecord_Admin extends javax.swing.JFrame {
 
         status.setFont(new java.awt.Font("FreeSans", 0, 18)); // NOI18N
         status.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Đang điều trị", "Nhập viện", "Đã xuất viện" }));
+        status.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        status.setEnabled(false);
+        status.setFocusable(false);
+        status.setRequestFocusEnabled(false);
+        status.setRenderer(new DefaultListCellRenderer() {
+            @Override
+            public void paint(Graphics g) {
+                setForeground(Color.BLACK);
+                super.paint(g);
+            }
+        });
 
         jLabel9.setFont(new java.awt.Font("FreeSans", 0, 18)); // NOI18N
         jLabel9.setText("Phòng:");
 
+        room.setEditable(false);
         room.setFont(new java.awt.Font("FreeSans", 0, 18)); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());

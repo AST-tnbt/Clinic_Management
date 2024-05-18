@@ -10,4 +10,5 @@ public final class EntityName{
     public static final String PRESCRIPTION = "PRESCRIPTION";
     public static final String PRESCRIPTION_DETAIL = "PRESCRIPTION_DETAIL";
     public static final String MEDICINE = "MEDICINE";
+    public static final String APPOINTMENT = "APPOINTMENT";
 }

@@ -38,7 +38,6 @@ public class DefaultAddEmployeeCancelListener implements AddEmployeeCancelListen
     private Document emp_Password;
     @Override
     public void actionPerformed(ActionEvent e) {
-//        System.out.print(SwingUtilities.isEventDispatchThread());
         DocumentUtil.removeText(this.emp_Name);
         DocumentUtil.removeText(this.emp_Address);
         DocumentUtil.removeText(this.emp_DayOfBirth);

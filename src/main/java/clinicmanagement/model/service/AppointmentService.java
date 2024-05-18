@@ -1,39 +1,41 @@
 package clinicmanagement.model.service;
 
+import clinicmanagement.constant.AppointmentManagementName;
 import clinicmanagement.constant.EntityName;
 import clinicmanagement.controller.database.DatabaseContext;
-import clinicmanagement.model.entity.Employee;
+import clinicmanagement.model.entity.Appointment;
 import clinicmanagement.model.entity.Patient;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import com.google.inject.name.Named;
 
-import java.sql.*;
+import java.sql.CallableStatement;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 @Singleton
-public class PatientService {
-    @Inject @Named(EntityName.PATIENT_MODEL)
-    private ArrayList<Patient> listPatient;
+public class AppointmentService {
+    @Inject @Named(EntityName.APPOINTMENT)
+    private ArrayList<Appointment> listAppointment;
     @Inject
     private DatabaseContext databaseContext;
 
     public void getDatabase() throws SQLException {
         Connection con = databaseContext.getConnection();
-            String sqlQuery = "{CALL LayTatBenhNhan()}";
+            String sqlQuery = "{CALL LayTatCaLichKham()}";
             CallableStatement stm = con.prepareCall(sqlQuery);
             ResultSet rs = stm.executeQuery();
             while (rs.next()) {
-                Patient patient = new Patient(
+                Appointment appointment = new Appointment(
                         rs.getInt(1),
-                        rs.getString(2),
-                        rs.getDate(3).toLocalDate(),
-                        rs.getString(4),
-                        rs.getString(5),
-                        rs.getString(6),
-                        rs.getBigDecimal(7)
+                        rs.getInt(2),
+                        rs.getInt(3),
+                        rs.getInt(4),
+                        rs.getDate(5).toLocalDate()
                 );
-                listPatient.add(patient);
+                listAppointment.add(appointment);
             }
         con.close();
     }
@@ -72,8 +74,8 @@ public class PatientService {
 //        pst.executeUpdate();
 //    }
 
-    public ArrayList<Patient> getListPatient() {
-        return listPatient;
+    public ArrayList<Appointment> getListAppointment() {
+        return listAppointment;
     }
 
 //    public void modifyEmployee(String id, String name, String phone, String position, String dateOfBirth, String sex, String username, String password, String address) throws SQLException {
@@ -106,13 +108,6 @@ public class PatientService {
 //        pst.executeUpdate();
 //    }
     public void removeAllObject() {
-        this.listPatient.removeAll(listPatient);
-    }
-
-    public String getNameById(int patientId) {
-        for (Patient patient : listPatient) {
-            if (patient.getId() == patientId) return patient.getName();
-        }
-        return "";
+        this.listAppointment.removeAll(listAppointment);
     }
 }

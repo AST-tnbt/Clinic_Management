@@ -46,4 +46,10 @@ public class EntityModelFactory extends AbstractModule {
     public static ArrayList<Medicine> ProvideMedicine() {
         return new ArrayList<Medicine>();
     }
+    @Provides
+    @Singleton
+    @Named(EntityName.APPOINTMENT)
+    public static ArrayList<Appointment> ProvideAppointment() {
+        return new ArrayList<Appointment>();
+    }
 }

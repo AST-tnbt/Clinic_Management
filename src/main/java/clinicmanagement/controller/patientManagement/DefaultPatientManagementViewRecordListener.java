@@ -64,16 +64,23 @@ public class DefaultPatientManagementViewRecordListener extends MouseAdapter imp
             ArrayList<Integer> listMedicineId = prescriptionDetailService.getListMedicineIdByPrescriptionId(prescriptionId);
             ArrayList<Integer> listAmountOfMedicine = prescriptionDetailService.getListAmountByPrescriptionId(prescriptionId);
             try {
-                name.insertString(0, (String) tableModelWrapper.getModel().getValueAt(rows[0], 1),null);
-                dateOfBirth.insertString(0, (String) tableModelWrapper.getModel().getValueAt(rows[0], 2),null);
-                sex.setSelectedItem(tableModelWrapper.getModel().getValueAt(rows[0], 3));
-                diagnosis.insertString(0, medicalRecordService.getDiagnosisByPatientId(patientId), null);
+                this.name.remove(0, this.name.getLength());
+                this.dateOfBirth.remove(0, this.dateOfBirth.getLength());
+                this.diagnosis.remove(0, this.diagnosis.getLength());
+                this.prescription.remove(0, this.prescription.getLength());
+                this.appointmentDate.remove(0, this.appointmentDate.getLength());
+                this.room.remove(0, this.room.getLength());
+
+                this.name.insertString(0, (String) tableModelWrapper.getModel().getValueAt(rows[0], 1),null);
+                this.dateOfBirth.insertString(0, (String) tableModelWrapper.getModel().getValueAt(rows[0], 2),null);
+                this.sex.setSelectedItem(tableModelWrapper.getModel().getValueAt(rows[0], 3));
+                this.diagnosis.insertString(0, medicalRecordService.getDiagnosisByPatientId(patientId), null);
                 for (int i = 0; i < listMedicineId.size(); i++) {
-                    prescription.insertString(prescription.getLength(), medicineService.getNameById(listMedicineId.get(i)) + " : " + listAmountOfMedicine.get(i) + "\n" , null);
+                    this.prescription.insertString(prescription.getLength(), medicineService.getNameById(listMedicineId.get(i)) + " : " + listAmountOfMedicine.get(i) + "\n" , null);
                 }
-                appointmentDate.insertString(0, medicalRecordService.getAppointmentDateByPatientId(patientId), null);
-                status.setSelectedItem(medicalRecordService.getStatusByPatientId(patientId));
-                room.insertString(0, medicalRecordService.getRoomByPatientId(patientId), null);
+                this.appointmentDate.insertString(0, medicalRecordService.getAppointmentDateByPatientId(patientId), null);
+                this.status.setSelectedItem(medicalRecordService.getStatusByPatientId(patientId));
+                this.room.insertString(0, medicalRecordService.getRoomByPatientId(patientId), null);
             } catch (BadLocationException ex) {
                 throw new RuntimeException(ex);
             }

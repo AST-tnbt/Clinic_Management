@@ -56,15 +56,23 @@ public class DefaultEmployeeManagementModifyButtonListener extends MouseAdapter 
         else {
             modifyEmployeeAdmin.setVisible(true);
             try {
-                emp_ID.insertString(0, (String) tableModelWrapper.getModel().getValueAt(rows[0], 0), null);
-                emp_Name.insertString(0, (String) tableModelWrapper.getModel().getValueAt(rows[0], 1), null);
-                emp_Position.setSelectedItem(tableModelWrapper.getModel().getValueAt(rows[0], 2));
-                emp_Sex.setSelectedItem(tableModelWrapper.getModel().getValueAt(rows[0], 4));
-                emp_DayOfBirth.insertString(0, (String) tableModelWrapper.getModel().getValueAt(rows[0], 3), null);
-                emp_PhoneNumber.insertString(0, (String) tableModelWrapper.getModel().getValueAt(rows[0], 6), null);
-                emp_Address.insertString(0, (String) tableModelWrapper.getModel().getValueAt(rows[0], 5), null);
-                emp_Username.insertString(0, employeeService.getUserNameById(Integer.parseInt((String) tableModelWrapper.getModel().getValueAt(rows[0], 0))), null);
-                emp_Password.insertString(0, employeeService.getPasswordById(Integer.parseInt((String) tableModelWrapper.getModel().getValueAt(rows[0], 0))), null);
+                this.emp_ID.remove(0, this.emp_ID.getLength());
+                this.emp_Name.remove(0, this.emp_Name.getLength());
+                this.emp_DayOfBirth.remove(0, this.emp_DayOfBirth.getLength());
+                this.emp_PhoneNumber.remove(0, this.emp_PhoneNumber.getLength());
+                this.emp_Address.remove(0, this.emp_Address.getLength());
+                this.emp_Username.remove(0, this.emp_Username.getLength());
+                this.emp_Password.remove(0, this.emp_Password.getLength());
+
+                this.emp_ID.insertString(0, (String) tableModelWrapper.getModel().getValueAt(rows[0], 0), null);
+                this.emp_Name.insertString(0, (String) tableModelWrapper.getModel().getValueAt(rows[0], 1), null);
+                this.emp_Position.setSelectedItem(tableModelWrapper.getModel().getValueAt(rows[0], 2));
+                this.emp_Sex.setSelectedItem(tableModelWrapper.getModel().getValueAt(rows[0], 4));
+                this.emp_DayOfBirth.insertString(0, (String) tableModelWrapper.getModel().getValueAt(rows[0], 3), null);
+                this.emp_PhoneNumber.insertString(0, (String) tableModelWrapper.getModel().getValueAt(rows[0], 6), null);
+                this.emp_Address.insertString(0, (String) tableModelWrapper.getModel().getValueAt(rows[0], 5), null);
+                this.emp_Username.insertString(0, employeeService.getUserNameById(Integer.parseInt((String) tableModelWrapper.getModel().getValueAt(rows[0], 0))), null);
+                this.emp_Password.insertString(0, employeeService.getPasswordById(Integer.parseInt((String) tableModelWrapper.getModel().getValueAt(rows[0], 0))), null);
             } catch (BadLocationException ex) {
                 throw new RuntimeException(ex);
             }

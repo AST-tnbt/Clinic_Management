@@ -22,7 +22,8 @@ public class Main {
             new EntityModelFactory(),
             new ModifyEmployeeFactory(),
             new PatientManagementFactory(),
-            new MedicalRecordFactory()
+            new MedicalRecordFactory(),
+            new AppointmentManagementFactory()
         );
         java.awt.EventQueue.invokeLater(() -> injector.getInstance(Login.class).setVisible(true));
     }
