@@ -4,10 +4,7 @@
  */
 package clinicmanagement.view.manager;
 
-import clinicmanagement.controller.dashboard.DashboardAppointmentListener;
-import clinicmanagement.controller.dashboard.DashboardEmployeeListener;
-import clinicmanagement.controller.dashboard.DashboardLogoutListener;
-import clinicmanagement.controller.dashboard.DashboardPatientManagementListener;
+import clinicmanagement.controller.dashboard.*;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 
@@ -380,11 +377,13 @@ public class Dashboard_Admin extends javax.swing.JFrame {
         DashboardEmployeeListener dashboardEmployeeListener,
         DashboardLogoutListener dashboardLogoutListener,
         DashboardPatientManagementListener dashboardPatientManagementListener,
-        DashboardAppointmentListener dashboardAppointmentListener
+        DashboardAppointmentListener dashboardAppointmentListener,
+        DashboardRoomListener dashboardRoomListener
     ) {
         this.employeePanel.addMouseListener(dashboardEmployeeListener);
         this.logoutBtn.addMouseListener(dashboardLogoutListener);
         this.patientPanel.addMouseListener(dashboardPatientManagementListener);
         this.appointmentPanel.addMouseListener(dashboardAppointmentListener);
+        this.roomPanel.addMouseListener(dashboardRoomListener);
     }
 }
