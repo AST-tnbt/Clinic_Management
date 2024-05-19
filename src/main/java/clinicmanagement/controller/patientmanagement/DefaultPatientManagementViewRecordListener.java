@@ -1,4 +1,4 @@
-package clinicmanagement.controller.patientManagement;
+package clinicmanagement.controller.patientmanagement;
 
 import clinicmanagement.constant.MedicalRecordName;
 import clinicmanagement.constant.PatientManagementName;
@@ -7,6 +7,7 @@ import clinicmanagement.model.base.TableModelWrapper;
 import clinicmanagement.model.service.MedicalRecordService;
 import clinicmanagement.model.service.MedicineService;
 import clinicmanagement.model.service.PrescriptionDetailService;
+import clinicmanagement.model.service.RoomService;
 import clinicmanagement.view.manager.MedicalRecord_Admin;
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
@@ -47,6 +48,8 @@ public class DefaultPatientManagementViewRecordListener extends MouseAdapter imp
     private PrescriptionDetailService prescriptionDetailService;
     @Inject
     private MedicineService medicineService;
+    @Inject
+    private RoomService roomService;
 
     @Override
     public void mouseClicked(MouseEvent e) {
@@ -80,7 +83,7 @@ public class DefaultPatientManagementViewRecordListener extends MouseAdapter imp
                 }
                 this.appointmentDate.insertString(0, medicalRecordService.getAppointmentDateByPatientId(patientId), null);
                 this.status.setSelectedItem(medicalRecordService.getStatusByPatientId(patientId));
-                this.room.insertString(0, medicalRecordService.getRoomByPatientId(patientId), null);
+                this.room.insertString(0, roomService.getNameById(medicalRecordService.getRoomByPatientId(patientId)) , null);
             } catch (BadLocationException ex) {
                 throw new RuntimeException(ex);
             }

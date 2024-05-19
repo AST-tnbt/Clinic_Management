@@ -4,9 +4,8 @@
  */
 package clinicmanagement.view.manager;
 
-import clinicmanagement.constant.EmployeeManagementName;
-import clinicmanagement.controller.employeemanagement.*;
-import clinicmanagement.controller.room.RoomManagementBackDashboard;
+import clinicmanagement.constant.RoomManagementName;
+import clinicmanagement.controller.roommanagement.*;
 import clinicmanagement.model.base.TableListModelSelectionWrapper;
 import clinicmanagement.model.base.TableModelWrapper;
 import com.google.inject.Inject;
@@ -192,34 +191,34 @@ public class RoomManagement_Admin extends javax.swing.JFrame {
     private javax.swing.JButton searchButton;
     // End of variables declaration//GEN-END:variables
 
-//    @Inject
-//    public void SetModels(
-//            @Named(EmployeeManagementName.EMPLOYEE_TABLE) TableModelWrapper tableModelWrapper,
-//            @Named(EmployeeManagementName.EMPLOYEE_TABLE_LIST_SELECTION) TableListModelSelectionWrapper tableListModelSelectionWrapper,
-//            @Named(EmployeeManagementName.EMPLOYEE_SEARCH_INPUT) Document searchInput
-//            ) {
-//        tableModelWrapper.setModel(this.employeeTable.getModel());
-//        tableListModelSelectionWrapper.setSelectionModel(this.employeeTable.getSelectionModel());
-//        this.searchBar.setDocument(searchInput);
-//    }
+    @Inject
+    public void SetModels(
+            @Named(RoomManagementName.ROOM_TABLE) TableModelWrapper tableModelWrapper,
+            @Named(RoomManagementName.ROOM_TABLE_LIST_SELECTION) TableListModelSelectionWrapper tableListModelSelectionWrapper,
+            @Named(RoomManagementName.ROOM_SEARCH_INPUT) Document searchInput
+            ) {
+        tableModelWrapper.setModel(this.employeeTable.getModel());
+        tableListModelSelectionWrapper.setSelectionModel(this.employeeTable.getSelectionModel());
+        this.searchBar.setDocument(searchInput);
+    }
 //    
     @Inject
     public void setListener(
-//        EmployeeManagementAddButtonListener employeeManagementAddButton,
-        RoomManagementBackDashboard roomManagementBackDashboard
-//        EmployeeManagementShowEmployee employeeManagementShowEmployee,
-//        EmployeeManagementDeleteButtonListener employeeManagementDeleteButtonListener,
-//        EmployeeManagementSearchButtonListener employeeManagementSearchButtonListener,
-//        EmployeeManagementModifyButtonListener employeeManagementModifyButtonListener,
-//        EmployeeManagementSearchBarKeyPress employeeManagementSearchBarKeyPress
+        RoomManagementAddButtonListener roomManagementAddButtonListener,
+        RoomManagementBackDashboard roomManagementBackDashboard,
+        RoomManagementShowRoom roomManagementShowRoom,
+        RoomManagementDeleteButtonListener roomManagementDeleteButtonListener,
+        RoomManagementSearchButtonListener roomManagementSearchButtonListener,
+        RoomManagementModifyButtonListener roomManagementModifyButtonListener,
+        RoomManagementSearchBarKeyPress roomManagementSearchBarKeyPress
     ) {
-//        this.addButton.addMouseListener(employeeManagementAddButton);
+        this.addButton.addMouseListener(roomManagementAddButtonListener);
         this.backDashboardBtn.addMouseListener(roomManagementBackDashboard);
-//        this.addComponentListener(employeeManagementShowEmployee);
-//        this.deleteButton.addMouseListener(employeeManagementDeleteButtonListener);
-//        this.searchButton.addActionListener(employeeManagementSearchButtonListener);
-//        this.searchBar.addActionListener(employeeManagementSearchButtonListener);
-//        this.modifyButton.addMouseListener(employeeManagementModifyButtonListener);
-//        this.searchBar.addKeyListener(employeeManagementSearchBarKeyPress);
+        this.addComponentListener(roomManagementShowRoom);
+        this.deleteButton.addMouseListener(roomManagementDeleteButtonListener);
+        this.searchButton.addActionListener(roomManagementSearchButtonListener);
+        this.searchBar.addActionListener(roomManagementSearchButtonListener);
+        this.modifyButton.addMouseListener(roomManagementModifyButtonListener);
+        this.searchBar.addKeyListener(roomManagementSearchBarKeyPress);
     }
 }

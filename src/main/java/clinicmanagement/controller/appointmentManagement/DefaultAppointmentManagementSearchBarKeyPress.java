@@ -1,11 +1,8 @@
 package clinicmanagement.controller.appointmentManagement;
 
 import clinicmanagement.constant.AppointmentManagementName;
-import clinicmanagement.constant.PatientManagementName;
 import clinicmanagement.controller.appointmentManagement.worker.ShowAppointmentWorker;
-import clinicmanagement.controller.patientManagement.worker.ShowPatientWorker;
 import clinicmanagement.model.service.AppointmentService;
-import clinicmanagement.model.service.PatientService;
 import clinicmanagement.util.DocumentUtil;
 import com.google.inject.Inject;
 import com.google.inject.Provider;

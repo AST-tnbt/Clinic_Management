@@ -5,7 +5,7 @@
 package clinicmanagement.view.manager;
 
 import clinicmanagement.constant.PatientManagementName;
-import clinicmanagement.controller.patientManagement.*;
+import clinicmanagement.controller.patientmanagement.*;
 import clinicmanagement.model.base.TableListModelSelectionWrapper;
 import clinicmanagement.model.base.TableModelWrapper;
 import com.google.inject.Inject;

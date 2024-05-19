@@ -2,12 +2,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package clinicmanagement.controller.patientManagement.worker;
+package clinicmanagement.controller.patientmanagement.worker;
 
-import clinicmanagement.constant.EmployeeManagementName;
 import clinicmanagement.constant.PatientManagementName;
 import clinicmanagement.model.base.TableModelWrapper;
-import clinicmanagement.model.entity.Employee;
 import clinicmanagement.model.entity.Patient;
 import com.google.inject.Inject;
 import com.google.inject.name.Named;

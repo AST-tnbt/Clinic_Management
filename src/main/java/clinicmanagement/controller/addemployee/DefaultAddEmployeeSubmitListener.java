@@ -65,15 +65,15 @@ public class DefaultAddEmployeeSubmitListener implements AddEmployeeSubmitListen
             String username = DocumentUtil.getText(emp_Username);
             String password = DocumentUtil.getText(emp_Password);
             if (
-                name.equals("") || address.equals("") || dateOfBirth.equals("") ||
-                phone.equals("") || username.equals("") || password.equals("")
+                name.isEmpty() || address.isEmpty() || dateOfBirth.isEmpty() ||
+                        phone.isEmpty() || username.isEmpty() || password.isEmpty()
             ) {
                 JOptionPane.showMessageDialog(null, "Vui lòng nhập đầy đủ thông tin.");
                 return false;
             }
             try {
                 employeeService.addEmployee(name, position, dateOfBirth, sex, address, phone, username, password);
-                employeeManagement.setVisible(true); 
+                employeeManagement.setVisible(true);
             } catch (SQLException ex) {
 //                Logger.getLogger(DefaultAddEmployeeSubmitListener.class.getName()).log(Level.SEVERE, null, ex);
                 return false;

@@ -30,7 +30,7 @@ public class ModifyEmployee_Admin extends BaseView {
     public ModifyEmployee_Admin() {
         initComponents();
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setTitle("TWP clinic management - Thêm nhân sự");
+        setTitle("TWP clinic management - Sửa thông tin nhân sự");
     }
 
     /**

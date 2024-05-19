@@ -80,12 +80,12 @@ public class MedicalRecordService {
         return "";
     }
 
-    public String getRoomByPatientId(int id) {
+    public int getRoomByPatientId(int id) {
         for (MedicalRecord medicalRecord : listMedicalRecord) {
             if (medicalRecord.getPatientId() == id) {
-                return String.valueOf(medicalRecord.getRoomId());
+                return medicalRecord.getRoomId();
             }
         }
-        return "";
+        return -1;
     }
 }

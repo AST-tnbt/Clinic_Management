@@ -5,12 +5,10 @@
 package clinicmanagement.view.manager;
 
 import clinicmanagement.constant.AppointmentManagementName;
-import clinicmanagement.constant.PatientManagementName;
 import clinicmanagement.controller.appointmentManagement.AppointmentManagementBackDashboard;
 import clinicmanagement.controller.appointmentManagement.AppointmentManagementSearchBarKeyPress;
 import clinicmanagement.controller.appointmentManagement.AppointmentManagementSearchButtonListener;
 import clinicmanagement.controller.appointmentManagement.AppointmentManagementShowAppointment;
-import clinicmanagement.controller.patientManagement.*;
 import clinicmanagement.model.base.TableListModelSelectionWrapper;
 import clinicmanagement.model.base.TableModelWrapper;
 import com.google.inject.Inject;

@@ -1,4 +1,4 @@
-package clinicmanagement.controller.room;
+package clinicmanagement.controller.roommanagement;
 import com.google.inject.ImplementedBy;
 
 import java.awt.event.MouseListener;

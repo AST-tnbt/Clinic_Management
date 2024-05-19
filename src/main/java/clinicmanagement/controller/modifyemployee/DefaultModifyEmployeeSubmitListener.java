@@ -69,9 +69,9 @@ public class DefaultModifyEmployeeSubmitListener implements ModifyEmployeeSubmit
             String username = DocumentUtil.getText(emp_Username);
             String password = DocumentUtil.getText(emp_Password);
             if (
-                name.equals("") ||
-                address.equals("") || dateOfBirth.equals("") ||
-                phone.equals("") || username.equals("") || password.equals("")
+                name.isEmpty() ||
+                address.isEmpty() || dateOfBirth.isEmpty() ||
+                    phone.isEmpty() || username.isEmpty() || password.isEmpty()
             ) {
                 JOptionPane.showMessageDialog(null, "Vui lòng nhập đầy đủ thông tin.");
                 return false;

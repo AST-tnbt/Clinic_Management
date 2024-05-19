@@ -1,7 +1,6 @@
-package clinicmanagement.controller.room;
+package clinicmanagement.controller.roommanagement;
 
 import clinicmanagement.view.manager.Dashboard_Admin;
-import clinicmanagement.view.manager.PatientManagement_Admin;
 import clinicmanagement.view.manager.RoomManagement_Admin;
 import com.google.inject.Inject;
 

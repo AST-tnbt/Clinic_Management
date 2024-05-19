@@ -1,7 +1,5 @@
-package clinicmanagement.controller.patientManagement;
+package clinicmanagement.controller.patientmanagement;
 
-import clinicmanagement.controller.appointmentManagement.AppointmentManagementBackDashboard;
-import clinicmanagement.view.manager.AppointmentManagement_Admin;
 import clinicmanagement.view.manager.Dashboard_Admin;
 import clinicmanagement.view.manager.PatientManagement_Admin;
 import com.google.inject.Inject;

@@ -1,12 +1,8 @@
-package clinicmanagement.controller.patientManagement;
+package clinicmanagement.controller.patientmanagement;
 
-import clinicmanagement.constant.EmployeeManagementName;
 import clinicmanagement.constant.PatientManagementName;
-import clinicmanagement.controller.employeemanagement.worker.ShowEmployeeWorker;
-import clinicmanagement.controller.patientManagement.worker.ShowPatientWorker;
-import clinicmanagement.model.entity.Employee;
+import clinicmanagement.controller.patientmanagement.worker.ShowPatientWorker;
 import clinicmanagement.model.entity.Patient;
-import clinicmanagement.model.service.EmployeeService;
 import clinicmanagement.model.service.PatientService;
 import clinicmanagement.util.DocumentUtil;
 import com.google.inject.Inject;

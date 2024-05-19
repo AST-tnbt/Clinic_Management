@@ -1,4 +1,4 @@
-package clinicmanagement.controller.patientManagement;
+package clinicmanagement.controller.patientmanagement;
 
 import com.google.inject.ImplementedBy;
 
