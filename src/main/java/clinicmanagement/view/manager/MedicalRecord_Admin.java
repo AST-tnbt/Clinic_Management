@@ -121,7 +121,7 @@ public class MedicalRecord_Admin extends javax.swing.JFrame {
         jLabel8.setText("Tình trạng:");
 
         status.setFont(new java.awt.Font("FreeSans", 0, 18)); // NOI18N
-        status.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Đang điều trị", "Nhập viện", "Đã xuất viện" }));
+        status.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Đã điều trị", "Nhập viện", "Đã xuất viện" }));
         status.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         status.setEnabled(false);
         status.setFocusable(false);

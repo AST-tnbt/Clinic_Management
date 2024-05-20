@@ -8,7 +8,10 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import com.google.inject.name.Named;
 
+import java.math.BigDecimal;
 import java.sql.*;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 @Singleton
@@ -38,73 +41,69 @@ public class PatientService {
         con.close();
     }
 
-//    public void addPatients(String id, String name, String position, String dateOfBirth, String sex, String address, String phoneNum, String username, String password) throws SQLException {
-//        this.listEmployee.add(new Employee(id, name, position, dateOfBirth, sex, address, phoneNum, username, password));
-//        Connection con = databaseContext.getConnection();
-//        String sqlquery = "insert into NHANVIEN (MaNV, HoTen, ChucVu, NgaySinh, GioiTinh, DiaChi, SoDT, NgayVL, TaiKhoan, MatKhau) values (?, ?, ?, ?, ?, ?, ?, ?, ?)";
-//        PreparedStatement pst;
-//        pst = con.prepareStatement(sqlquery);
-//        pst.setString(1, id);
-//        pst.setString(2, name);
-//        pst.setString(3, position);
-//        pst.setString(4, dateOfBirth);
-//        pst.setString(5, sex);
-//        pst.setString(6, address);
-//        pst.setString(7, phoneNum);
-//        pst.setString(9, username);
-//        pst.setString(10, password);
-//        pst.executeUpdate();
-//    }
+    public void addPatient(String name, String dateOfBirth, String sex, String address, String phoneNum) throws SQLException {
+        LocalDate realDateOfBirth = LocalDate.parse(dateOfBirth, DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+        this.listPatient.add(new Patient(listPatient.size()+1, name, realDateOfBirth, sex, address, phoneNum, BigDecimal.valueOf(0)));
+        Connection con = databaseContext.getConnection();
+        String sqlQuery = "{CALL ThemBenhNhan(?, ?, ?, ?, ?)}";
+        CallableStatement stm;
+        stm = con.prepareCall(sqlQuery);
+        stm.setString(1, name);
+        stm.setDate(2, Date.valueOf(realDateOfBirth));
+        stm.setString(3, sex);
+        stm.setString(4, address);
+        stm.setString(5, phoneNum);
+        stm.execute();
+        con.close();
+    }
 
-//    public void deleteById(String id, ArrayList<String> listId) throws SQLException {
-//        for (String tmpId : listId) {
-//            for (int i = 0; i < listEmployee.size(); i++) {
-//                if (listEmployee.get(i).getId().equals(tmpId)) {
-//                    listEmployee.remove(i);
-//                    break;
-//                }
-//            }
-//        }
-//        Connection con = databaseContext.getConnection();
-//        String sqlQuery = "delete from NHANVIEN where " + id;
-//        PreparedStatement pst;
-//        pst = con.prepareStatement(sqlQuery);
-//        pst.executeUpdate();
-//    }
+    public void deleteById(ArrayList<Integer> listId) throws SQLException {
+        for (int tmpId : listId) {
+            for (int i = 0; i < listPatient.size(); i++) {
+                if (listPatient.get(i).getId() == tmpId) {
+                    listPatient.remove(i);
+                    break;
+                }
+            }
+            Connection con = databaseContext.getConnection();
+            String sqlQuery = "{CALL XoaBenhNhan(?)}";
+            CallableStatement stm;
+            stm = con.prepareCall(sqlQuery);
+            stm.setInt(1, tmpId );
+            stm.execute();
+            con.close();
+        }
+    }
 
     public ArrayList<Patient> getListPatient() {
         return listPatient;
     }
 
-//    public void modifyEmployee(String id, String name, String phone, String position, String dateOfBirth, String sex, String username, String password, String address) throws SQLException {
-//        for (Employee emp : listEmployee) {
-//            if (emp.getId().equals(id)) {
-//                emp.setName(name);
-//                emp.setPhoneNum(phone);
-//                emp.setPosition(position);
-//                emp.setSex(sex);
-//                emp.setDateOfBirth(dateOfBirth);
-//                emp.setUsername(username);
-//                emp.setPassword(password);
-//                emp.setAddress(address);
-//                break;
-//            }
-//        }
-//        Connection con = databaseContext.getConnection();
-//        String sqlQuery = "update NHANVIEN set HoTen = ?, ChucVu = ?, NgaySinh = ?, GioiTinh = ?, DiaChi = ?, SoDT = ?, TaiKhoan = ?, MatKhau = ? where MaNv = ?";
-//        PreparedStatement pst;
-//        pst = con.prepareStatement(sqlQuery);
-//        pst.setString(1, name);
-//        pst.setString(2, position);
-//        pst.setString(3, dateOfBirth);
-//        pst.setString(4, sex);
-//        pst.setString(5, address);
-//        pst.setString(6, phone);
-//        pst.setString(7, username);
-//        pst.setString(8, password);
-//        pst.setString(9, id);
-//        pst.executeUpdate();
-//    }
+    public void modifyPatient(int id, String name, String phone, String dateOfBirth, String sex, String address) throws SQLException {
+        LocalDate realDateOfBirth = LocalDate.parse(dateOfBirth, DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+        for (Patient patient : listPatient) {
+            if (patient.getId() == id) {
+                patient.setName(name);
+                patient.setPhoneNum(phone);
+                patient.setSex(sex);
+                patient.setDateOfBirth(realDateOfBirth);
+                patient.setAddress(address);
+                break;
+            }
+        }
+        Connection con = databaseContext.getConnection();
+        String sqlQuery = "{CALL CapNhatBenhNhan(?, ?, ?, ?, ?, ?)}";
+        CallableStatement pst;
+        pst = con.prepareCall(sqlQuery);
+        pst.setInt(1, id);
+        pst.setString(2, name);
+        pst.setDate(3, Date.valueOf(realDateOfBirth));
+        pst.setString(4, sex);
+        pst.setString(5, address);
+        pst.setString(6, phone);
+        pst.executeUpdate();
+        con.close();
+    }
     public void removeAllObject() {
         this.listPatient.removeAll(listPatient);
     }

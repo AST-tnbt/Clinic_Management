@@ -2,52 +2,48 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package clinicmanagement.controller.employeemanagement;
+package clinicmanagement.controller.patientmanagement;
 
 import clinicmanagement.constant.EmployeeManagementName;
-import clinicmanagement.controller.database.DatabaseContext;
+import clinicmanagement.constant.PatientManagementName;
 import clinicmanagement.controller.employeemanagement.worker.ShowEmployeeWorker;
+import clinicmanagement.controller.patientmanagement.worker.ShowPatientWorker;
 import clinicmanagement.model.base.TableListModelSelectionWrapper;
 import clinicmanagement.model.base.TableModelWrapper;
 import clinicmanagement.model.service.EmployeeService;
-import clinicmanagement.view.manager.EmployeeManagement_Admin;
+import clinicmanagement.model.service.PatientService;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 import jakarta.inject.Named;
-import java.awt.Component;
-import java.awt.Container;
 
 import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
+import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.concurrent.ExecutionException;
 
 /**
  *
  * @author tin-ast
  */
-public class DefaultEmployeeManagementDeleteButtonListener extends MouseAdapter implements EmployeeManagementDeleteButtonListener {
-    @Inject @Named(EmployeeManagementName.EMPLOYEE_TABLE)
+public class DefaultPatientManagementDeleteButtonListener extends MouseAdapter implements PatientManagementDeleteButtonListener {
+    @Inject @Named(PatientManagementName.PATIENT_TABLE)
     TableModelWrapper tableModelWrapper;
-    @Inject @Named(EmployeeManagementName.EMPLOYEE_TABLE_LIST_SELECTION)
+    @Inject @Named(PatientManagementName.PATIENT_TABLE_LIST_SELECTION)
     TableListModelSelectionWrapper tableListModelSelectionWrapper;
     @Inject
-    private Provider<ShowEmployeeWorker> showEmployeeWorkerProvider;
+    private Provider<ShowPatientWorker> showPatientWorkerProvider;
     @Inject
-    private EmployeeService employeeService;
+    private PatientService patientService;
 
     private ArrayList<Integer> listId = new ArrayList<>();
     class Worker extends SwingWorker<Boolean, Integer> {
         @Override
         protected Boolean doInBackground() throws Exception {
             try {
-                employeeService.deleteById(listId);
+                patientService.deleteById(listId);
             } catch (SQLException e) {
                 return false;
             }
@@ -57,7 +53,7 @@ public class DefaultEmployeeManagementDeleteButtonListener extends MouseAdapter 
         protected void done() {
             try {
                 if (get()) {
-                    showEmployeeWorkerProvider.get().refreshTable(employeeService.getListEmployee());
+                    showPatientWorkerProvider.get().refreshTable(patientService.getListPatient());
                     JOptionPane.showMessageDialog(null, "Xóa thành công!");
                 }
             } catch (InterruptedException | ExecutionException e) {
@@ -69,7 +65,7 @@ public class DefaultEmployeeManagementDeleteButtonListener extends MouseAdapter 
     public void mouseClicked(MouseEvent e) {
         int []rows = tableListModelSelectionWrapper.getSelectionModel().getSelectedIndices();
         if (rows.length == 0) {
-            JOptionPane.showMessageDialog(null, "Vui lòng chọn nhân viên");
+            JOptionPane.showMessageDialog(null, "Vui lòng chọn bệnh nhân");
             return;
         }
         for (int row : rows) {

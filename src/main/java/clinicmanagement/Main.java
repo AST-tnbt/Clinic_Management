@@ -26,7 +26,9 @@ public class Main {
             new AppointmentManagementFactory(),
             new RoomManagementFactory(),
             new AddRoomFactory(),
-            new ModifyRoomFactory()
+            new ModifyRoomFactory(),
+            new AddPatientFactory(),
+            new ModifyPatientFactory()
         );
         java.awt.EventQueue.invokeLater(() -> injector.getInstance(Login.class).setVisible(true));
     }

@@ -138,6 +138,7 @@ public class EmployeeService {
         pst.setString(8, username);
         pst.setString(9, password);
         pst.executeUpdate();
+        con.close();
     }
 
     public void removeAllObject() {

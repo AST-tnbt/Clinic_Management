@@ -45,6 +45,9 @@ public class PatientManagement_Admin extends javax.swing.JFrame {
         searchBar = new javax.swing.JTextField();
         searchButton = new javax.swing.JButton();
         viewMedicalRecord = new javax.swing.JLabel();
+        addBtn = new javax.swing.JLabel();
+        deleteBtn = new javax.swing.JLabel();
+        modifyBtn = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -88,20 +91,20 @@ public class PatientManagement_Admin extends javax.swing.JFrame {
         patientTable.setFont(new java.awt.Font("FreeSans", 0, 18)); // NOI18N
         patientTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
             },
             new String [] {
-                "Mã BN", "Họ và tên", "Ngày sinh", "Giới tính", "SĐT", "Địa chỉ"
+                "Mã BN", "Họ và tên", "Ngày sinh", "Giới tính", "SĐT", "Địa chỉ", "Tổng chi phí"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
+                false, false, false, false, false, false, true
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -126,6 +129,12 @@ public class PatientManagement_Admin extends javax.swing.JFrame {
 
         viewMedicalRecord.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/medicalRecordIcon.png"))); // NOI18N
 
+        addBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/adduser.png"))); // NOI18N
+
+        deleteBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/deleteuser.png"))); // NOI18N
+
+        modifyBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/modifyuser.png"))); // NOI18N
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -138,11 +147,15 @@ public class PatientManagement_Admin extends javax.swing.JFrame {
                 .addComponent(searchButton, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
-                .addGap(51, 51, 51)
-                .addComponent(jScrollPane1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 945, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(viewMedicalRecord)
-                .addGap(39, 39, 39))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(addBtn)
+                    .addComponent(viewMedicalRecord)
+                    .addComponent(modifyBtn)
+                    .addComponent(deleteBtn))
+                .addGap(36, 36, 36))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -155,7 +168,14 @@ public class PatientManagement_Admin extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 377, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(viewMedicalRecord))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(viewMedicalRecord)
+                        .addGap(34, 34, 34)
+                        .addComponent(addBtn)
+                        .addGap(31, 31, 31)
+                        .addComponent(deleteBtn)
+                        .addGap(43, 43, 43)
+                        .addComponent(modifyBtn)))
                 .addContainerGap(32, Short.MAX_VALUE))
         );
 
@@ -164,11 +184,14 @@ public class PatientManagement_Admin extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel addBtn;
     private javax.swing.JLabel backDashboardBtn;
+    private javax.swing.JLabel deleteBtn;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel modifyBtn;
     private javax.swing.JTable patientTable;
     private javax.swing.JTextField searchBar;
     private javax.swing.JButton searchButton;
@@ -192,7 +215,10 @@ public class PatientManagement_Admin extends javax.swing.JFrame {
         PatientManagementShowPatient patientManagementShowPatient,
         PatientManagementSearchButtonListener patientManagementSearchButtonListener,
         PatientManagementSearchBarKeyPress patientManagementSearchBarKeyPress,
-        PatientManagementViewRecordListener patientManagementViewRecordListener
+        PatientManagementViewRecordListener patientManagementViewRecordListener,
+        PatientManagementAddButtonListener patientManagementAddButtonListener,
+        PatientManagementDeleteButtonListener patientManagementDeleteButtonListener,
+        PatientManagementModifyButtonListener patientManagementModifyButtonListener
     ) {
         this.backDashboardBtn.addMouseListener(patientManagementBackDashboard);
         this.addComponentListener(patientManagementShowPatient);
@@ -200,5 +226,8 @@ public class PatientManagement_Admin extends javax.swing.JFrame {
         this.searchBar.addActionListener(patientManagementSearchButtonListener);
         this.searchBar.addKeyListener(patientManagementSearchBarKeyPress);
         this.viewMedicalRecord.addMouseListener(patientManagementViewRecordListener);
+        this.addBtn.addMouseListener(patientManagementAddButtonListener);
+        this.deleteBtn.addMouseListener(patientManagementDeleteButtonListener);
+        this.modifyBtn.addMouseListener(patientManagementModifyButtonListener);
     }
 }

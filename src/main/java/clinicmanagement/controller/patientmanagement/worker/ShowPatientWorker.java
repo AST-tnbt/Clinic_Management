@@ -26,7 +26,7 @@ public class ShowPatientWorker {
             DefaultTableModel tableModel = (DefaultTableModel) tableModelWrapper.getModel();
             tableModel.setRowCount(0);
             for (Patient patient : patientsArrayList) {
-                tableModel.addRow(new String[]{String.valueOf(patient.getId()), patient.getName(), String.valueOf(patient.getDateOfBirth().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"))), patient.getSex(), patient.getPhoneNum(), patient.getAddress()});
+                tableModel.addRow(new String[]{String.valueOf(patient.getId()), patient.getName(), String.valueOf(patient.getDateOfBirth().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"))), patient.getSex(), patient.getPhoneNum(), patient.getAddress(), patient.getTotalCost().toString()});
             }
     }
 }

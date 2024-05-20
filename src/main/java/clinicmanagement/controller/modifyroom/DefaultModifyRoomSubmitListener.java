@@ -62,7 +62,7 @@ public class DefaultModifyRoomSubmitListener implements ModifyRoomSubmitListener
                 roomService.modifyRoom(id, name, Integer.parseInt(capacity));
                 modifyRoomAdmin.setVisible(false);
             } catch (SQLException ex) {
-//                Logger.getLogger(DefaultAddEmployeeSubmitListener.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(null, ex.getMessage(), "Database Error", javax.swing.JOptionPane.ERROR_MESSAGE);
                 return false;
             }
             return true;
