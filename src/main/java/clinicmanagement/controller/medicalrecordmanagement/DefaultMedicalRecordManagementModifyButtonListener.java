@@ -20,6 +20,8 @@ import javax.swing.text.BadLocationException;
 import javax.swing.text.Document;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 /**
  *
@@ -48,6 +50,8 @@ public class DefaultMedicalRecordManagementModifyButtonListener extends MouseAda
     private Document inputDiagnosis;
     @Inject @Named(ModifyMedicalRecordName.P_ROOM)
     private Document inputRoom;
+    @Inject @Named(ModifyMedicalRecordName.P_APPOINTMENTDATE)
+    private Document inputAppointmentDate;
 
     @Override
     public void mouseClicked(MouseEvent e) {
@@ -59,10 +63,12 @@ public class DefaultMedicalRecordManagementModifyButtonListener extends MouseAda
             this.prescription.remove(0, this.inputDateOfBirth.getLength());
             this.inputDiagnosis.remove(0, this.inputDateOfBirth.getLength());
             this.inputRoom.remove(0, this.inputDateOfBirth.getLength());
+            DocumentUtil.removeText(this.inputAppointmentDate);
 
             this.inputName.insertString(0, DocumentUtil.getText(name), null);
             this.inputDateOfBirth.insertString(0, DocumentUtil.getText(dateOfBirth), null);
             this.inputSex.setSelectedItem(sex.getSelectedItem());
+            this.inputAppointmentDate.insertString(0, LocalDate.now().format(DateTimeFormatter.ofPattern("dd-MM-yyy")), null);
         } catch (BadLocationException ex) {
             throw new RuntimeException(ex);
         }

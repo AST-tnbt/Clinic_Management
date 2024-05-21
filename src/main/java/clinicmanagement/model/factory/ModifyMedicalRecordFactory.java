@@ -74,4 +74,8 @@ public class ModifyMedicalRecordFactory extends AbstractModule {
     @Singleton
     @Named(ModifyMedicalRecordName.P_PRESCRIPTION)
     static Document providePrescriptionModel() {return new PlainDocument();}
+    @Provides
+    @Singleton
+    @Named(ModifyMedicalRecordName.P_PRESCRIPTION_PREVIEW)
+    static Document providePreviewPrescriptionModel() {return new PlainDocument();}
 }

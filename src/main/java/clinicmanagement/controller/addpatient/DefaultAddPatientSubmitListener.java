@@ -67,7 +67,7 @@ public class DefaultAddPatientSubmitListener implements AddPatientSubmitListener
                 patientService.addPatient(name, dateOfBirth, sex, address, phone);
                 patientManagement.setVisible(true);
             } catch (SQLException ex) {
-//                Logger.getLogger(DefaultAddEmployeeSubmitListener.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(null, ex.getMessage(), "Database Error", javax.swing.JOptionPane.ERROR_MESSAGE);
                 return false;
             }
             return true;

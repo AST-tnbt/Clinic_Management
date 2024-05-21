@@ -4,11 +4,11 @@
  */
 package clinicmanagement.view.manager;
 
-import clinicmanagement.constant.MedicalRecordName;
 import clinicmanagement.constant.ModifyMedicalRecordName;
+import clinicmanagement.controller.modifymedicalrecord.ModifyMedicalRecordAddPrescriptionListener;
 import clinicmanagement.controller.modifymedicalrecord.ModifyMedicalRecordCancelListener;
-import clinicmanagement.controller.modifymedicalrecord.ModifyMedicalRecordShowListener;
-import clinicmanagement.controller.modifypatient.ModifyPatientCancelListener;
+import clinicmanagement.controller.modifymedicalrecord.ModifyMedicalRecordSubmitListener;
+import clinicmanagement.controller.modifypatient.ModifyPatientSubmitListener;
 import clinicmanagement.view.BaseView;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
@@ -65,10 +65,7 @@ public class ModifyMedicalRecord_Admin extends BaseView {
         jScrollPane2 = new javax.swing.JScrollPane();
         inputPrescription = new javax.swing.JTextArea();
         jLabel6 = new javax.swing.JLabel();
-        medicineList = new javax.swing.JComboBox<>();
-        inputAmount = new javax.swing.JTextField();
-        jLabel10 = new javax.swing.JLabel();
-        addBtn = new javax.swing.JButton();
+        addPrescriptionBtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -154,18 +151,10 @@ public class ModifyMedicalRecord_Admin extends BaseView {
         jLabel6.setFont(new java.awt.Font("FreeSans", 0, 18)); // NOI18N
         jLabel6.setText("Toa thuốc:");
 
-        medicineList.setFont(new java.awt.Font("FreeSans", 0, 18)); // NOI18N
-        medicineList.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        inputAmount.setFont(new java.awt.Font("FreeSans", 0, 18)); // NOI18N
-
-        jLabel10.setFont(new java.awt.Font("FreeSans", 0, 18)); // NOI18N
-        jLabel10.setText("Số lượng: ");
-
-        addBtn.setBackground(new java.awt.Color(252, 104, 26));
-        addBtn.setFont(new java.awt.Font("FreeSans", 1, 18)); // NOI18N
-        addBtn.setForeground(new java.awt.Color(255, 255, 255));
-        addBtn.setText("Thêm");
+        addPrescriptionBtn.setBackground(new java.awt.Color(252, 104, 26));
+        addPrescriptionBtn.setFont(new java.awt.Font("FreeSans", 1, 18)); // NOI18N
+        addPrescriptionBtn.setForeground(new java.awt.Color(255, 255, 255));
+        addPrescriptionBtn.setText("Kê toa");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -175,16 +164,11 @@ public class ModifyMedicalRecord_Admin extends BaseView {
             .addGroup(layout.createSequentialGroup()
                 .addGap(50, 50, 50)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel6)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel6)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(addPrescriptionBtn))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(medicineList, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(18, 18, 18)
-                            .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(inputAmount, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(addBtn))
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                             .addComponent(jLabel7)
@@ -241,23 +225,19 @@ public class ModifyMedicalRecord_Admin extends BaseView {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
                     .addComponent(appointmentDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(28, 28, 28)
-                .addComponent(jLabel6)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(medicineList, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(inputAmount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel10)
-                    .addComponent(addBtn))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
+                    .addComponent(jLabel6)
+                    .addComponent(addPrescriptionBtn))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(23, 23, 23)
+                .addGap(29, 29, 29)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
                     .addComponent(status, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel9)
                     .addComponent(room, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(submitBtn)
                     .addComponent(cancelBtn))
@@ -307,15 +287,13 @@ public class ModifyMedicalRecord_Admin extends BaseView {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton addBtn;
+    private javax.swing.JButton addPrescriptionBtn;
     private javax.swing.JTextField appointmentDate;
     private javax.swing.JButton cancelBtn;
     private javax.swing.JTextField dateOfBirth;
     private javax.swing.JTextArea diagnosis;
-    private javax.swing.JTextField inputAmount;
     private javax.swing.JTextArea inputPrescription;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -326,7 +304,6 @@ public class ModifyMedicalRecord_Admin extends BaseView {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JComboBox<String> medicineList;
     private javax.swing.JTextField name;
     private javax.swing.JTextField room;
     private javax.swing.JComboBox<String> sex;
@@ -343,8 +320,6 @@ public class ModifyMedicalRecord_Admin extends BaseView {
         @Named(ModifyMedicalRecordName.P_APPOINTMENTDATE) Document p_appointmentDate,
         @Named(ModifyMedicalRecordName.P_STATUS) ComboBoxModel p_status,
         @Named(ModifyMedicalRecordName.P_ROOM) Document p_room,
-        @Named(ModifyMedicalRecordName.P_MEDICINELIST) ComboBoxModel p_listMedicine,
-        @Named(ModifyMedicalRecordName.P_AMOUNT) Document p_amount,
         @Named(ModifyMedicalRecordName.P_PRESCRIPTION) Document p_prescription
 
     ) {
@@ -355,8 +330,6 @@ public class ModifyMedicalRecord_Admin extends BaseView {
         this.appointmentDate.setDocument(p_appointmentDate);
         this.room.setDocument(p_room);
         this.status.setModel(p_status);
-        this.medicineList.setModel(p_listMedicine);
-        this.inputAmount.setDocument(p_amount);
         this.inputPrescription.setDocument(p_prescription);
         this.addRepaintComponent(
                 this.name,
@@ -364,16 +337,17 @@ public class ModifyMedicalRecord_Admin extends BaseView {
                 this.diagnosis,
                 this.appointmentDate,
                 this.room,
-                this.inputAmount,
                 this.inputPrescription
         );
     }
     @Inject
     public void setListeners(
         ModifyMedicalRecordCancelListener medicalRecordCancelListener,
-        ModifyMedicalRecordShowListener modifyMedicalRecordShowListener
+        ModifyMedicalRecordAddPrescriptionListener modifyMedicalRecordAddPrescriptionListener,
+        ModifyMedicalRecordSubmitListener modifyMedicalRecordSubmitListener
     ) {
         this.cancelBtn.addActionListener(medicalRecordCancelListener);
-        this.addComponentListener(modifyMedicalRecordShowListener);
+        this.addPrescriptionBtn.addActionListener(modifyMedicalRecordAddPrescriptionListener);
+        this.submitBtn.addActionListener(modifyMedicalRecordSubmitListener);
     }
 }

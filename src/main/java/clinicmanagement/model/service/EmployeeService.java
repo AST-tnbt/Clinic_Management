@@ -151,4 +151,11 @@ public class EmployeeService {
         }
         return "";
     }
+
+    public int getIdByUsername(String username) {
+        for (Employee emp : listEmployee) {
+            if (emp.getUsername().equals(username)) return emp.getId();
+        }
+        return -1;
+    }
 }

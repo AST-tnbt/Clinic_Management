@@ -50,6 +50,15 @@ public class MedicineService {
         return "";
     }
 
+    public int getIdByName(String name) {
+        for (Medicine medicine : listMedicine) {
+            if (medicine.getName().equals(name)) {
+                return medicine.getId();
+            }
+        }
+        return -1;
+    }
+
     public ArrayList<String> getListMedicine() {
         ArrayList<String> list = new ArrayList<>();
         for (Medicine medicine : listMedicine) {

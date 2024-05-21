@@ -22,4 +22,5 @@ public final class ModifyMedicalRecordName {
     public static final String P_MEDICINELIST = "ADD_P_MEDICINELIST";
     public static final String P_AMOUNT = "ADD_P_AMOUNT";
     public static final String P_PRESCRIPTION = "ADD_P_PRESCRIPTION";
+    public static final String P_PRESCRIPTION_PREVIEW = "ADD_P_PRESCRIPTION_PREVIEW";
 }

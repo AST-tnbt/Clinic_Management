@@ -57,4 +57,33 @@ public class PrescriptionDetailService {
         }
         return list;
     }
+
+    public void addPrescription(int medicineId, int prescriptionId, int amount) throws SQLException {
+        listPrescriptionDetails.add(new PrescriptionDetail(medicineId, prescriptionId, amount));
+        Connection con = databaseContext.getConnection();
+        String sqlQuery = "{CALL ThemCTTT(?,?,?)}";
+        CallableStatement stm = con.prepareCall(sqlQuery);
+        stm.setInt(1, medicineId);
+        stm.setInt(2, prescriptionId);
+        stm.setInt(3, amount);
+        stm.execute();
+        con.close();
+    }
+
+    public void deleteByPrescriptionId(int prescriptionId) throws SQLException {
+        ArrayList<PrescriptionDetail> listRemove = new ArrayList<>();
+        for (PrescriptionDetail prescriptionDetail : listPrescriptionDetails) {
+            if (prescriptionDetail.getPrescriptionId() == prescriptionId) {
+                listRemove.add(prescriptionDetail);
+                Connection con = databaseContext.getConnection();
+                String sqlQuery = "{CALL XoaCTTT(?,?)}";
+                CallableStatement stm = con.prepareCall(sqlQuery);
+                stm.setInt(1, prescriptionDetail.getMedicineId());
+                stm.setInt(2, prescriptionId);
+                stm.execute();
+                con.close();
+            }
+        }
+        listPrescriptionDetails.removeAll(listRemove);
+    }
 }

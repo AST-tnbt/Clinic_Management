@@ -2,15 +2,14 @@ package clinicmanagement.model.service;
 
 import clinicmanagement.constant.EntityName;
 import clinicmanagement.controller.database.DatabaseContext;
+import clinicmanagement.model.entity.Employee;
 import clinicmanagement.model.entity.MedicalRecord;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import com.google.inject.name.Named;
 
-import java.sql.CallableStatement;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
@@ -84,6 +83,46 @@ public class MedicalRecordService {
         for (MedicalRecord medicalRecord : listMedicalRecord) {
             if (medicalRecord.getPatientId() == id) {
                 return medicalRecord.getRoomId();
+            }
+        }
+        return -1;
+    }
+
+    public void updateMedicalRecord(int medicalRecordId, int roomId, int prescriptionId, int doctorId, int patientId, String appointmentDate, String diagnosis, String status) throws SQLException {
+        LocalDate realAppointmentDate = LocalDate.parse(appointmentDate, DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+        for (MedicalRecord medicalRecord : listMedicalRecord) {
+            if (medicalRecord.getId() == medicalRecordId) {
+                medicalRecord.setRoomId(roomId);
+                medicalRecord.setPrescriptionId(prescriptionId);
+                medicalRecord.setEmployeeId(doctorId);
+                medicalRecord.setPatientId(patientId);
+                medicalRecord.setAppointmentDate(realAppointmentDate);
+                medicalRecord.setDiagnosis(diagnosis);
+                medicalRecord.setStatus(status);
+                break;
+            }
+        }
+        Connection con = databaseContext.getConnection();
+        String sqlQuery = "{CALL SuaBenhAn(?, ?, ?, ?, ?, ?, ?, ?)}";
+        CallableStatement pst;
+        pst = con.prepareCall(sqlQuery);
+        pst.setInt(1, medicalRecordId);
+        pst.setInt(2, roomId);
+        pst.setInt(3, prescriptionId);
+        pst.setInt(4, doctorId);
+        pst.setInt(5, patientId);
+        pst.setDate(6, Date.valueOf(realAppointmentDate));
+        pst.setString(7, diagnosis);
+        pst.setString(8, status);
+        pst.executeUpdate();
+        con.close();
+
+    }
+
+    public int getIdByPatientId(int patientId) {
+        for (MedicalRecord medicalRecord : listMedicalRecord) {
+            if (medicalRecord.getPatientId() == patientId) {
+                return medicalRecord.getId();
             }
         }
         return -1;

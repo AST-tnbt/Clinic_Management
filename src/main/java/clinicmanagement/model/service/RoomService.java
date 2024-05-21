@@ -98,4 +98,11 @@ public class RoomService {
         }
         return "";
     }
+
+    public int getIdByName(String name) {
+        for (Room room : listRoom) {
+            if (room.getName().equals(name)) return room.getId();
+        }
+        return -1;
+    }
 }

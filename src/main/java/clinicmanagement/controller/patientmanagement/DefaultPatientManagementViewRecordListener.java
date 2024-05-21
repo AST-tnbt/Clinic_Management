@@ -8,10 +8,12 @@ import clinicmanagement.model.service.MedicalRecordService;
 import clinicmanagement.model.service.MedicineService;
 import clinicmanagement.model.service.PrescriptionDetailService;
 import clinicmanagement.model.service.RoomService;
+import clinicmanagement.util.DocumentUtil;
 import clinicmanagement.view.manager.MedicalRecord_Admin;
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
 
+import javax.print.Doc;
 import javax.swing.*;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.Document;
@@ -40,6 +42,8 @@ public class DefaultPatientManagementViewRecordListener extends MouseAdapter imp
     private ComboBoxModel status;
     @Inject @Named(MedicalRecordName.P_ROOM)
     private Document room;
+    @Inject @Named(MedicalRecordName.P_ID)
+    private Document p_id;
     @Inject
     private MedicalRecordService medicalRecordService;
     @Inject
@@ -59,12 +63,14 @@ public class DefaultPatientManagementViewRecordListener extends MouseAdapter imp
             int patientId = Integer.parseInt((String) tableModelWrapper.getModel().getValueAt(rows[0], 0));
             int prescriptionId = medicalRecordService.getPrescriptionIdByPatientId(patientId);
             try {
-                this.name.remove(0, this.name.getLength());
-                this.dateOfBirth.remove(0, this.dateOfBirth.getLength());
-                this.appointmentDate.remove(0, this.appointmentDate.getLength());
-                this.room.remove(0, this.room.getLength());
-                this.diagnosis.remove(0, this.diagnosis.getLength());
+                DocumentUtil.removeText(name);
+                DocumentUtil.removeText(appointmentDate);
+                DocumentUtil.removeText(dateOfBirth);
+                DocumentUtil.removeText(room);
+                DocumentUtil.removeText(diagnosis);
+                DocumentUtil.removeText(p_id);
 
+                this.p_id.insertString(0, (String) tableModelWrapper.getModel().getValueAt(rows[0], 0),null);
                 this.name.insertString(0, (String) tableModelWrapper.getModel().getValueAt(rows[0], 1),null);
                 this.dateOfBirth.insertString(0, (String) tableModelWrapper.getModel().getValueAt(rows[0], 2),null);
                 this.sex.setSelectedItem(tableModelWrapper.getModel().getValueAt(rows[0], 3));

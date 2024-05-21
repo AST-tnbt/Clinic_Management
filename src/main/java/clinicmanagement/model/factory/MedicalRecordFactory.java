@@ -56,4 +56,8 @@ public class MedicalRecordFactory extends AbstractModule {
     @Singleton
     @Named(MedicalRecordName.P_ROOM)
     static Document provideRoomModel() {return new PlainDocument();}
+    @Provides
+    @Singleton
+    @Named(MedicalRecordName.P_ID)
+    static Document provideIdModel() {return new PlainDocument();}
 }

@@ -19,4 +19,5 @@ public final class MedicalRecordName {
     public static final String P_APPOINTMENTDATE = "P_APPOINTMENTDATE";
     public static final String P_STATUS = "P_STATUS";
     public static final String P_ROOM = "P_ROOM";
+    public static final String P_ID = "P_ID";
 }

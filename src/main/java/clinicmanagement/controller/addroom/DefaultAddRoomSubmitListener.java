@@ -60,7 +60,7 @@ public class DefaultAddRoomSubmitListener implements AddRoomSubmitListener {
                 roomService.addRoom(name, Integer.parseInt(capacity));
                 roomManagement.setVisible(true);
             } catch (SQLException ex) {
-//                Logger.getLogger(DefaultAddEmployeeSubmitListener.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(null, ex.getMessage(), "Database Error", javax.swing.JOptionPane.ERROR_MESSAGE);
                 return false;
             }
             return true;
