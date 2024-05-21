@@ -49,4 +49,12 @@ public class MedicineService {
         }
         return "";
     }
+
+    public ArrayList<String> getListMedicine() {
+        ArrayList<String> list = new ArrayList<>();
+        for (Medicine medicine : listMedicine) {
+            list.add(medicine.getName());
+        }
+        return list;
+    }
 }

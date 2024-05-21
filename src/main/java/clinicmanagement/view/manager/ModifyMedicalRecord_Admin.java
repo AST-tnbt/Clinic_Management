@@ -5,7 +5,11 @@
 package clinicmanagement.view.manager;
 
 import clinicmanagement.constant.MedicalRecordName;
-import clinicmanagement.controller.medicalrecordmanagement.MedicalRecordManagementModifyButtonListener;
+import clinicmanagement.constant.ModifyMedicalRecordName;
+import clinicmanagement.controller.modifymedicalrecord.ModifyMedicalRecordCancelListener;
+import clinicmanagement.controller.modifymedicalrecord.ModifyMedicalRecordShowListener;
+import clinicmanagement.controller.modifypatient.ModifyPatientCancelListener;
+import clinicmanagement.view.BaseView;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import com.google.inject.name.Named;
@@ -20,15 +24,15 @@ import javax.swing.text.Document;
  * @author tin-ast
  */
 @Singleton
-public class MedicalRecord_Admin extends javax.swing.JFrame {
+public class ModifyMedicalRecord_Admin extends BaseView {
 
     /**
      * Creates new form MedicalRecord_Admin
      */
-    public MedicalRecord_Admin() {
+    public ModifyMedicalRecord_Admin() {
         initComponents();
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setTitle("TWP clinic management - Xem bệnh án");
+        setTitle("TWP clinic management - Cập nhật bệnh án");
     }
 
     /**
@@ -56,8 +60,15 @@ public class MedicalRecord_Admin extends javax.swing.JFrame {
         status = new javax.swing.JComboBox<>();
         jLabel9 = new javax.swing.JLabel();
         room = new javax.swing.JTextField();
-        modifyBtn = new javax.swing.JLabel();
-        deleteBtn = new javax.swing.JLabel();
+        submitBtn = new javax.swing.JButton();
+        cancelBtn = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        inputPrescription = new javax.swing.JTextArea();
+        jLabel6 = new javax.swing.JLabel();
+        medicineList = new javax.swing.JComboBox<>();
+        inputAmount = new javax.swing.JTextField();
+        jLabel10 = new javax.swing.JLabel();
+        addBtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -69,14 +80,12 @@ public class MedicalRecord_Admin extends javax.swing.JFrame {
         jLabel2.setText("Họ và tên:");
 
         name.setEditable(false);
-        name.setBackground(new java.awt.Color(255, 255, 255));
         name.setFont(new java.awt.Font("FreeSans", 0, 18)); // NOI18N
 
         jLabel3.setFont(new java.awt.Font("FreeSans", 0, 18)); // NOI18N
         jLabel3.setText("Ngày sinh:");
 
         dateOfBirth.setEditable(false);
-        dateOfBirth.setBackground(new java.awt.Color(255, 255, 255));
         dateOfBirth.setFont(new java.awt.Font("FreeSans", 0, 18)); // NOI18N
 
         jLabel4.setFont(new java.awt.Font("FreeSans", 0, 18)); // NOI18N
@@ -85,8 +94,6 @@ public class MedicalRecord_Admin extends javax.swing.JFrame {
         jLabel5.setFont(new java.awt.Font("FreeSans", 0, 18)); // NOI18N
         jLabel5.setText("Chẩn đoán:");
 
-        diagnosis.setEditable(false);
-        diagnosis.setBackground(new java.awt.Color(255, 255, 255));
         diagnosis.setColumns(20);
         diagnosis.setFont(new java.awt.Font("FreeSans", 0, 18)); // NOI18N
         diagnosis.setRows(5);
@@ -106,8 +113,6 @@ public class MedicalRecord_Admin extends javax.swing.JFrame {
         jLabel7.setFont(new java.awt.Font("FreeSans", 0, 18)); // NOI18N
         jLabel7.setText("Ngày khám:");
 
-        appointmentDate.setEditable(false);
-        appointmentDate.setBackground(new java.awt.Color(255, 255, 255));
         appointmentDate.setFont(new java.awt.Font("FreeSans", 0, 18)); // NOI18N
 
         jLabel8.setFont(new java.awt.Font("FreeSans", 0, 18)); // NOI18N
@@ -116,7 +121,6 @@ public class MedicalRecord_Admin extends javax.swing.JFrame {
         status.setFont(new java.awt.Font("FreeSans", 0, 18)); // NOI18N
         status.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Đã điều trị", "Nhập viện", "Đã xuất viện" }));
         status.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        status.setEnabled(false);
         status.setFocusable(false);
         status.setRequestFocusEnabled(false);
         status.setRenderer(new DefaultListCellRenderer() {
@@ -130,13 +134,38 @@ public class MedicalRecord_Admin extends javax.swing.JFrame {
         jLabel9.setFont(new java.awt.Font("FreeSans", 0, 18)); // NOI18N
         jLabel9.setText("Phòng:");
 
-        room.setEditable(false);
-        room.setBackground(new java.awt.Color(255, 255, 255));
         room.setFont(new java.awt.Font("FreeSans", 0, 18)); // NOI18N
 
-        modifyBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/compose.png"))); // NOI18N
+        submitBtn.setBackground(new java.awt.Color(252, 104, 26));
+        submitBtn.setFont(new java.awt.Font("FreeSans", 1, 18)); // NOI18N
+        submitBtn.setForeground(new java.awt.Color(255, 255, 255));
+        submitBtn.setText("Lưu");
 
-        deleteBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/bin.png"))); // NOI18N
+        cancelBtn.setFont(new java.awt.Font("FreeSans", 1, 18)); // NOI18N
+        cancelBtn.setForeground(new java.awt.Color(252, 104, 26));
+        cancelBtn.setText("Hủy bỏ");
+
+        inputPrescription.setEditable(false);
+        inputPrescription.setColumns(20);
+        inputPrescription.setFont(new java.awt.Font("FreeSans", 0, 18)); // NOI18N
+        inputPrescription.setRows(5);
+        jScrollPane2.setViewportView(inputPrescription);
+
+        jLabel6.setFont(new java.awt.Font("FreeSans", 0, 18)); // NOI18N
+        jLabel6.setText("Toa thuốc:");
+
+        medicineList.setFont(new java.awt.Font("FreeSans", 0, 18)); // NOI18N
+        medicineList.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        inputAmount.setFont(new java.awt.Font("FreeSans", 0, 18)); // NOI18N
+
+        jLabel10.setFont(new java.awt.Font("FreeSans", 0, 18)); // NOI18N
+        jLabel10.setText("Số lượng: ");
+
+        addBtn.setBackground(new java.awt.Color(252, 104, 26));
+        addBtn.setFont(new java.awt.Font("FreeSans", 1, 18)); // NOI18N
+        addBtn.setForeground(new java.awt.Color(255, 255, 255));
+        addBtn.setText("Thêm");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -146,45 +175,48 @@ public class MedicalRecord_Admin extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(50, 50, 50)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jScrollPane1)
-                        .addComponent(jLabel5)
+                    .addComponent(jLabel6)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addGroup(layout.createSequentialGroup()
+                            .addComponent(medicineList, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(18, 18, 18)
+                            .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(inputAmount, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(addBtn))
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                            .addComponent(jLabel7)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(appointmentDate))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                             .addComponent(jLabel2)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                             .addComponent(name, javax.swing.GroupLayout.PREFERRED_SIZE, 420, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(layout.createSequentialGroup()
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                             .addComponent(jLabel3)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                             .addComponent(dateOfBirth, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGap(18, 18, 18)
                             .addComponent(jLabel4)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(sex, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(sex, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                            .addComponent(submitBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(cancelBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                             .addComponent(jLabel8)
-                            .addComponent(jLabel7))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(appointmentDate)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(status, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(29, 29, 29)
-                                        .addComponent(modifyBtn)))
-                                .addGap(38, 38, 38)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel9)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(room))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                        .addGap(0, 0, Short.MAX_VALUE)
-                                        .addComponent(deleteBtn)
-                                        .addGap(108, 108, 108)))))))
-                .addGap(51, 51, 51))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(status, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(18, 18, 18)
+                            .addComponent(jLabel9)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(room, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(40, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -205,24 +237,31 @@ public class MedicalRecord_Admin extends javax.swing.JFrame {
                 .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 50, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel7)
-                            .addComponent(appointmentDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(34, 34, 34)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel8)
-                            .addComponent(status, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel9)
-                            .addComponent(room, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 51, Short.MAX_VALUE)
-                        .addComponent(modifyBtn))
-                    .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(deleteBtn)))
-                .addGap(30, 30, 30))
+                .addGap(39, 39, 39)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel7)
+                    .addComponent(appointmentDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(28, 28, 28)
+                .addComponent(jLabel6)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(medicineList, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(inputAmount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel10)
+                    .addComponent(addBtn))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(23, 23, 23)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel8)
+                    .addComponent(status, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel9)
+                    .addComponent(room, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(submitBtn)
+                    .addComponent(cancelBtn))
+                .addGap(31, 31, 31))
         );
 
         pack();
@@ -246,54 +285,68 @@ public class MedicalRecord_Admin extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(MedicalRecord_Admin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ModifyMedicalRecord_Admin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(MedicalRecord_Admin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ModifyMedicalRecord_Admin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(MedicalRecord_Admin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ModifyMedicalRecord_Admin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(MedicalRecord_Admin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ModifyMedicalRecord_Admin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new MedicalRecord_Admin().setVisible(true);
+                new ModifyMedicalRecord_Admin().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton addBtn;
     private javax.swing.JTextField appointmentDate;
+    private javax.swing.JButton cancelBtn;
     private javax.swing.JTextField dateOfBirth;
-    private javax.swing.JLabel deleteBtn;
     private javax.swing.JTextArea diagnosis;
+    private javax.swing.JTextField inputAmount;
+    private javax.swing.JTextArea inputPrescription;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JLabel modifyBtn;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JComboBox<String> medicineList;
     private javax.swing.JTextField name;
     private javax.swing.JTextField room;
     private javax.swing.JComboBox<String> sex;
     private javax.swing.JComboBox<String> status;
+    private javax.swing.JButton submitBtn;
     // End of variables declaration//GEN-END:variables
 
     @Inject
     public void setModels(
-        @Named(MedicalRecordName.P_NAME) Document p_name,
-        @Named(MedicalRecordName.P_DATEOFBIRTH) Document p_dateOfBirth,
-        @Named(MedicalRecordName.P_SEX) ComboBoxModel p_sex,
-        @Named(MedicalRecordName.P_DIAGNOSIS) Document p_diagnosis,
-        @Named(MedicalRecordName.P_APPOINTMENTDATE) Document p_appointmentDate,
-        @Named(MedicalRecordName.P_STATUS) ComboBoxModel p_status,
-        @Named(MedicalRecordName.P_ROOM) Document p_room
+        @Named(ModifyMedicalRecordName.P_NAME) Document p_name,
+        @Named(ModifyMedicalRecordName.P_DATEOFBIRTH) Document p_dateOfBirth,
+        @Named(ModifyMedicalRecordName.P_SEX) ComboBoxModel p_sex,
+        @Named(ModifyMedicalRecordName.P_DIAGNOSIS) Document p_diagnosis,
+        @Named(ModifyMedicalRecordName.P_APPOINTMENTDATE) Document p_appointmentDate,
+        @Named(ModifyMedicalRecordName.P_STATUS) ComboBoxModel p_status,
+        @Named(ModifyMedicalRecordName.P_ROOM) Document p_room,
+        @Named(ModifyMedicalRecordName.P_MEDICINELIST) ComboBoxModel p_listMedicine,
+        @Named(ModifyMedicalRecordName.P_AMOUNT) Document p_amount,
+        @Named(ModifyMedicalRecordName.P_PRESCRIPTION) Document p_prescription
+
     ) {
         this.name.setDocument(p_name);
         this.dateOfBirth.setDocument(p_dateOfBirth);
@@ -302,11 +355,25 @@ public class MedicalRecord_Admin extends javax.swing.JFrame {
         this.appointmentDate.setDocument(p_appointmentDate);
         this.room.setDocument(p_room);
         this.status.setModel(p_status);
+        this.medicineList.setModel(p_listMedicine);
+        this.inputAmount.setDocument(p_amount);
+        this.inputPrescription.setDocument(p_prescription);
+        this.addRepaintComponent(
+                this.name,
+                this.dateOfBirth,
+                this.diagnosis,
+                this.appointmentDate,
+                this.room,
+                this.inputAmount,
+                this.inputPrescription
+        );
     }
     @Inject
     public void setListeners(
-            MedicalRecordManagementModifyButtonListener medicalRecordManagementModifyButtonListener
+        ModifyMedicalRecordCancelListener medicalRecordCancelListener,
+        ModifyMedicalRecordShowListener modifyMedicalRecordShowListener
     ) {
-        this.modifyBtn.addMouseListener(medicalRecordManagementModifyButtonListener);
+        this.cancelBtn.addActionListener(medicalRecordCancelListener);
+        this.addComponentListener(modifyMedicalRecordShowListener);
     }
 }

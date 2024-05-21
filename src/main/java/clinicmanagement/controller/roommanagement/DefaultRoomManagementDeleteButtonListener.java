@@ -63,6 +63,10 @@ public class DefaultRoomManagementDeleteButtonListener extends MouseAdapter impl
     @Override
     public void mouseClicked(MouseEvent e) {
         int []rows = tableListModelSelectionWrapper.getSelectionModel().getSelectedIndices();
+        if (rows.length == 0) {
+            JOptionPane.showMessageDialog(null, "Vui lòng chọn phòng");
+            return;
+        }
         for (int row : rows) {
             listId.add(Integer.parseInt((String) tableModelWrapper.getModel().getValueAt(row, 0)));
         }

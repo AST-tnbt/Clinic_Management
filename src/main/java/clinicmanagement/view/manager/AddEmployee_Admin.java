@@ -114,7 +114,6 @@ public class AddEmployee_Admin extends BaseView {
         inputEmpUsername.setFont(new java.awt.Font("FreeSans", 0, 18)); // NOI18N
 
         inputEmpSex.setFont(new java.awt.Font("FreeSans", 0, 18)); // NOI18N
-        inputEmpSex.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Nam", "Nữ" }));
         inputEmpSex.setBorder(null);
 
         inputEmpPosition.setFont(new java.awt.Font("FreeSans", 0, 18)); // NOI18N

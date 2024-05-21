@@ -4,8 +4,10 @@
  */
 package clinicmanagement.model.factory;
 
-import clinicmanagement.constant.MedicalRecordName;
+import clinicmanagement.constant.ModifyMedicalRecordName;
+import clinicmanagement.model.service.MedicineService;
 import com.google.inject.AbstractModule;
+import com.google.inject.Inject;
 import com.google.inject.Provides;
 import com.google.inject.Singleton;
 import com.google.inject.name.Named;
@@ -19,41 +21,57 @@ import java.util.List;
  *
  * @author tin-ast
  */
-public class MedicalRecordFactory extends AbstractModule {
+public class ModifyMedicalRecordFactory extends AbstractModule {
+    @Inject
+    private static MedicineService medicineService;
     @Provides
     @Singleton
-    @Named(MedicalRecordName.P_NAME)
+    @Named(ModifyMedicalRecordName.P_NAME)
     static Document provideNameModel() {
         return new PlainDocument();
     }
     @Provides
     @Singleton
-    @Named(MedicalRecordName.P_DATEOFBIRTH)
+    @Named(ModifyMedicalRecordName.P_DATEOFBIRTH)
     static Document provideDateOfBirthModel() {
         return new PlainDocument();
     }
     @Provides
     @Singleton
-    @Named(MedicalRecordName.P_SEX)
+    @Named(ModifyMedicalRecordName.P_SEX)
     static ComboBoxModel provideSexModel() {
         return new DefaultComboBoxModel(List.of("Nam", "Nữ").toArray());
     }
     @Provides
     @Singleton
-    @Named(MedicalRecordName.P_STATUS)
+    @Named(ModifyMedicalRecordName.P_STATUS)
     static ComboBoxModel provideStatusModel() {
         return new DefaultComboBoxModel(List.of("Đang điều trị", "Nhập viện", "Đã xuất viện").toArray());
     }
     @Provides
     @Singleton
-    @Named(MedicalRecordName.P_DIAGNOSIS)
+    @Named(ModifyMedicalRecordName.P_MEDICINELIST)
+    static ComboBoxModel provideMedicineListModel() {
+        return new DefaultComboBoxModel();
+    }
+    @Provides
+    @Singleton
+    @Named(ModifyMedicalRecordName.P_DIAGNOSIS)
     static Document provideDiagnosisModel() {return new PlainDocument();}
     @Provides
     @Singleton
-    @Named(MedicalRecordName.P_APPOINTMENTDATE)
+    @Named(ModifyMedicalRecordName.P_APPOINTMENTDATE)
     static Document provideAppointmentDateModel() {return new PlainDocument();}
     @Provides
     @Singleton
-    @Named(MedicalRecordName.P_ROOM)
+    @Named(ModifyMedicalRecordName.P_ROOM)
     static Document provideRoomModel() {return new PlainDocument();}
+    @Provides
+    @Singleton
+    @Named(ModifyMedicalRecordName.P_AMOUNT)
+    static Document provideAmountModel() {return new PlainDocument();}
+    @Provides
+    @Singleton
+    @Named(ModifyMedicalRecordName.P_PRESCRIPTION)
+    static Document providePrescriptionModel() {return new PlainDocument();}
 }

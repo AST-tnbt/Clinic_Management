@@ -16,7 +16,6 @@ public final class MedicalRecordName {
     public static final String P_DATEOFBIRTH = "P_DATEOFBIRTH";
     public static final String P_SEX = "P_SEX";
     public static final String P_DIAGNOSIS = "P_DIAGNOSIS";
-    public static final String P_PRESCRIPTION = "P_PRESCRIPTION";
     public static final String P_APPOINTMENTDATE = "P_APPOINTMENTDATE";
     public static final String P_STATUS = "P_STATUS";
     public static final String P_ROOM = "P_ROOM";

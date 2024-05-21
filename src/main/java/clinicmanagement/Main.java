@@ -28,7 +28,8 @@ public class Main {
             new AddRoomFactory(),
             new ModifyRoomFactory(),
             new AddPatientFactory(),
-            new ModifyPatientFactory()
+            new ModifyPatientFactory(),
+            new ModifyMedicalRecordFactory()
         );
         java.awt.EventQueue.invokeLater(() -> injector.getInstance(Login.class).setVisible(true));
     }

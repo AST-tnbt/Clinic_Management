@@ -304,10 +304,7 @@
               <Font name="FreeSans" size="18" style="0"/>
             </Property>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="2">
-                <StringItem index="0" value="Nam"/>
-                <StringItem index="1" value="N&#x1eef;"/>
-              </StringArray>
+              <StringArray count="0"/>
             </Property>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="null"/>

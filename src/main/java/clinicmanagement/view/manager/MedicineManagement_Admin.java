@@ -19,11 +19,11 @@ import javax.swing.text.Document;
  * @author tin-ast
  */
 @Singleton
-public class FeeManagement_Admin extends javax.swing.JFrame {
+public class MedicineManagement_Admin extends javax.swing.JFrame {
     /**
      * Creates new form EmployeeManagement
      */
-    public FeeManagement_Admin() {
+    public MedicineManagement_Admin() {
         initComponents();
         setTitle("TWP clinic management - Phòng");
     }
@@ -52,10 +52,10 @@ public class FeeManagement_Admin extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/hospital.png"))); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/medicine .png"))); // NOI18N
 
         jLabel2.setFont(new java.awt.Font("sansserif", 1, 36)); // NOI18N
-        jLabel2.setText("QUẢN VIỆN PHÍ");
+        jLabel2.setText("QUẢN LÝ PHÒNG");
 
         backDashboardBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/back.png"))); // NOI18N
 
@@ -68,7 +68,7 @@ public class FeeManagement_Admin extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addGap(47, 47, 47)
                 .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 483, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 457, Short.MAX_VALUE)
                 .addComponent(backDashboardBtn)
                 .addGap(39, 39, 39))
         );
@@ -92,20 +92,20 @@ public class FeeManagement_Admin extends javax.swing.JFrame {
         employeeTable.setFont(new java.awt.Font("FreeSans", 0, 18)); // NOI18N
         employeeTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
             },
             new String [] {
-                "Mã hóa đơn", "Tên bệnh nhân", "Ngày lập", "Tổng tiền"
+                "Mã phòng", "Tên phòng", "Số lượng bệnh nhân tối đa"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -139,8 +139,8 @@ public class FeeManagement_Admin extends javax.swing.JFrame {
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 933, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 945, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(addButton)
                     .addComponent(deleteButton)
@@ -158,8 +158,8 @@ public class FeeManagement_Admin extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(27, 27, 27)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(searchButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(searchButton)
                     .addComponent(searchBar))
                 .addGap(33, 33, 33)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
