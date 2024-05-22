@@ -1,6 +1,5 @@
 package clinicmanagement.controller.medcinemanagement;
 
-import clinicmanagement.view.manager.AppointmentManagement_Admin;
 import clinicmanagement.view.manager.Dashboard_Admin;
 import clinicmanagement.view.manager.MedicineManagement_Admin;
 import com.google.inject.Inject;

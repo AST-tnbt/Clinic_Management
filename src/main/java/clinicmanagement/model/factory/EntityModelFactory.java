@@ -48,12 +48,6 @@ public class EntityModelFactory extends AbstractModule {
     }
     @Provides
     @Singleton
-    @Named(EntityName.APPOINTMENT)
-    public static ArrayList<Appointment> ProvideAppointment() {
-        return new ArrayList<Appointment>();
-    }
-    @Provides
-    @Singleton
     @Named(EntityName.ROOM)
     public static ArrayList<Room> ProvideRoom() {
         return new ArrayList<Room>();
@@ -63,5 +57,11 @@ public class EntityModelFactory extends AbstractModule {
     @Named(EntityName.TOOL)
     public static ArrayList<Tool> ProvideTool() {
         return new ArrayList<Tool>();
+    }
+    @Provides
+    @Singleton
+    @Named(EntityName.INVOICE)
+    public static ArrayList<Invoice> ProvideInvoice() {
+        return new ArrayList<Invoice>();
     }
 }

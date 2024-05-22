@@ -4,8 +4,7 @@
  */
 package clinicmanagement.model.factory;
 
-import clinicmanagement.constant.AppointmentManagementName;
-import clinicmanagement.constant.PatientManagementName;
+import clinicmanagement.constant.FeeManagementName;
 import clinicmanagement.model.base.TableListModelSelectionWrapper;
 import clinicmanagement.model.base.TableModelWrapper;
 import com.google.inject.AbstractModule;
@@ -20,22 +19,22 @@ import javax.swing.text.PlainDocument;
  *
  * @author tin-ast
  */
-public class AppointmentManagementFactory extends AbstractModule{
+public class FeeManagementFactory extends AbstractModule{
     @Provides
     @Singleton
-    @Named(AppointmentManagementName.APPOINTMENT_TABLE)
+    @Named(FeeManagementName.FEE_TABLE)
     private static TableModelWrapper provideTableModelWrapper() {
         return new TableModelWrapper();
     }
 
     @Provides
     @Singleton
-    @Named(AppointmentManagementName.APPOINTMENT_TABLE_LIST_SELECTION)
+    @Named(FeeManagementName.FEE_TABLE_LIST_SELECTION)
     private static TableListModelSelectionWrapper provideListSelectionModelWrapper() { return new TableListModelSelectionWrapper(); }
 
     @Provides
     @Singleton
-    @Named(AppointmentManagementName.APPOINTMENT_SEARCH_INPUT)
+    @Named(FeeManagementName.FEE_SEARCH_INPUT)
     private static Document provideSearchInput() {
         return new PlainDocument();
     }

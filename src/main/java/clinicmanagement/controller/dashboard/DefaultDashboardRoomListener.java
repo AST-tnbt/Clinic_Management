@@ -1,6 +1,5 @@
 package clinicmanagement.controller.dashboard;
 
-import clinicmanagement.view.manager.AppointmentManagement_Admin;
 import clinicmanagement.view.manager.Dashboard_Admin;
 import clinicmanagement.view.manager.EmployeeManagement_Admin;
 import clinicmanagement.view.manager.RoomManagement_Admin;

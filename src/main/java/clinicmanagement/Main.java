@@ -23,7 +23,6 @@ public class Main {
             new ModifyEmployeeFactory(),
             new PatientManagementFactory(),
             new MedicalRecordFactory(),
-            new AppointmentManagementFactory(),
             new RoomManagementFactory(),
             new AddRoomFactory(),
             new ModifyRoomFactory(),
@@ -35,7 +34,8 @@ public class Main {
             new ModifyToolFactory(),
             new MedicineManagementFactory(),
             new AddMedicineFactory(),
-            new ModifyMedicineFactory()
+            new ModifyMedicineFactory(),
+            new FeeManagementFactory()
         );
         java.awt.EventQueue.invokeLater(() -> injector.getInstance(Login.class).setVisible(true));
     }

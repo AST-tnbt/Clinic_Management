@@ -10,7 +10,7 @@ public final class EntityName{
     public static final String PRESCRIPTION = "PRESCRIPTION";
     public static final String PRESCRIPTION_DETAIL = "PRESCRIPTION_DETAIL";
     public static final String MEDICINE = "MEDICINE";
-    public static final String APPOINTMENT = "APPOINTMENT";
+    public static final String INVOICE = "INVOICE";
     public static final String ROOM = "ROOM";
     public static final String TOOL = "TOOL";
 }

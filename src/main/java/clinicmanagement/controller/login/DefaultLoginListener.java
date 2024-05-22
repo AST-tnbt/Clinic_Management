@@ -45,13 +45,13 @@ public class DefaultLoginListener implements LoginListener {
     @Inject
     private MedicineService medicineService;
     @Inject
-    private AppointmentService appointmentService;
-    @Inject
     private RoomService roomService;
     @Inject
     private PrescriptionService prescriptionService;
     @Inject
     private ToolService toolService;
+    @Inject
+    private InvoiceService invoiceService;
 
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -66,10 +66,10 @@ public class DefaultLoginListener implements LoginListener {
                 medicalRecordService.getDatabase();
                 prescriptionDetailService.getDatabase();
                 medicineService.getDatabase();
-                appointmentService.getDatabase();
                 roomService.getDatabase();
                 prescriptionService.getDatabase();
                 toolService.getDatabase();
+                invoiceService.getDatabase();
             }
             else if (employeeService.getAccount(username, password).equals("Sai thông tin đăng nhập")) {
                 JOptionPane.showMessageDialog(null, employeeService.getAccount(username, password));
