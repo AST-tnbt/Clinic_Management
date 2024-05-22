@@ -424,7 +424,8 @@ public class Dashboard_Admin extends javax.swing.JFrame {
         DashboardPatientManagementListener dashboardPatientManagementListener,
         DashboardAppointmentListener dashboardAppointmentListener,
         DashboardRoomListener dashboardRoomListener,
-        DashboardToolListener dashboardToolListener
+        DashboardToolListener dashboardToolListener,
+        DashboardMedicineListener dashboardMedicineListener
     ) {
         this.employeePanel.addMouseListener(dashboardEmployeeListener);
         this.logoutBtn.addMouseListener(dashboardLogoutListener);
@@ -432,5 +433,6 @@ public class Dashboard_Admin extends javax.swing.JFrame {
         this.appointmentPanel.addMouseListener(dashboardAppointmentListener);
         this.roomPanel.addMouseListener(dashboardRoomListener);
         this.toolPanel.addMouseListener(dashboardToolListener);
+        this.medicinePanel.addMouseListener(dashboardMedicineListener);
     }
 }

@@ -4,16 +4,16 @@
  */
 package clinicmanagement.view.manager;
 
+import clinicmanagement.constant.AddMedicineName;
 import clinicmanagement.constant.AddRoomName;
 import clinicmanagement.constant.AddToolName;
-import clinicmanagement.constant.ModifyToolName;
 import clinicmanagement.constant.RoomManagementName;
+import clinicmanagement.controller.addMedicine.AddMedicineCancelListener;
+import clinicmanagement.controller.addMedicine.AddMedicineSubmitListener;
 import clinicmanagement.controller.addroom.AddRoomCancelListener;
 import clinicmanagement.controller.addroom.AddRoomSubmitListener;
 import clinicmanagement.controller.addtool.AddToolCancelListener;
 import clinicmanagement.controller.addtool.AddToolSubmitListener;
-import clinicmanagement.controller.modifytool.ModifyToolCancelListener;
-import clinicmanagement.controller.modifytool.ModifyToolSubmitListener;
 import clinicmanagement.view.BaseView;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
@@ -27,15 +27,15 @@ import javax.swing.text.Document;
  * @author tin-ast
  */
 @Singleton
-public class ModifyTool_Admin extends BaseView {
+public class AddMedicine_Admin extends BaseView {
 
     /**
      * Creates new form AddRoom
      */
-    public ModifyTool_Admin() {
+    public AddMedicine_Admin() {
         initComponents();
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setTitle("TWP clinic management - Thêm dụng cụ");
+        setTitle("TWP clinic management - Thêm thuốc");
     }
 
     /**
@@ -51,7 +51,7 @@ public class ModifyTool_Admin extends BaseView {
         jLabel2 = new javax.swing.JLabel();
         inputName = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        inputRoom = new javax.swing.JTextField();
+        inputAmount = new javax.swing.JTextField();
         submitBtn = new javax.swing.JButton();
         cancelBtn = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
@@ -59,26 +59,24 @@ public class ModifyTool_Admin extends BaseView {
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         inputExpireDate = new javax.swing.JTextField();
-        inputStatus = new javax.swing.JComboBox<>();
-        jLabel7 = new javax.swing.JLabel();
-        toolId = new javax.swing.JTextField();
+        inputPrice = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setFont(new java.awt.Font("FreeSans", 1, 24)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Sửa thông tin dụng cụ");
+        jLabel1.setText("Thêm thông tin thuốc");
         jLabel1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
         jLabel2.setFont(new java.awt.Font("FreeSans", 0, 18)); // NOI18N
-        jLabel2.setText("Tên dụng cụ:");
+        jLabel2.setText("Tên thuốc:");
 
         inputName.setFont(new java.awt.Font("FreeSans", 0, 18)); // NOI18N
 
         jLabel3.setFont(new java.awt.Font("FreeSans", 0, 18)); // NOI18N
-        jLabel3.setText("Phòng:");
+        jLabel3.setText("Tồn kho:");
 
-        inputRoom.setFont(new java.awt.Font("FreeSans", 0, 18)); // NOI18N
+        inputAmount.setFont(new java.awt.Font("FreeSans", 0, 18)); // NOI18N
 
         submitBtn.setBackground(new java.awt.Color(252, 104, 26));
         submitBtn.setFont(new java.awt.Font("FreeSans", 1, 18)); // NOI18N
@@ -98,18 +96,11 @@ public class ModifyTool_Admin extends BaseView {
         jLabel5.setText("Hạn sử dụng:");
 
         jLabel6.setFont(new java.awt.Font("FreeSans", 0, 18)); // NOI18N
-        jLabel6.setText("Trạng thái:");
+        jLabel6.setText("Giá:");
 
         inputExpireDate.setFont(new java.awt.Font("FreeSans", 0, 18)); // NOI18N
 
-        inputStatus.setFont(new java.awt.Font("FreeSans", 0, 18)); // NOI18N
-        inputStatus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        jLabel7.setFont(new java.awt.Font("FreeSans", 0, 18)); // NOI18N
-        jLabel7.setText("ID:");
-
-        toolId.setEditable(false);
-        toolId.setFont(new java.awt.Font("FreeSans", 0, 18)); // NOI18N
+        inputPrice.setFont(new java.awt.Font("FreeSans", 0, 18)); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -124,32 +115,27 @@ public class ModifyTool_Admin extends BaseView {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(inputExpireDate))
                     .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(inputName))
+                    .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(inputImportDate))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                 .addComponent(jLabel6)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(inputStatus, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addComponent(inputPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(submitBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(cancelBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(12, 12, 12)
                                 .addComponent(jLabel3)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(inputRoom))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(inputName, javax.swing.GroupLayout.PREFERRED_SIZE, 325, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel7)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(toolId)))
+                                .addComponent(inputAmount, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap(32, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -157,15 +143,11 @@ public class ModifyTool_Admin extends BaseView {
             .addGroup(layout.createSequentialGroup()
                 .addGap(21, 21, 21)
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel7)
-                    .addComponent(toolId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
+                .addGap(36, 36, 36)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(inputName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(inputImportDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -173,13 +155,13 @@ public class ModifyTool_Admin extends BaseView {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(inputExpireDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(37, 37, 37)
+                .addGap(34, 34, 34)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
-                    .addComponent(inputStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3)
-                    .addComponent(inputRoom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 45, Short.MAX_VALUE)
+                    .addComponent(inputAmount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(inputPrice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 50, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(submitBtn)
                     .addComponent(cancelBtn))
@@ -196,50 +178,46 @@ public class ModifyTool_Admin extends BaseView {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton cancelBtn;
+    private javax.swing.JTextField inputAmount;
     private javax.swing.JTextField inputExpireDate;
     private javax.swing.JTextField inputImportDate;
     private javax.swing.JTextField inputName;
-    private javax.swing.JTextField inputRoom;
-    private javax.swing.JComboBox<String> inputStatus;
+    private javax.swing.JTextField inputPrice;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JButton submitBtn;
-    private javax.swing.JTextField toolId;
     // End of variables declaration//GEN-END:variables
     @Inject
     public void setModels(
-            @Named(ModifyToolName.T_NAME) Document name,
-            @Named(ModifyToolName.T_ID) Document id,
-            @Named(ModifyToolName.T_ROOM) Document room,
-            @Named(ModifyToolName.T_IMPORTDATE) Document importDate,
-            @Named(ModifyToolName.T_EXPIREDATE) Document exportDate,
-            @Named(ModifyToolName.T_STATUS) ComboBoxModel status
+            @Named(AddMedicineName.MEDICINE_NAME) Document name,
+            @Named(AddMedicineName.MEDICINE_IMPORTDATE) Document importDate,
+            @Named(AddMedicineName.MEDICINE_PRICE) Document price,
+            @Named(AddMedicineName.MEDICINE_EXPIREDATE) Document exportDate,
+            @Named(AddMedicineName.MEDICINE_QUANTITY) Document quantity
     ) {
         this.inputName.setDocument(name);
-        this.toolId.setDocument(id);
-        this.inputRoom.setDocument(room);
+        this.inputAmount.setDocument(quantity);
         this.inputImportDate.setDocument(importDate);
         this.inputExpireDate.setDocument(exportDate);
-        this.inputStatus.setModel(status);
-        this.addRepaintComponent(
-                this.inputName,
-                this.inputRoom,
+        this.inputPrice.setDocument(price);
+        this.addRepaintComponent(this.inputName,
+                this.inputAmount,
                 this.inputImportDate,
                 this.inputExpireDate,
-                this.toolId
+                this.inputAmount,
+                this.inputAmount
         );
     }
     @Inject
     public void setListeners(
-            ModifyToolCancelListener modifyToolCancelListener,
-            ModifyToolSubmitListener modifyToolSubmitListener
+            AddMedicineCancelListener addMedicineCancelListener,
+            AddMedicineSubmitListener addMedicineSubmitListener
     ) {
-        this.cancelBtn.addActionListener(modifyToolCancelListener);
-        this.submitBtn.addActionListener(modifyToolSubmitListener);
+        this.cancelBtn.addActionListener(addMedicineCancelListener);
+        this.submitBtn.addActionListener(addMedicineSubmitListener);
     }
 }

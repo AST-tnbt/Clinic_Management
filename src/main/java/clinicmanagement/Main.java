@@ -32,7 +32,10 @@ public class Main {
             new ModifyMedicalRecordFactory(),
             new ToolManagementFactory(),
             new AddToolFactory(),
-            new ModifyToolFactory()
+            new ModifyToolFactory(),
+            new MedicineManagementFactory(),
+            new AddMedicineFactory(),
+            new ModifyMedicineFactory()
         );
         java.awt.EventQueue.invokeLater(() -> injector.getInstance(Login.class).setVisible(true));
     }

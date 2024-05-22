@@ -4,7 +4,9 @@
  */
 package clinicmanagement.view.manager;
 
+import clinicmanagement.constant.MedicineManagementName;
 import clinicmanagement.constant.RoomManagementName;
+import clinicmanagement.controller.medcinemanagement.*;
 import clinicmanagement.controller.roommanagement.*;
 import clinicmanagement.model.base.TableListModelSelectionWrapper;
 import clinicmanagement.model.base.TableModelWrapper;
@@ -42,7 +44,7 @@ public class MedicineManagement_Admin extends javax.swing.JFrame {
         backDashboardBtn = new javax.swing.JLabel();
         addButton = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        employeeTable = new javax.swing.JTable();
+        medicineTable = new javax.swing.JTable();
         searchBar = new javax.swing.JTextField();
         searchButton = new javax.swing.JButton();
         deleteButton = new javax.swing.JLabel();
@@ -55,7 +57,7 @@ public class MedicineManagement_Admin extends javax.swing.JFrame {
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/medicine .png"))); // NOI18N
 
         jLabel2.setFont(new java.awt.Font("sansserif", 1, 36)); // NOI18N
-        jLabel2.setText("QUẢN LÝ PHÒNG");
+        jLabel2.setText("QUẢN LÝ THUỐC");
 
         backDashboardBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/back.png"))); // NOI18N
 
@@ -68,7 +70,7 @@ public class MedicineManagement_Admin extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addGap(47, 47, 47)
                 .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 457, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 464, Short.MAX_VALUE)
                 .addComponent(backDashboardBtn)
                 .addGap(39, 39, 39))
         );
@@ -89,23 +91,23 @@ public class MedicineManagement_Admin extends javax.swing.JFrame {
 
         addButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/plus.png"))); // NOI18N
 
-        employeeTable.setFont(new java.awt.Font("FreeSans", 0, 18)); // NOI18N
-        employeeTable.setModel(new javax.swing.table.DefaultTableModel(
+        medicineTable.setFont(new java.awt.Font("FreeSans", 0, 18)); // NOI18N
+        medicineTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "Mã phòng", "Tên phòng", "Số lượng bệnh nhân tối đa"
+                "Mã thuốc", "Tên thuốc", "Ngày nhập", "Ngày hết hạn", "Giá", "Số lượng tồn kho"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false
+                false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -116,10 +118,10 @@ public class MedicineManagement_Admin extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        employeeTable.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        employeeTable.setRowHeight(30);
-        employeeTable.setShowGrid(true);
-        jScrollPane1.setViewportView(employeeTable);
+        medicineTable.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        medicineTable.setRowHeight(30);
+        medicineTable.setShowGrid(true);
+        jScrollPane1.setViewportView(medicineTable);
 
         searchBar.setFont(new java.awt.Font("FreeSans", 0, 18)); // NOI18N
 
@@ -139,8 +141,8 @@ public class MedicineManagement_Admin extends javax.swing.JFrame {
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 945, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 933, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(addButton)
                     .addComponent(deleteButton)
@@ -160,7 +162,7 @@ public class MedicineManagement_Admin extends javax.swing.JFrame {
                 .addGap(27, 27, 27)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(searchButton)
-                    .addComponent(searchBar))
+                    .addComponent(searchBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(33, 33, 33)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -181,11 +183,11 @@ public class MedicineManagement_Admin extends javax.swing.JFrame {
     private javax.swing.JLabel addButton;
     private javax.swing.JLabel backDashboardBtn;
     private javax.swing.JLabel deleteButton;
-    private javax.swing.JTable employeeTable;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable medicineTable;
     private javax.swing.JLabel modifyButton;
     private javax.swing.JTextField searchBar;
     private javax.swing.JButton searchButton;
@@ -193,32 +195,32 @@ public class MedicineManagement_Admin extends javax.swing.JFrame {
 
     @Inject
     public void SetModels(
-            @Named(RoomManagementName.ROOM_TABLE) TableModelWrapper tableModelWrapper,
-            @Named(RoomManagementName.ROOM_TABLE_LIST_SELECTION) TableListModelSelectionWrapper tableListModelSelectionWrapper,
-            @Named(RoomManagementName.ROOM_SEARCH_INPUT) Document searchInput
+            @Named(MedicineManagementName.MEDICINE_TABLE) TableModelWrapper tableModelWrapper,
+            @Named(MedicineManagementName.MEDICINE_TABLE_LIST_SELECTION) TableListModelSelectionWrapper tableListModelSelectionWrapper,
+            @Named(MedicineManagementName.MEDICINE_SEARCH_INPUT) Document searchInput
             ) {
-        tableModelWrapper.setModel(this.employeeTable.getModel());
-        tableListModelSelectionWrapper.setSelectionModel(this.employeeTable.getSelectionModel());
+        tableModelWrapper.setModel(this.medicineTable.getModel());
+        tableListModelSelectionWrapper.setSelectionModel(this.medicineTable.getSelectionModel());
         this.searchBar.setDocument(searchInput);
     }
 //    
     @Inject
     public void setListener(
-        RoomManagementAddButtonListener roomManagementAddButtonListener,
-        RoomManagementBackDashboard roomManagementBackDashboard,
-        RoomManagementShowRoom roomManagementShowRoom,
-        RoomManagementDeleteButtonListener roomManagementDeleteButtonListener,
-        RoomManagementSearchButtonListener roomManagementSearchButtonListener,
-        RoomManagementModifyButtonListener roomManagementModifyButtonListener,
-        RoomManagementSearchBarKeyPress roomManagementSearchBarKeyPress
+        MedicineManagementAddButtonListener medicineManagementAddButtonListener,
+        MedicineManagementBackDashboard medicineManagementBackDashboard,
+        MedicineManagementShowMedicine medicineManagementShowMedicine,
+        MedicineManagementDeleteButtonListener medicineManagementDeleteButtonListener,
+        MedicineManagementSearchButtonListener medicineManagementSearchButtonListener,
+        MedicineManagementModifyButtonListener medicineManagementModifyButtonListener,
+        MedicineManagementSearchBarKeyPress medicineManagementSearchBarKeyPress
     ) {
-        this.addButton.addMouseListener(roomManagementAddButtonListener);
-        this.backDashboardBtn.addMouseListener(roomManagementBackDashboard);
-        this.addComponentListener(roomManagementShowRoom);
-        this.deleteButton.addMouseListener(roomManagementDeleteButtonListener);
-        this.searchButton.addActionListener(roomManagementSearchButtonListener);
-        this.searchBar.addActionListener(roomManagementSearchButtonListener);
-        this.modifyButton.addMouseListener(roomManagementModifyButtonListener);
-        this.searchBar.addKeyListener(roomManagementSearchBarKeyPress);
+        this.addButton.addMouseListener(medicineManagementAddButtonListener);
+        this.backDashboardBtn.addMouseListener(medicineManagementBackDashboard);
+        this.addComponentListener(medicineManagementShowMedicine);
+        this.deleteButton.addMouseListener(medicineManagementDeleteButtonListener);
+        this.searchButton.addActionListener(medicineManagementSearchButtonListener);
+        this.searchBar.addActionListener(medicineManagementSearchButtonListener);
+        this.modifyButton.addMouseListener(medicineManagementModifyButtonListener);
+        this.searchBar.addKeyListener(medicineManagementSearchBarKeyPress);
     }
 }
