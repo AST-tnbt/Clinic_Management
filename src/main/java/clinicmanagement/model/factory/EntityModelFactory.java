@@ -58,4 +58,10 @@ public class EntityModelFactory extends AbstractModule {
     public static ArrayList<Room> ProvideRoom() {
         return new ArrayList<Room>();
     }
+    @Provides
+    @Singleton
+    @Named(EntityName.TOOL)
+    public static ArrayList<Tool> ProvideTool() {
+        return new ArrayList<Tool>();
+    }
 }

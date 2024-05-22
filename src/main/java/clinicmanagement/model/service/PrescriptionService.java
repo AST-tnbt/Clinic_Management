@@ -57,4 +57,8 @@ public class PrescriptionService {
         con.close();
         listPrescription.removeLast();
     }
+
+    public void removeAllObject() {
+        listPrescription.removeAll(listPrescription);
+    }
 }

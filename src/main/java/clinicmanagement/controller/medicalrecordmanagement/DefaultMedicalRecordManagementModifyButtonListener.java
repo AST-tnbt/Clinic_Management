@@ -8,6 +8,7 @@ import clinicmanagement.constant.MedicalRecordName;
 import clinicmanagement.constant.ModifyMedicalRecordName;
 import clinicmanagement.model.factory.ModifyMedicalRecordFactory;
 import clinicmanagement.util.DocumentUtil;
+import clinicmanagement.view.manager.MedicalRecord_Admin;
 import clinicmanagement.view.manager.ModifyMedicalRecord_Admin;
 import com.google.inject.Guice;
 import com.google.inject.Inject;
@@ -52,6 +53,8 @@ public class DefaultMedicalRecordManagementModifyButtonListener extends MouseAda
     private Document inputRoom;
     @Inject @Named(ModifyMedicalRecordName.P_APPOINTMENTDATE)
     private Document inputAppointmentDate;
+    @Inject
+    MedicalRecord_Admin medicalRecordAdmin;
 
     @Override
     public void mouseClicked(MouseEvent e) {
@@ -64,6 +67,7 @@ public class DefaultMedicalRecordManagementModifyButtonListener extends MouseAda
             this.inputDiagnosis.remove(0, this.inputDateOfBirth.getLength());
             this.inputRoom.remove(0, this.inputDateOfBirth.getLength());
             DocumentUtil.removeText(this.inputAppointmentDate);
+            medicalRecordAdmin.setVisible(false);
 
             this.inputName.insertString(0, DocumentUtil.getText(name), null);
             this.inputDateOfBirth.insertString(0, DocumentUtil.getText(dateOfBirth), null);

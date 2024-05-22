@@ -92,6 +92,7 @@ public class DefaultModifyMedicalRecordSubmitListener implements ModifyMedicalRe
             DocumentUtil.removeText(inputAppointmentDate);
             DocumentUtil.removeText(inputName);
             modifyMedicalRecordAdmin.setVisible(false);
+            medicalRecordAdmin.setVisible(true);
             try {
                 if (get()) {
                     JOptionPane.showMessageDialog(null, "Sửa thành công");

@@ -7,6 +7,7 @@ package clinicmanagement.controller.modifymedicalrecord;
 import clinicmanagement.constant.ModifyEmployeeName;
 import clinicmanagement.constant.ModifyMedicalRecordName;
 import clinicmanagement.util.DocumentUtil;
+import clinicmanagement.view.manager.MedicalRecord_Admin;
 import clinicmanagement.view.manager.ModifyEmployee_Admin;
 import clinicmanagement.view.manager.ModifyMedicalRecord_Admin;
 import com.google.inject.Inject;
@@ -42,7 +43,8 @@ public class DefaultModifyMedicalRecordCancelListener implements ModifyMedicalRe
     private Document inputAmount;
     @Inject
     private ModifyMedicalRecord_Admin modifyMedicalRecordAdmin;
-
+    @Inject
+    private MedicalRecord_Admin medicalRecordAdmin;
     @Override
     public void actionPerformed(ActionEvent e) {
         DocumentUtil.removeText(this.inputName);
@@ -53,5 +55,6 @@ public class DefaultModifyMedicalRecordCancelListener implements ModifyMedicalRe
         DocumentUtil.removeText(this.prescription);
         DocumentUtil.removeText(this.inputAppointmentDate);
         this.modifyMedicalRecordAdmin.setVisible(false);
+        this.medicalRecordAdmin.setVisible(true);
     }
 }

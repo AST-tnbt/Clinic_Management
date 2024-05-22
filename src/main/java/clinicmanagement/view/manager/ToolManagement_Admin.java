@@ -5,7 +5,9 @@
 package clinicmanagement.view.manager;
 
 import clinicmanagement.constant.EmployeeManagementName;
+import clinicmanagement.constant.ToolManagementName;
 import clinicmanagement.controller.employeemanagement.*;
+import clinicmanagement.controller.toolmanagement.*;
 import clinicmanagement.model.base.TableListModelSelectionWrapper;
 import clinicmanagement.model.base.TableModelWrapper;
 import com.google.inject.Inject;
@@ -42,7 +44,7 @@ public class ToolManagement_Admin extends javax.swing.JFrame {
         backDashboardBtn = new javax.swing.JLabel();
         addButton = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        employeeTable = new javax.swing.JTable();
+        toolTable = new javax.swing.JTable();
         searchBar = new javax.swing.JTextField();
         searchButton = new javax.swing.JButton();
         deleteButton = new javax.swing.JLabel();
@@ -89,8 +91,8 @@ public class ToolManagement_Admin extends javax.swing.JFrame {
 
         addButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/plus.png"))); // NOI18N
 
-        employeeTable.setFont(new java.awt.Font("FreeSans", 0, 18)); // NOI18N
-        employeeTable.setModel(new javax.swing.table.DefaultTableModel(
+        toolTable.setFont(new java.awt.Font("FreeSans", 0, 18)); // NOI18N
+        toolTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null},
                 {null, null, null, null, null, null},
@@ -116,10 +118,10 @@ public class ToolManagement_Admin extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        employeeTable.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        employeeTable.setRowHeight(30);
-        employeeTable.setShowGrid(true);
-        jScrollPane1.setViewportView(employeeTable);
+        toolTable.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        toolTable.setRowHeight(30);
+        toolTable.setShowGrid(true);
+        jScrollPane1.setViewportView(toolTable);
 
         searchBar.setFont(new java.awt.Font("FreeSans", 0, 18)); // NOI18N
 
@@ -181,7 +183,6 @@ public class ToolManagement_Admin extends javax.swing.JFrame {
     private javax.swing.JLabel addButton;
     private javax.swing.JLabel backDashboardBtn;
     private javax.swing.JLabel deleteButton;
-    private javax.swing.JTable employeeTable;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
@@ -189,36 +190,37 @@ public class ToolManagement_Admin extends javax.swing.JFrame {
     private javax.swing.JLabel modifyButton;
     private javax.swing.JTextField searchBar;
     private javax.swing.JButton searchButton;
+    private javax.swing.JTable toolTable;
     // End of variables declaration//GEN-END:variables
 
     @Inject
     public void SetModels(
-            @Named(EmployeeManagementName.EMPLOYEE_TABLE) TableModelWrapper tableModelWrapper,
-            @Named(EmployeeManagementName.EMPLOYEE_TABLE_LIST_SELECTION) TableListModelSelectionWrapper tableListModelSelectionWrapper,
-            @Named(EmployeeManagementName.EMPLOYEE_SEARCH_INPUT) Document searchInput
+            @Named(ToolManagementName.TOOL_TABLE) TableModelWrapper tableModelWrapper,
+            @Named(ToolManagementName.TOOL_TABLE_LIST_SELECTION) TableListModelSelectionWrapper tableListModelSelectionWrapper,
+            @Named(ToolManagementName.TOOL_SEARCH_INPUT) Document searchInput
             ) {
-        tableModelWrapper.setModel(this.employeeTable.getModel());
-        tableListModelSelectionWrapper.setSelectionModel(this.employeeTable.getSelectionModel());
+        tableModelWrapper.setModel(this.toolTable.getModel());
+        tableListModelSelectionWrapper.setSelectionModel(this.toolTable.getSelectionModel());
         this.searchBar.setDocument(searchInput);
     }
     
     @Inject
     public void setListener(
-        EmployeeManagementAddButtonListener employeeManagementAddButton,
-        EmployeeManagementBackDashboard employeeManagementBackDashboard,
-        EmployeeManagementShowEmployee employeeManagementShowEmployee,
-        EmployeeManagementDeleteButtonListener employeeManagementDeleteButtonListener,
-        EmployeeManagementSearchButtonListener employeeManagementSearchButtonListener,
-        EmployeeManagementModifyButtonListener employeeManagementModifyButtonListener,
-        EmployeeManagementSearchBarKeyPress employeeManagementSearchBarKeyPress
+       ToolManagementAddButtonListener toolManagementAddButtonListener,
+        ToolManagementBackDashboard toolManagementBackDashboard,
+        ToolManagementShowTool toolManagementShowTool,
+        ToolManagementDeleteButtonListener toolManagementDeleteButtonListener,
+        ToolManagementSearchButtonListener toolManagementSearchButtonListener,
+        ToolManagementModifyButtonListener toolManagementModifyButtonListener,
+        ToolManagementSearchBarKeyPress toolManagementSearchBarKeyPress
     ) {
-        this.addButton.addMouseListener(employeeManagementAddButton);
-        this.backDashboardBtn.addMouseListener(employeeManagementBackDashboard);
-        this.addComponentListener(employeeManagementShowEmployee);
-        this.deleteButton.addMouseListener(employeeManagementDeleteButtonListener);
-        this.searchButton.addActionListener(employeeManagementSearchButtonListener);
-        this.searchBar.addActionListener(employeeManagementSearchButtonListener);
-        this.modifyButton.addMouseListener(employeeManagementModifyButtonListener);
-        this.searchBar.addKeyListener(employeeManagementSearchBarKeyPress);
+        this.addButton.addMouseListener(toolManagementAddButtonListener);
+        this.backDashboardBtn.addMouseListener(toolManagementBackDashboard);
+        this.addComponentListener(toolManagementShowTool);
+        this.deleteButton.addMouseListener(toolManagementDeleteButtonListener);
+        this.searchButton.addActionListener(toolManagementSearchButtonListener);
+        this.searchBar.addActionListener(toolManagementSearchButtonListener);
+        this.modifyButton.addMouseListener(toolManagementModifyButtonListener);
+        this.searchBar.addKeyListener(toolManagementSearchBarKeyPress);
     }
 }

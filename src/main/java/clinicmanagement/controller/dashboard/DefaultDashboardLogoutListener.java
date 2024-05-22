@@ -35,6 +35,10 @@ public class DefaultDashboardLogoutListener extends MouseAdapter implements Dash
     private AppointmentService appointmentService;
     @Inject
     private RoomService roomService;
+    @Inject
+    private PrescriptionService prescriptionService;
+    @Inject
+    private ToolService toolService;
 
     @Override
     public void mouseClicked(MouseEvent e) {
@@ -49,5 +53,7 @@ public class DefaultDashboardLogoutListener extends MouseAdapter implements Dash
         appointmentService.removeAllObject();
         medicineService.removeAllObject();
         roomService.removeAllObject();
+        prescriptionService.removeAllObject();
+        toolService.removeAllObject();
     }
 }
