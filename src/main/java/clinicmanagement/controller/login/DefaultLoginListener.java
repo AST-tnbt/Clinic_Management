@@ -82,6 +82,7 @@ public class DefaultLoginListener implements LoginListener {
             }
             else if (employeeService.getAccount(username, password).equals("Sai thông tin đăng nhập")) {
                 JOptionPane.showMessageDialog(null, employeeService.getAccount(username, password));
+                employeeService.removeAllObject();
                 DocumentUtil.removeText(this.loginUserName);
                 DocumentUtil.removeText(this.loginPassword);
             }

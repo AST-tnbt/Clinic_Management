@@ -11,6 +11,7 @@ import clinicmanagement.controller.patientmanagement.worker.ShowPatientWorker;
 import clinicmanagement.controller.patientmanagement.worker.ShowPatientWorker_Expert;
 import clinicmanagement.model.service.PatientService;
 import clinicmanagement.util.DocumentUtil;
+import clinicmanagement.view.expert.AddPatient_Expert;
 import clinicmanagement.view.expert.PatientManagement_Expert;
 import clinicmanagement.view.manager.AddPatient_Admin;
 import clinicmanagement.view.manager.PatientManagement_Admin;
@@ -32,7 +33,7 @@ public class DefaultAddPatientSubmitListener_Expert implements AddPatientSubmitL
     @Inject
     private PatientManagement_Expert patientManagement;
     @Inject
-    private AddPatient_Admin addPatient;
+    private AddPatient_Expert addPatient;
     @Inject @Named(AddPatientName_Expert.P_NAME)
     private Document patient_Name;
     @Inject @Named(AddPatientName_Expert.P_SEX)

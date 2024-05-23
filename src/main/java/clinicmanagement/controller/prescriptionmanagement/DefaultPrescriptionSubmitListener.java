@@ -4,6 +4,10 @@ package clinicmanagement.controller.prescriptionmanagement;/*
  */
 
 import clinicmanagement.constant.ModifyMedicalRecordName;
+import clinicmanagement.model.service.MedicalRecordService;
+import clinicmanagement.model.service.MedicineService;
+import clinicmanagement.model.service.PrescriptionDetailService;
+import clinicmanagement.model.service.PrescriptionService;
 import clinicmanagement.util.DocumentUtil;
 import clinicmanagement.view.manager.PrescriptionManagement_Admin;
 import com.google.inject.Inject;
@@ -13,6 +17,7 @@ import javax.print.Doc;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.Document;
 import java.awt.event.ActionEvent;
+import java.sql.SQLException;
 
 /**
  *
@@ -27,6 +32,7 @@ public class DefaultPrescriptionSubmitListener implements PrescriptionSubmitList
     private Document amount;
     @Inject
     private PrescriptionManagement_Admin prescriptionManagementAdmin;
+
     @Override
     public void actionPerformed(ActionEvent e) {
         try {

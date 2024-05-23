@@ -137,4 +137,8 @@ public class MedicalRecordService {
         }
         return result;
     }
+
+    public void deleteById(int id) {
+
+    }
 }

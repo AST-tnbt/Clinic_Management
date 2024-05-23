@@ -44,7 +44,11 @@ public class EmployeeService {
 
     public void addEmployee(String name, String position, String dateOfBirth, String sex, String address, String phoneNum, String username, String password) throws SQLException {
         LocalDate realDateOfBirth = LocalDate.parse(dateOfBirth, DateTimeFormatter.ofPattern("dd-MM-yyyy"));
-        this.listEmployee.add(new Employee(listEmployee.size()+1, name, position, realDateOfBirth, sex, address, phoneNum, username, password));
+        int nextId = 0;
+        for (Employee em : listEmployee) {
+            nextId = Math.max(nextId, em.getId());
+        }
+        this.listEmployee.add(new Employee(nextId + 1, name, position, realDateOfBirth, sex, address, phoneNum, username, password));
         Connection con = databaseContext.getConnection();
         String sqlQuery = "{CALL sp_ThemNhanVien(?, ?, ?, ?, ?, ?, ?, ?)}";
         CallableStatement stm;
