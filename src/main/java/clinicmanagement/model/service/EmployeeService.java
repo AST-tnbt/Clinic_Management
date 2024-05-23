@@ -39,6 +39,7 @@ public class EmployeeService {
             );
             listEmployee.add(employee);
         }
+        con.close();
     }
 
     public void addEmployee(String name, String position, String dateOfBirth, String sex, String address, String phoneNum, String username, String password) throws SQLException {

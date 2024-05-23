@@ -6,6 +6,7 @@ import clinicmanagement.model.entity.MedicalRecord;
 import clinicmanagement.model.entity.Prescription;
 import clinicmanagement.model.service.*;
 import clinicmanagement.util.DocumentUtil;
+import clinicmanagement.view.expert.Dashboard_Expert;
 import clinicmanagement.view.manager.Dashboard_Admin;
 import clinicmanagement.view.Login;
 import com.google.inject.Inject;
@@ -52,6 +53,8 @@ public class DefaultLoginListener implements LoginListener {
     private ToolService toolService;
     @Inject
     private InvoiceService invoiceService;
+    @Inject
+    private Dashboard_Expert dashboardExpert;
 
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -70,6 +73,12 @@ public class DefaultLoginListener implements LoginListener {
                 prescriptionService.getDatabase();
                 toolService.getDatabase();
                 invoiceService.getDatabase();
+            }
+            else if (employeeService.getAccount(username, password).equals("Chuyên viên")) {
+                login.setVisible(false);
+                dashboardExpert.setVisible(true);
+                patientService.getDatabase();
+                medicineService.getDatabase();
             }
             else if (employeeService.getAccount(username, password).equals("Sai thông tin đăng nhập")) {
                 JOptionPane.showMessageDialog(null, employeeService.getAccount(username, password));

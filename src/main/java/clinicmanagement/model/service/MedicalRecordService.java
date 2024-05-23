@@ -127,4 +127,14 @@ public class MedicalRecordService {
         }
         return -1;
     }
+
+    public int getPatientOfRoom(int roomId) {
+        int result = 0;
+        for (MedicalRecord medicalRecord : listMedicalRecord) {
+            if ((medicalRecord.getRoomId() == roomId) && (medicalRecord.getStatus().equals("Nhập viện"))) {
+                result ++;
+            }
+        }
+        return result;
+    }
 }

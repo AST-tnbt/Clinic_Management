@@ -2,10 +2,12 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package clinicmanagement.view.manager;
+package clinicmanagement.view.expert;
 
-import clinicmanagement.constant.RoomManagementName;
-import clinicmanagement.controller.roommanagement.*;
+import clinicmanagement.constant.PatientManagementName_Expert;
+import clinicmanagement.view.manager.*;
+import clinicmanagement.constant.PatientManagementName;
+import clinicmanagement.controller.patientmanagement.*;
 import clinicmanagement.model.base.TableListModelSelectionWrapper;
 import clinicmanagement.model.base.TableModelWrapper;
 import com.google.inject.Inject;
@@ -19,13 +21,13 @@ import javax.swing.text.Document;
  * @author tin-ast
  */
 @Singleton
-public class RoomManagement_Admin extends javax.swing.JFrame {
+public class PatientManagement_Expert extends javax.swing.JFrame {
     /**
      * Creates new form EmployeeManagement
      */
-    public RoomManagement_Admin() {
+    public PatientManagement_Expert() {
         initComponents();
-        setTitle("TWP clinic management - Phòng");
+        setTitle("TWP clinic management - Bệnh nhân");
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -40,22 +42,22 @@ public class RoomManagement_Admin extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         backDashboardBtn = new javax.swing.JLabel();
-        addButton = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        employeeTable = new javax.swing.JTable();
+        patientTable = new javax.swing.JTable();
         searchBar = new javax.swing.JTextField();
         searchButton = new javax.swing.JButton();
-        deleteButton = new javax.swing.JLabel();
-        modifyButton = new javax.swing.JLabel();
+        addBtn = new javax.swing.JLabel();
+        deleteBtn = new javax.swing.JLabel();
+        modifyBtn = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/hospital.png"))); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/patientdetals.png"))); // NOI18N
 
         jLabel2.setFont(new java.awt.Font("sansserif", 1, 36)); // NOI18N
-        jLabel2.setText("QUẢN LÝ PHÒNG");
+        jLabel2.setText("QUẢN LÝ BỆNH NHÂN");
 
         backDashboardBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/back.png"))); // NOI18N
 
@@ -68,7 +70,7 @@ public class RoomManagement_Admin extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addGap(47, 47, 47)
                 .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 457, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 371, Short.MAX_VALUE)
                 .addComponent(backDashboardBtn)
                 .addGap(39, 39, 39))
         );
@@ -87,25 +89,23 @@ public class RoomManagement_Admin extends javax.swing.JFrame {
                         .addGap(58, 58, 58))))
         );
 
-        addButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/plus.png"))); // NOI18N
-
-        employeeTable.setFont(new java.awt.Font("FreeSans", 0, 18)); // NOI18N
-        employeeTable.setModel(new javax.swing.table.DefaultTableModel(
+        patientTable.setFont(new java.awt.Font("FreeSans", 0, 18)); // NOI18N
+        patientTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
             },
             new String [] {
-                "Mã phòng", "Tên phòng", "Số lượng bệnh nhân tối đa", "Số bệnh nhân"
+                "Mã BN", "Họ và tên", "Ngày sinh", "Giới tính", "SĐT", "Địa chỉ", "Tổng chi phí"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false, false, false, false, true
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -116,10 +116,10 @@ public class RoomManagement_Admin extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        employeeTable.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        employeeTable.setRowHeight(30);
-        employeeTable.setShowGrid(true);
-        jScrollPane1.setViewportView(employeeTable);
+        patientTable.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        patientTable.setRowHeight(30);
+        patientTable.setShowGrid(true);
+        jScrollPane1.setViewportView(patientTable);
 
         searchBar.setFont(new java.awt.Font("FreeSans", 0, 18)); // NOI18N
 
@@ -128,49 +128,51 @@ public class RoomManagement_Admin extends javax.swing.JFrame {
         searchButton.setForeground(new java.awt.Color(255, 255, 255));
         searchButton.setText("Tìm");
 
-        deleteButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/bin.png"))); // NOI18N
+        addBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/adduser.png"))); // NOI18N
 
-        modifyButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/compose.png"))); // NOI18N
+        deleteBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/deleteuser.png"))); // NOI18N
+
+        modifyBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/modifyuser.png"))); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 945, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(addButton)
-                    .addComponent(deleteButton)
-                    .addComponent(modifyButton))
-                .addGap(42, 42, 42))
             .addGroup(layout.createSequentialGroup()
-                .addGap(155, 155, 155)
+                .addGap(144, 144, 144)
                 .addComponent(searchBar, javax.swing.GroupLayout.PREFERRED_SIZE, 650, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(18, 18, 18)
                 .addComponent(searchButton, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 945, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(addBtn)
+                    .addComponent(modifyBtn)
+                    .addComponent(deleteBtn))
+                .addGap(36, 36, 36))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(27, 27, 27)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(searchButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(searchBar))
-                .addGap(33, 33, 33)
+                    .addComponent(searchBar, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 377, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(addButton)
-                        .addGap(40, 40, 40)
-                        .addComponent(deleteButton)
-                        .addGap(40, 40, 40)
-                        .addComponent(modifyButton))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 377, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(17, Short.MAX_VALUE))
+                        .addComponent(addBtn)
+                        .addGap(50, 50, 50)
+                        .addComponent(deleteBtn)
+                        .addGap(49, 49, 49)
+                        .addComponent(modifyBtn)))
+                .addContainerGap(32, Short.MAX_VALUE))
         );
 
         pack();
@@ -178,47 +180,47 @@ public class RoomManagement_Admin extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel addButton;
+    private javax.swing.JLabel addBtn;
     private javax.swing.JLabel backDashboardBtn;
-    private javax.swing.JLabel deleteButton;
-    private javax.swing.JTable employeeTable;
+    private javax.swing.JLabel deleteBtn;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JLabel modifyButton;
+    private javax.swing.JLabel modifyBtn;
+    private javax.swing.JTable patientTable;
     private javax.swing.JTextField searchBar;
     private javax.swing.JButton searchButton;
     // End of variables declaration//GEN-END:variables
 
     @Inject
     public void SetModels(
-            @Named(RoomManagementName.ROOM_TABLE) TableModelWrapper tableModelWrapper,
-            @Named(RoomManagementName.ROOM_TABLE_LIST_SELECTION) TableListModelSelectionWrapper tableListModelSelectionWrapper,
-            @Named(RoomManagementName.ROOM_SEARCH_INPUT) Document searchInput
+            @Named(PatientManagementName_Expert.PATIENT_TABLE) TableModelWrapper tableModelWrapper,
+            @Named(PatientManagementName_Expert.PATIENT_TABLE_LIST_SELECTION) TableListModelSelectionWrapper tableListModelSelectionWrapper,
+            @Named(PatientManagementName_Expert.PATIENT_SEARCH_INPUT) Document searchInput
             ) {
-        tableModelWrapper.setModel(this.employeeTable.getModel());
-        tableListModelSelectionWrapper.setSelectionModel(this.employeeTable.getSelectionModel());
+        tableModelWrapper.setModel(this.patientTable.getModel());
+        tableListModelSelectionWrapper.setSelectionModel(this.patientTable.getSelectionModel());
         this.searchBar.setDocument(searchInput);
     }
-//    
+    
     @Inject
     public void setListener(
-        RoomManagementAddButtonListener roomManagementAddButtonListener,
-        RoomManagementBackDashboard roomManagementBackDashboard,
-        RoomManagementShowRoom roomManagementShowRoom,
-        RoomManagementDeleteButtonListener roomManagementDeleteButtonListener,
-        RoomManagementSearchButtonListener roomManagementSearchButtonListener,
-        RoomManagementModifyButtonListener roomManagementModifyButtonListener,
-        RoomManagementSearchBarKeyPress roomManagementSearchBarKeyPress
+        PatientManagementBackDashboard_Expert patientManagementBackDashboard,
+        PatientManagementShowPatient_Expert patientManagementShowPatient,
+        PatientManagementSearchButtonListener_Expert patientManagementSearchButtonListener,
+        PatientManagementSearchBarKeyPress_Expert patientManagementSearchBarKeyPress,
+        PatientManagementAddButtonListener_Expert patientManagementAddButtonListener,
+        PatientManagementDeleteButtonListener_Expert patientManagementDeleteButtonListener,
+        PatientManagementModifyButtonListener_Expert patientManagementModifyButtonListener
     ) {
-        this.addButton.addMouseListener(roomManagementAddButtonListener);
-        this.backDashboardBtn.addMouseListener(roomManagementBackDashboard);
-        this.addComponentListener(roomManagementShowRoom);
-        this.deleteButton.addMouseListener(roomManagementDeleteButtonListener);
-        this.searchButton.addActionListener(roomManagementSearchButtonListener);
-        this.searchBar.addActionListener(roomManagementSearchButtonListener);
-        this.modifyButton.addMouseListener(roomManagementModifyButtonListener);
-        this.searchBar.addKeyListener(roomManagementSearchBarKeyPress);
+        this.backDashboardBtn.addMouseListener(patientManagementBackDashboard);
+        this.addComponentListener(patientManagementShowPatient);
+        this.searchButton.addActionListener(patientManagementSearchButtonListener);
+        this.searchBar.addActionListener(patientManagementSearchButtonListener);
+        this.searchBar.addKeyListener(patientManagementSearchBarKeyPress);
+        this.addBtn.addMouseListener(patientManagementAddButtonListener);
+        this.deleteBtn.addMouseListener(patientManagementDeleteButtonListener);
+        this.modifyBtn.addMouseListener(patientManagementModifyButtonListener);
     }
 }

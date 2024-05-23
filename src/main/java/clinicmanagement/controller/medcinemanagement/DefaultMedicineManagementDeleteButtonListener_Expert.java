@@ -2,16 +2,15 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package clinicmanagement.controller.roommanagement;
+package clinicmanagement.controller.medcinemanagement;
 
-import clinicmanagement.constant.EmployeeManagementName;
-import clinicmanagement.constant.RoomManagementName;
-import clinicmanagement.controller.employeemanagement.worker.ShowEmployeeWorker;
-import clinicmanagement.controller.roommanagement.worker.ShowRoomWorker;
+import clinicmanagement.constant.MedicineManagementName;
+import clinicmanagement.constant.MedicineManagementName_Expert;
+import clinicmanagement.controller.medcinemanagement.worker.ShowMedicineWorker;
+import clinicmanagement.controller.medcinemanagement.worker.ShowMedicineWorker_Expert;
 import clinicmanagement.model.base.TableListModelSelectionWrapper;
 import clinicmanagement.model.base.TableModelWrapper;
-import clinicmanagement.model.service.EmployeeService;
-import clinicmanagement.model.service.RoomService;
+import clinicmanagement.model.service.MedicineService;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 import jakarta.inject.Named;
@@ -27,22 +26,22 @@ import java.util.concurrent.ExecutionException;
  *
  * @author tin-ast
  */
-public class DefaultRoomManagementDeleteButtonListener extends MouseAdapter implements RoomManagementDeleteButtonListener {
-    @Inject @Named(RoomManagementName.ROOM_TABLE)
+public class DefaultMedicineManagementDeleteButtonListener_Expert extends MouseAdapter implements MedicineManagementDeleteButtonListener_Expert {
+    @Inject @Named(MedicineManagementName_Expert.MEDICINE_TABLE)
     TableModelWrapper tableModelWrapper;
-    @Inject @Named(RoomManagementName.ROOM_TABLE_LIST_SELECTION)
+    @Inject @Named(MedicineManagementName_Expert.MEDICINE_TABLE_LIST_SELECTION)
     TableListModelSelectionWrapper tableListModelSelectionWrapper;
     @Inject
-    private Provider<ShowRoomWorker> showRoomWorkerProvider;
+    private Provider<ShowMedicineWorker_Expert> showMedicineWorkerProvider;
     @Inject
-    private RoomService roomService;
+    private MedicineService medicineService;
 
     private ArrayList<Integer> listId = new ArrayList<>();
     class Worker extends SwingWorker<Boolean, Integer> {
         @Override
         protected Boolean doInBackground() throws Exception {
             try {
-                roomService.deleteById(listId);
+                medicineService.deleteById(listId);
             } catch (SQLException e) {
                 return false;
             }
@@ -52,11 +51,10 @@ public class DefaultRoomManagementDeleteButtonListener extends MouseAdapter impl
         protected void done() {
             try {
                 if (get()) {
-                    showRoomWorkerProvider.get().refreshTable(roomService.getListRoom());
+                    showMedicineWorkerProvider.get().refreshTable(medicineService.getListMedicine());
                     JOptionPane.showMessageDialog(null, "Xóa thành công!");
                 }
             } catch (InterruptedException | ExecutionException e) {
-                JOptionPane.showMessageDialog(null, e.getMessage(), "Database Error", javax.swing.JOptionPane.ERROR_MESSAGE);
                 throw new RuntimeException(e);
             }
         }

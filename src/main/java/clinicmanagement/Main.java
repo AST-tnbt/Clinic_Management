@@ -6,6 +6,7 @@ package clinicmanagement;
 
 import clinicmanagement.model.factory.*;
 import clinicmanagement.view.Login;
+import clinicmanagement.view.expert.AddPatient_Expert;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 
@@ -35,7 +36,13 @@ public class Main {
             new MedicineManagementFactory(),
             new AddMedicineFactory(),
             new ModifyMedicineFactory(),
-            new FeeManagementFactory()
+            new FeeManagementFactory(),
+            new PatientManagementFactory_Expert(),
+            new AddPatientFactory_Expert(),
+            new ModifyPatientFactory_Expert(),
+            new MedicineManagementFactory_Expert(),
+            new AddMedicineFactory_Expert(),
+            new ModifyMedicineFactory_Expert()
         );
         java.awt.EventQueue.invokeLater(() -> injector.getInstance(Login.class).setVisible(true));
     }

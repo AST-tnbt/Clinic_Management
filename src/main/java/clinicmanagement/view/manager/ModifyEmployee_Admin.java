@@ -121,6 +121,7 @@ public class ModifyEmployee_Admin extends BaseView {
         jLabel10.setFont(new java.awt.Font("FreeSans", 0, 18)); // NOI18N
         jLabel10.setText("Tài khoản");
 
+        inputEmpUsername.setEditable(false);
         inputEmpUsername.setFont(new java.awt.Font("FreeSans", 0, 18)); // NOI18N
 
         inputEmpSex.setFont(new java.awt.Font("FreeSans", 0, 18)); // NOI18N
