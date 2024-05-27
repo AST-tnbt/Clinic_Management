@@ -4,20 +4,20 @@ import java.time.LocalDate;
 
 public class MedicalRecord {
     private int id;
-    private int roomId;
-    private int prescriptionId;
-    private int employeeId;
     private int patientId;
+    private int prescriptionId;
+    private String doctor;
+    private String room;
     private LocalDate appointmentDate;
     private String diagnosis;
     private String status;
 
-    public MedicalRecord(int id, int roomId, int prescriptionId, int employeeId, int patientId, LocalDate appointmentDate, String diagnosis, String status) {
+    public MedicalRecord(int id, int patientId, int prescriptionId, String doctor, String room, LocalDate appointmentDate, String diagnosis, String status) {
         this.id = id;
-        this.roomId = roomId;
-        this.prescriptionId = prescriptionId;
-        this.employeeId = employeeId;
         this.patientId = patientId;
+        this.prescriptionId = prescriptionId;
+        this.doctor = doctor;
+        this.room = room;
         this.appointmentDate = appointmentDate;
         this.diagnosis = diagnosis;
         this.status = status;
@@ -31,12 +31,12 @@ public class MedicalRecord {
         this.id = id;
     }
 
-    public int getRoomId() {
-        return roomId;
+    public int getPatientId() {
+        return patientId;
     }
 
-    public void setRoomId(int roomId) {
-        this.roomId = roomId;
+    public void setPatientId(int patientId) {
+        this.patientId = patientId;
     }
 
     public int getPrescriptionId() {
@@ -47,20 +47,20 @@ public class MedicalRecord {
         this.prescriptionId = prescriptionId;
     }
 
-    public int getEmployeeId() {
-        return employeeId;
+    public String getDoctor() {
+        return doctor;
     }
 
-    public void setEmployeeId(int employeeId) {
-        this.employeeId = employeeId;
+    public void setDoctor(String doctor) {
+        this.doctor = doctor;
     }
 
-    public int getPatientId() {
-        return patientId;
+    public String getRoom() {
+        return room;
     }
 
-    public void setPatientId(int patientId) {
-        this.patientId = patientId;
+    public void setRoom(String room) {
+        this.room = room;
     }
 
     public LocalDate getAppointmentDate() {

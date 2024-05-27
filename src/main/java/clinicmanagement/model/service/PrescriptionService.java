@@ -28,19 +28,21 @@ public class PrescriptionService {
         ResultSet rs = stm.executeQuery();
         while (rs.next()) {
             Prescription prescription = new Prescription(
-                    rs.getInt(1),
-                    rs.getInt(2)
+                    rs.getInt(1)
             );
             listPrescription.add(prescription);
         }
     }
-    public void addPrescription(int doctorId) throws SQLException {
-        this.listPrescription.add(new Prescription(listPrescription.size()+1, doctorId));
+    public void addPrescription() throws SQLException {
+        int nextId = 0;
+        for (Prescription prescription : listPrescription) {
+            nextId = Math.max(nextId, prescription.getId());
+        }
+        this.listPrescription.add(new Prescription(listPrescription.size()+1));
         Connection con = databaseContext.getConnection();
-        String sqlQuery = "{CALL ThemToaThuoc(?)}";
+        String sqlQuery = "{CALL ThemToaThuoc()}";
         CallableStatement stm;
         stm = con.prepareCall(sqlQuery);
-        stm.setInt(1, doctorId);
         stm.execute();
         con.close();
     }
@@ -56,6 +58,27 @@ public class PrescriptionService {
         stm.execute();
         con.close();
         listPrescription.removeLast();
+    }
+    public void deleteById(ArrayList<Integer> listId) throws SQLException {
+        for (int tmpId : listId) {
+            for (int i = 0; i < listPrescription.size(); i++) {
+                if (listPrescription.get(i).getId() == tmpId) {
+                    listPrescription.remove(i);
+                    break;
+                }
+            }
+            Connection con = databaseContext.getConnection();
+            String sqlQuery = "{CALL XoaBenhNhan(?)}";
+            CallableStatement stm;
+            stm = con.prepareCall(sqlQuery);
+            stm.setInt(1, tmpId);
+            stm.execute();
+            con.close();
+        }
+    }
+
+    public int getLastId() {
+        return listPrescription.getLast().getId();
     }
 
     public void removeAllObject() {

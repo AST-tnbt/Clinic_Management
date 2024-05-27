@@ -22,7 +22,7 @@ public class EmployeeService {
 
     public void getDatabase() throws SQLException {
         Connection con = databaseContext.getConnection();
-        String sqlQuery = "{CALL sp_LayTatCaNhanVien()}";
+        String sqlQuery = "{CALL LayTatCaNhanVien()}";
         CallableStatement pst = con.prepareCall(sqlQuery);
         ResultSet rs = pst.executeQuery();
         while (rs.next()) {
@@ -50,7 +50,7 @@ public class EmployeeService {
         }
         this.listEmployee.add(new Employee(nextId + 1, name, position, realDateOfBirth, sex, address, phoneNum, username, password));
         Connection con = databaseContext.getConnection();
-        String sqlQuery = "{CALL sp_ThemNhanVien(?, ?, ?, ?, ?, ?, ?, ?)}";
+        String sqlQuery = "{CALL ThemNhanVien(?, ?, ?, ?, ?, ?, ?, ?)}";
         CallableStatement stm;
         stm = con.prepareCall(sqlQuery);
         stm.setString(1, name);
@@ -74,7 +74,7 @@ public class EmployeeService {
                 }
             }
             Connection con = databaseContext.getConnection();
-            String sqlQuery = "{CALL sp_XoaNhanVien(?)}";
+            String sqlQuery = "{CALL XoaNhanVien(?)}";
             CallableStatement stm;
             stm = con.prepareCall(sqlQuery);
             stm.setInt(1, tmpId );
@@ -130,7 +130,7 @@ public class EmployeeService {
             }
         }
         Connection con = databaseContext.getConnection();
-        String sqlQuery = "{CALL sp_SuaNhanVien(?, ?, ?, ?, ?, ?, ?, ?, ?)}";
+        String sqlQuery = "{CALL SuaNhanVien(?, ?, ?, ?, ?, ?, ?, ?, ?)}";
         CallableStatement pst;
         pst = con.prepareCall(sqlQuery);
         pst.setInt(1, id);
@@ -163,4 +163,5 @@ public class EmployeeService {
         }
         return -1;
     }
+
 }

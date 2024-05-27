@@ -8,6 +8,7 @@ import clinicmanagement.model.base.TableListModelSelectionWrapper;
 import clinicmanagement.model.base.TableModelWrapper;
 import clinicmanagement.model.service.EmployeeService;
 import clinicmanagement.model.service.PatientService;
+import clinicmanagement.util.DocumentUtil;
 import clinicmanagement.view.manager.ModifyEmployee_Admin;
 import clinicmanagement.view.manager.ModifyPatient_Admin;
 import com.google.inject.Inject;
@@ -38,6 +39,8 @@ public class DefaultPatientManagementModifyButtonListener extends MouseAdapter i
     private Document patient_DayOfBirth;
     @Inject @Named(ModifyPatientName.P_PHONENUMBER)
     private Document patient_PhoneNumber;
+    @Inject
+    private PatientService patientService;
 
     @Override
     public void mouseClicked(MouseEvent e) {
@@ -51,11 +54,11 @@ public class DefaultPatientManagementModifyButtonListener extends MouseAdapter i
         else {
             modifyPatientAdmin.setVisible(true);
             try {
-                this.patient_ID.remove(0, this.patient_ID.getLength());
-                this.patient_Name.remove(0, this.patient_Name.getLength());
-                this.patient_DayOfBirth.remove(0, this.patient_DayOfBirth.getLength());
-                this.patient_PhoneNumber.remove(0, this.patient_PhoneNumber.getLength());
-                this.patient_Address.remove(0, this.patient_Address.getLength());
+                DocumentUtil.removeText(this.patient_ID);
+                DocumentUtil.removeText(this.patient_Name);
+                DocumentUtil.removeText(this.patient_DayOfBirth);
+                DocumentUtil.removeText(this.patient_PhoneNumber);
+                DocumentUtil.removeText(this.patient_Address);
 
                 this.patient_ID.insertString(0, (String) tableModelWrapper.getModel().getValueAt(rows[0], 0), null);
                 this.patient_Name.insertString(0, (String) tableModelWrapper.getModel().getValueAt(rows[0], 1), null);

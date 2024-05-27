@@ -1,5 +1,7 @@
 package clinicmanagement.controller.patientmanagement;
 
+import clinicmanagement.constant.AddMedicalRecordName;
+import clinicmanagement.constant.MedicalRecordManagementName;
 import clinicmanagement.constant.MedicalRecordName;
 import clinicmanagement.constant.PatientManagementName;
 import clinicmanagement.model.base.TableListModelSelectionWrapper;
@@ -9,6 +11,7 @@ import clinicmanagement.model.service.MedicineService;
 import clinicmanagement.model.service.PrescriptionDetailService;
 import clinicmanagement.model.service.RoomService;
 import clinicmanagement.util.DocumentUtil;
+import clinicmanagement.view.manager.MedicalRecordManagement_Admin;
 import clinicmanagement.view.manager.MedicalRecord_Admin;
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
@@ -23,31 +26,13 @@ import java.util.ArrayList;
 
 public class DefaultPatientManagementViewRecordListener extends MouseAdapter implements PatientManagementViewRecordListener {
     @Inject
-    private MedicalRecord_Admin medicalRecord;
+    private MedicalRecordManagement_Admin medicalRecordManagementAdmin;
     @Inject @Named((PatientManagementName.PATIENT_TABLE))
     private TableModelWrapper tableModelWrapper;
     @Inject @Named(PatientManagementName.PATIENT_TABLE_LIST_SELECTION)
     private TableListModelSelectionWrapper tableListModelSelectionWrapper;
-    @Inject @Named(MedicalRecordName.P_NAME)
-    private Document name;
-    @Inject @Named(MedicalRecordName.P_DATEOFBIRTH)
-    private Document dateOfBirth;
-    @Inject @Named(MedicalRecordName.P_SEX)
-    private ComboBoxModel sex;
-    @Inject @Named(MedicalRecordName.P_DIAGNOSIS)
-    private Document diagnosis;
-    @Inject @Named(MedicalRecordName.P_APPOINTMENTDATE)
-    private Document appointmentDate;
-    @Inject @Named(MedicalRecordName.P_STATUS)
-    private ComboBoxModel status;
-    @Inject @Named(MedicalRecordName.P_ROOM)
-    private Document room;
-    @Inject @Named(MedicalRecordName.P_ID)
-    private Document p_id;
-    @Inject
-    private MedicalRecordService medicalRecordService;
-    @Inject
-    private RoomService roomService;
+    @Inject @Named(AddMedicalRecordName.P_ID)
+    private Document patientId;
 
     @Override
     public void mouseClicked(MouseEvent e) {
@@ -59,28 +44,13 @@ public class DefaultPatientManagementViewRecordListener extends MouseAdapter imp
             JOptionPane.showMessageDialog(null, "Vui lòng chọn 1 bệnh nhân.");
         }
         else {
-            medicalRecord.setVisible(true);
-            int patientId = Integer.parseInt((String) tableModelWrapper.getModel().getValueAt(rows[0], 0));
-            int prescriptionId = medicalRecordService.getPrescriptionIdByPatientId(patientId);
+            DocumentUtil.removeText(patientId);
             try {
-                DocumentUtil.removeText(name);
-                DocumentUtil.removeText(appointmentDate);
-                DocumentUtil.removeText(dateOfBirth);
-                DocumentUtil.removeText(room);
-                DocumentUtil.removeText(diagnosis);
-                DocumentUtil.removeText(p_id);
-
-                this.p_id.insertString(0, (String) tableModelWrapper.getModel().getValueAt(rows[0], 0),null);
-                this.name.insertString(0, (String) tableModelWrapper.getModel().getValueAt(rows[0], 1),null);
-                this.dateOfBirth.insertString(0, (String) tableModelWrapper.getModel().getValueAt(rows[0], 2),null);
-                this.sex.setSelectedItem(tableModelWrapper.getModel().getValueAt(rows[0], 3));
-                this.diagnosis.insertString(0, medicalRecordService.getDiagnosisByPatientId(patientId), null);
-                this.appointmentDate.insertString(0, medicalRecordService.getAppointmentDateByPatientId(patientId), null);
-                this.status.setSelectedItem(medicalRecordService.getStatusByPatientId(patientId));
-                this.room.insertString(0, roomService.getNameById(medicalRecordService.getRoomByPatientId(patientId)) , null);
+                patientId.insertString(0, (String) tableModelWrapper.getModel().getValueAt(rows[0], 0), null);
             } catch (BadLocationException ex) {
                 throw new RuntimeException(ex);
             }
+            medicalRecordManagementAdmin.setVisible(true);
         }
     }
 }

@@ -31,7 +31,7 @@ public class DefaultMedicineManagementSearchButtonListener implements MedicineMa
         ArrayList<Medicine> listMedicine = medicineService.getListMedicine();
         ArrayList<Medicine> listMedicineFilter = new ArrayList<>();
         for (Medicine medicine : listMedicine) {
-            if (medicine.getName().toLowerCase().contains(medicine_name.toLowerCase().trim())) {
+            if (medicine.getName().toLowerCase().trim().contains(medicine_name.toLowerCase().trim())) {
                 listMedicineFilter.add(medicine);
             }
         }

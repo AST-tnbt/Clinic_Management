@@ -7,6 +7,8 @@ package clinicmanagement.controller.feemanagement.worker;
 import clinicmanagement.constant.FeeManagementName;
 import clinicmanagement.model.base.TableModelWrapper;
 import clinicmanagement.model.entity.Invoice;
+import clinicmanagement.model.service.MedicalRecordService;
+import clinicmanagement.model.service.MedicineService;
 import clinicmanagement.model.service.PatientService;
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
@@ -24,12 +26,14 @@ public class ShowFeeWorker {
     private TableModelWrapper tableModelWrapper;
     @Inject
     private PatientService patientService;
+    @Inject
+    private MedicalRecordService medicalRecordService;
     
     public void refreshTable(ArrayList<Invoice> invoiceArrayList) {
             DefaultTableModel tableModel = (DefaultTableModel) tableModelWrapper.getModel();
             tableModel.setRowCount(0);
             for (Invoice invoice : invoiceArrayList) {
-                tableModel.addRow(new String[]{String.valueOf(invoice.getId()), patientService.getNameById(invoice.getPatientId()), String.valueOf(invoice.getDateExport().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"))), String.valueOf(invoice.getTotal())});
+                tableModel.addRow(new String[]{String.valueOf(invoice.getId()), patientService.getNameById(medicalRecordService.getPatientIdById(invoice.getMedicalRecord())), String.valueOf(invoice.getDateExport().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"))), String.valueOf(invoice.getTotal())});
             }
     }
 }

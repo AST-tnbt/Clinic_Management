@@ -22,7 +22,7 @@ public class RoomService {
 
     public void getDatabase() throws SQLException {
         Connection con = databaseContext.getConnection();
-        String sqlQuery = "{CALL sp_LayTatCaPhong()}";
+        String sqlQuery = "{CALL LayTatCaPhong()}";
         CallableStatement pst = con.prepareCall(sqlQuery);
         ResultSet rs = pst.executeQuery();
         while (rs.next()) {
@@ -38,7 +38,7 @@ public class RoomService {
     public void addRoom(String name, int amount) throws SQLException {
         listRoom.add(new Room(listRoom.size()+1, name, amount));
         Connection con = databaseContext.getConnection();
-        String sqlQuery = "{CALL sp_ThemPhong(?, ?)}";
+        String sqlQuery = "{CALL ThemPhong(?, ?)}";
         CallableStatement stm;
         stm = con.prepareCall(sqlQuery);
         stm.setString(1, name);
@@ -56,7 +56,7 @@ public class RoomService {
                 }
             }
             Connection con = databaseContext.getConnection();
-            String sqlQuery = "{CALL sp_XoaPhong(?)}";
+            String sqlQuery = "{CALL XoaPhong(?)}";
             CallableStatement stm;
             stm = con.prepareCall(sqlQuery);
             stm.setInt(1, tmpId );
@@ -79,7 +79,7 @@ public class RoomService {
             }
         }
         Connection con = databaseContext.getConnection();
-        String sqlQuery = "{CALL sp_SuaPhong(?, ?, ?)}";
+        String sqlQuery = "{CALL SuaPhong(?, ?, ?)}";
         CallableStatement pst;
         pst = con.prepareCall(sqlQuery);
         pst.setInt(1, id);

@@ -65,7 +65,7 @@ public class DefaultModifyPatientSubmitListener implements ModifyPatientSubmitLi
                 return false;
             }
             try {
-                patientService.modifyPatient(id, name, phone, dateOfBirth, sex, address);
+                patientService.modifyPatient(id, name, dateOfBirth, sex, address, phone);
                 modifyPatientAdmin.setVisible(false);
             } catch (SQLException ex) {
                 JOptionPane.showMessageDialog(null, ex.getMessage(), "Database Error", javax.swing.JOptionPane.ERROR_MESSAGE);

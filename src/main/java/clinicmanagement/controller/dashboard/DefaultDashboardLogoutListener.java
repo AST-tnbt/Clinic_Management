@@ -53,7 +53,7 @@ public class DefaultDashboardLogoutListener extends MouseAdapter implements Dash
         medicineService.removeAllObject();
         roomService.removeAllObject();
         prescriptionService.removeAllObject();
-        toolService.removeAllObject();
+//        toolService.removeAllObject();
         invoiceService.removeAllObject();
     }
 }

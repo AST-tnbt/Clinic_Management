@@ -8,6 +8,7 @@ import clinicmanagement.constant.RoomManagementName;
 import clinicmanagement.model.base.TableModelWrapper;
 import clinicmanagement.model.entity.Room;
 import clinicmanagement.model.service.MedicalRecordService;
+import clinicmanagement.model.service.PatientService;
 import clinicmanagement.model.service.RoomService;
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
@@ -23,13 +24,13 @@ public class ShowRoomWorker {
     @Inject @Named(RoomManagementName.ROOM_TABLE)
     private TableModelWrapper tableModelWrapper;
     @Inject
-    private MedicalRecordService medicalRecordService;
+    private PatientService patientService;
     
     public void refreshTable(ArrayList<Room> roomArrayList) {
             DefaultTableModel tableModel = (DefaultTableModel) tableModelWrapper.getModel();
             tableModel.setRowCount(0);
             for (Room room : roomArrayList) {
-                String amountOfPatient = String.valueOf(medicalRecordService.getPatientOfRoom(room.getId()));
+                String amountOfPatient = String.valueOf(patientService.getPatientOfRoom(room.getId()));
                 tableModel.addRow(new String[]{String.valueOf(room.getId()), room.getName(), String.valueOf(room.getCapacity()), amountOfPatient});
             }
     }

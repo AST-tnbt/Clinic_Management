@@ -3,7 +3,6 @@ package clinicmanagement.model.service;
 import clinicmanagement.constant.EntityName;
 import clinicmanagement.controller.database.DatabaseContext;
 import clinicmanagement.model.entity.Medicine;
-import clinicmanagement.model.entity.Tool;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import com.google.inject.name.Named;
@@ -41,9 +40,34 @@ public class MedicineService {
     }
 
     public void addMedicine(String name, String importDate, String expireDate, BigDecimal price, int inventoryQuantity) throws SQLException {
-        LocalDate realImportDate = LocalDate.parse(importDate, DateTimeFormatter.ofPattern("dd-MM-yyyy"));
-        LocalDate realExpireDate = LocalDate.parse(expireDate, DateTimeFormatter.ofPattern("dd-MM-yyyy"));
-        listMedicine.add(new Medicine(listMedicine.size()+1, name, realImportDate, price, realExpireDate, inventoryQuantity));
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        LocalDate realImportDate = LocalDate.parse(importDate, formatter);
+        LocalDate realExpireDate = LocalDate.parse(expireDate, formatter);
+        int nextId = 0;
+        for (Medicine medicine : listMedicine) {
+            nextId = Math.max(nextId, medicine.getId());
+            if (medicine.getName().toLowerCase().trim().equals(name.toLowerCase().trim())){
+                medicine.setImportDate(realImportDate);
+                medicine.setExpireDate(realExpireDate);
+                medicine.setPrice(price);
+                medicine.setInventoryQuantity(medicine.getInventoryQuantity() + inventoryQuantity);
+
+                Connection con = databaseContext.getConnection();
+                String sqlQuery = "{CALL SuaThuoc(?, ?, ?, ?, ?, ?)}";
+                CallableStatement pst;
+                pst = con.prepareCall(sqlQuery);
+                pst.setInt(1, medicine.getId());
+                pst.setString(2, name);
+                pst.setDate(3, Date.valueOf(realImportDate));
+                pst.setBigDecimal(4, price);
+                pst.setDate(5, Date.valueOf(realExpireDate));
+                pst.setInt(6, medicine.getInventoryQuantity());
+                pst.executeUpdate();
+                con.close();
+                return;
+            }
+        }
+        listMedicine.add(new Medicine(nextId + 1, name, realImportDate, price, realExpireDate, inventoryQuantity));
         Connection con = databaseContext.getConnection();
         String sqlQuery = "{CALL ThemThuoc(?, ?, ?, ?, ?)}";
         CallableStatement stm;
@@ -59,17 +83,16 @@ public class MedicineService {
 
     public void deleteById(ArrayList<Integer> listId) throws SQLException {
         for (int tmpId : listId) {
-            for (int i = 0; i < listMedicine.size(); i++) {
-                if (listMedicine.get(i).getId() == tmpId) {
-                    listMedicine.remove(i);
-                    break;
+            for (Medicine medicine : listMedicine) {
+                if (medicine.getId() == tmpId) {
+                    medicine.setInventoryQuantity(0);
                 }
             }
             Connection con = databaseContext.getConnection();
             String sqlQuery = "{CALL XoaThuoc(?)}";
             CallableStatement stm;
             stm = con.prepareCall(sqlQuery);
-            stm.setInt(1, tmpId );
+            stm.setInt(1, tmpId);
             stm.execute();
             con.close();
         }
@@ -132,5 +155,36 @@ public class MedicineService {
 
     public ArrayList<Medicine> getListMedicine() {
         return listMedicine;
+    }
+
+    public BigDecimal getPriceById(int id) {
+        for (Medicine medicine : listMedicine) {
+            if (medicine.getId() == id) return medicine.getPrice();
+        }
+        return BigDecimal.valueOf(0);
+    }
+
+    public void decreaseAmountById(int id, int amount) {
+        for (Medicine medicine : listMedicine) {
+            if ((medicine.getId() == id) && (amount < medicine.getInventoryQuantity())) {
+                medicine.setInventoryQuantity(medicine.getInventoryQuantity() - amount);
+            }
+        }
+    }
+    public void increaseAmountById(int id, int amount) throws SQLException {
+        for (Medicine medicine : listMedicine) {
+            if (medicine.getId() == id) {
+                medicine.setInventoryQuantity(medicine.getInventoryQuantity() + amount);
+                Connection con = databaseContext.getConnection();
+                String sqlQuery = "{CALL TangThuoc(?, ?)}";
+                CallableStatement pst;
+                pst = con.prepareCall(sqlQuery);
+                pst.setInt(1, id);
+                pst.setInt(2, amount);
+                pst.executeUpdate();
+                con.close();
+                break;
+            }
+        }
     }
 }

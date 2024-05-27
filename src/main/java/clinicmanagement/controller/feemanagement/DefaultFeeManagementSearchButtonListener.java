@@ -33,9 +33,9 @@ public class DefaultFeeManagementSearchButtonListener implements FeeManagementSe
         ArrayList<Invoice> listInvoice = invoiceService.getListInvoice();
         ArrayList<Invoice> listInvoiceFilter = new ArrayList<>();
         for (Invoice invoice : listInvoice) {
-            if (patientService.getNameById(invoice.getPatientId()).toLowerCase().contains(emp_name.toLowerCase().trim())) {
-                listInvoiceFilter.add(invoice);
-            }
+//            if (patientService.getNameById(invoice.getPatientId()).toLowerCase().contains(emp_name.toLowerCase().trim())) {
+//                listInvoiceFilter.add(invoice);
+//            }
         }
         showFeeWorkerProvider.get().refreshTable(listInvoiceFilter);
     }

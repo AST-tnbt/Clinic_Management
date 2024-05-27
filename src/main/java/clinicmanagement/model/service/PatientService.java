@@ -13,6 +13,7 @@ import java.sql.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Comparator;
 
 @Singleton
 public class PatientService {
@@ -23,7 +24,7 @@ public class PatientService {
 
     public void getDatabase() throws SQLException {
         Connection con = databaseContext.getConnection();
-            String sqlQuery = "{CALL LayTatBenhNhan()}";
+            String sqlQuery = "{CALL LayTatCaBenhNhan()}";
             CallableStatement stm = con.prepareCall(sqlQuery);
             ResultSet rs = stm.executeQuery();
             while (rs.next()) {
@@ -34,7 +35,9 @@ public class PatientService {
                         rs.getString(4),
                         rs.getString(5),
                         rs.getString(6),
-                        rs.getBigDecimal(7)
+                        rs.getBigDecimal(7),
+                        rs.getInt(8),
+                        rs.getInt(9)
                 );
                 listPatient.add(patient);
             }
@@ -43,7 +46,11 @@ public class PatientService {
 
     public void addPatient(String name, String dateOfBirth, String sex, String address, String phoneNum) throws SQLException {
         LocalDate realDateOfBirth = LocalDate.parse(dateOfBirth, DateTimeFormatter.ofPattern("dd-MM-yyyy"));
-        this.listPatient.add(new Patient(listPatient.size()+1, name, realDateOfBirth, sex, address, phoneNum, BigDecimal.valueOf(0)));
+        int nexId = 0;
+        for (Patient patient : listPatient) {
+            nexId = Math.max(nexId, patient.getId());
+        }
+        this.listPatient.add(new Patient(nexId +1 , name, realDateOfBirth, sex, address, phoneNum, BigDecimal.valueOf(0), 0, 0));
         Connection con = databaseContext.getConnection();
         String sqlQuery = "{CALL ThemBenhNhan(?, ?, ?, ?, ?)}";
         CallableStatement stm;
@@ -79,20 +86,20 @@ public class PatientService {
         return listPatient;
     }
 
-    public void modifyPatient(int id, String name, String phone, String dateOfBirth, String sex, String address) throws SQLException {
+    public void modifyPatient(int id, String name, String dateOfBirth, String sex, String address, String phone) throws SQLException {
         LocalDate realDateOfBirth = LocalDate.parse(dateOfBirth, DateTimeFormatter.ofPattern("dd-MM-yyyy"));
         for (Patient patient : listPatient) {
             if (patient.getId() == id) {
                 patient.setName(name);
-                patient.setPhoneNum(phone);
-                patient.setSex(sex);
                 patient.setDateOfBirth(realDateOfBirth);
+                patient.setSex(sex);
                 patient.setAddress(address);
+                patient.setPhoneNum(phone);
                 break;
             }
         }
         Connection con = databaseContext.getConnection();
-        String sqlQuery = "{CALL CapNhatBenhNhan(?, ?, ?, ?, ?, ?)}";
+        String sqlQuery = "{CALL SuaBenhNhan(?, ?, ?, ?, ?, ?)}";
         CallableStatement pst;
         pst = con.prepareCall(sqlQuery);
         pst.setInt(1, id);
@@ -108,9 +115,74 @@ public class PatientService {
         this.listPatient.removeAll(listPatient);
     }
 
-    public String getNameById(int patientId) {
+    public int getRoomIdById(int id) {
         for (Patient patient : listPatient) {
-            if (patient.getId() == patientId) return patient.getName();
+            if (patient.getId() == id) return patient.getRoomId();
+        }
+        return -1;
+    }
+
+    public void setDoctorIdById(int id, int doctorId) throws SQLException {
+        for (Patient patient : listPatient) {
+            if (patient.getId() == id) {
+                patient.setDoctorId(doctorId);
+            }
+        }
+        Connection con = databaseContext.getConnection();
+        String sqlQuery = "{CALL DatMaNV(?, ?)}";
+        CallableStatement pst;
+        pst = con.prepareCall(sqlQuery);
+        pst.setInt(1, id);
+        if (doctorId == 0) {
+            pst.setNull(2, java.sql.Types.INTEGER);
+        }
+        else {
+            pst.setInt(2, doctorId);
+        }
+        pst.executeUpdate();
+        con.close();
+    }
+
+    public int getDoctorIdById(int id) {
+        for (Patient patient : listPatient) {
+            if (patient.getId() == id) return patient.getDoctorId();
+        }
+        return -1;
+    }
+
+    public void setRoomById(int id, int roomId) throws SQLException {
+        for (Patient patient : listPatient) {
+            if (patient.getId() == id) {
+                patient.setRoomId(roomId);
+                break;
+            }
+        }
+        Connection con = databaseContext.getConnection();
+        String sqlQuery = "{CALL DatMaP(?, ?)}";
+        CallableStatement pst;
+        pst = con.prepareCall(sqlQuery);
+        pst.setInt(1, id);
+        if (roomId == 0) {
+            pst.setNull(2, java.sql.Types.INTEGER);
+        }
+        else {
+            pst.setInt(2, roomId);
+        }
+        pst.executeUpdate();
+        con.close();
+    }
+
+    public int getPatientOfRoom(int roomId) {
+        int result = 0;
+        for (Patient patient : listPatient) {
+            if (patient.getRoomId() == roomId) result ++;
+        }
+        return result;
+    }
+
+    public String getNameById(int id) {
+        for (Patient patient : listPatient) {
+            if (patient.getId() == id) return patient.getName();
         }
         return "";
     }

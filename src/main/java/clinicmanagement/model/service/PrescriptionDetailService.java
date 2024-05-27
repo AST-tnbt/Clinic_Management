@@ -19,6 +19,8 @@ public class PrescriptionDetailService {
     private ArrayList<PrescriptionDetail> listPrescriptionDetails;
     @Inject
     private DatabaseContext databaseContext;
+    @Inject
+    private MedicineService medicineService;
 
     public void getDatabase() throws SQLException {
         Connection con = databaseContext.getConnection();
@@ -48,17 +50,11 @@ public class PrescriptionDetailService {
         return list;
     }
 
-    public ArrayList<Integer> getListAmountByPrescriptionId(int id) {
-        ArrayList<Integer> list = new ArrayList<Integer>();
-        for (PrescriptionDetail prescriptionDetail : listPrescriptionDetails) {
-            if (prescriptionDetail.getPrescriptionId() == id) {
-                list.add(prescriptionDetail.getAmount());
-            }
-        }
-        return list;
+    public ArrayList<PrescriptionDetail> getListPrescriptionDetail() {
+        return listPrescriptionDetails;
     }
 
-    public void addPrescription(int medicineId, int prescriptionId, int amount) throws SQLException {
+    public void addPrescriptionDetail(int medicineId, int prescriptionId, int amount) throws SQLException {
         listPrescriptionDetails.add(new PrescriptionDetail(medicineId, prescriptionId, amount));
         Connection con = databaseContext.getConnection();
         String sqlQuery = "{CALL ThemCTTT(?,?,?)}";

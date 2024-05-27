@@ -28,11 +28,13 @@ public class ShowMedicineWorker {
             DefaultTableModel tableModel = (DefaultTableModel) tableModelWrapper.getModel();
             tableModel.setRowCount(0);
             for (Medicine medicine : medicineArrayList) {
-                tableModel.addRow(new String[]{String.valueOf(medicine.getId()),
-                medicine.getName(),
-                String.valueOf(medicine.getImportDate().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"))),
-                String.valueOf(medicine.getExpireDate().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"))),
-                String.valueOf(medicine.getPrice()), String.valueOf(medicine.getInventoryQuantity())});
+                if (medicine.getInventoryQuantity() > 0) {
+                    tableModel.addRow(new String[]{String.valueOf(medicine.getId()),
+                            medicine.getName(),
+                            String.valueOf(medicine.getImportDate().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"))),
+                            String.valueOf(medicine.getExpireDate().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"))),
+                            String.valueOf(medicine.getPrice()), String.valueOf(medicine.getInventoryQuantity())});
+                }
             }
     }
 }

@@ -27,7 +27,7 @@ public class DefaultEmployeeManagementSearchButtonListener implements EmployeeMa
         ArrayList<Employee> listEmp = employeeService.getListEmployee();
         ArrayList<Employee> listEmpFilter = new ArrayList<>();
         for (Employee emp : listEmp) {
-            if (emp.getName().toLowerCase().contains(emp_name.toLowerCase().trim())) {
+            if (emp.getName().toLowerCase().trim().contains(emp_name.toLowerCase().trim())) {
                 listEmpFilter.add(emp);
             }
         }

@@ -74,13 +74,8 @@ public class DefaultModifyMedicalRecordSubmitListener implements ModifyMedicalRe
                 JOptionPane.showMessageDialog(null, "Vui lòng nhập đầy đủ thông tin.");
                 return false;
             }
-            try {
-                medicalRecordService.updateMedicalRecord(medicalRecordService.getIdByPatientId(p_Id), roomService.getIdByName(room), prescriptionService.getListPrescription().size(), employeeService.getIdByUsername(DocumentUtil.getText(username)), p_Id, DocumentUtil.getText(inputAppointmentDate), diagnosis, status);
-                modifyMedicalRecordAdmin.setVisible(false);
-            } catch (SQLException ex) {
-                JOptionPane.showMessageDialog(null, ex.getMessage(), "Database Error", JOptionPane.ERROR_MESSAGE);
-                return false;
-            }
+            //                medicalRecordService.updateMedicalRecord(medicalRecordService.getIdByPatientId(p_Id), roomService.getIdByName(room), prescriptionService.getListPrescription().size(), employeeService.getIdByUsername(DocumentUtil.getText(username)), p_Id, DocumentUtil.getText(inputAppointmentDate), diagnosis, status);
+            modifyMedicalRecordAdmin.setVisible(false);
             return true;
         }
 

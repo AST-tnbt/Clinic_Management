@@ -69,13 +69,7 @@ public class DefaultAddMedicineSubmitListener implements AddMedicineSubmitListen
                 JOptionPane.showMessageDialog(null, "Vui lòng nhập đầy đủ thông tin.");
                 return false;
             }
-            try {
-                medicineService.addMedicine(name, importDate, expireDate, price, quantity);
-                medicineManagementAdmin.setVisible(true);
-            } catch (SQLException ex) {
-                JOptionPane.showMessageDialog(null, ex.getMessage(), "Database Error", JOptionPane.ERROR_MESSAGE);
-                return false;
-            }
+            medicineService.addMedicine(name, importDate, expireDate, price, quantity);
             return true;
         }
 

@@ -21,7 +21,6 @@ public class DefaultMedicineManagementAddButtonListener extends MouseAdapter imp
     
     @Override
     public void mouseClicked(MouseEvent e) {
-
         addMedicineAdmin.setVisible(true);
     }
 }

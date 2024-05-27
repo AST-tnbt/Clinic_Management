@@ -11,8 +11,10 @@ public class Patient {
     private String address;
     private String phoneNum;
     private BigDecimal totalCost;
+    private int roomId;
+    private int doctorId;
 
-    public Patient(int id, String name, LocalDate dateOfBirth, String sex, String address, String phoneNum, BigDecimal totalCost) {
+    public Patient(int id, String name, LocalDate dateOfBirth, String sex, String address, String phoneNum, BigDecimal totalCost, int roomId, int doctorId) {
         this.id = id;
         this.name = name;
         this.dateOfBirth = dateOfBirth;
@@ -20,6 +22,8 @@ public class Patient {
         this.address = address;
         this.phoneNum = phoneNum;
         this.totalCost = totalCost;
+        this.roomId = roomId;
+        this.doctorId = doctorId;
     }
 
     public int getId() {
@@ -76,5 +80,21 @@ public class Patient {
 
     public void setTotalCost(BigDecimal totalCost) {
         this.totalCost = totalCost;
+    }
+
+    public int getRoomId() {
+        return roomId;
+    }
+
+    public void setRoomId(int roomId) {
+        this.roomId = roomId;
+    }
+
+    public int getDoctorId() {
+        return doctorId;
+    }
+
+    public void setDoctorId(int doctorId) {
+        this.doctorId = doctorId;
     }
 }
