@@ -70,6 +70,7 @@ Trong đó:
 <img src="README/patientManagement.png"> 
 <img src="README/MedicineManagement.png"> 
 <img src="README/RoomManagement.png"> 
+<img src="README/ToolManagement.png"> 
 <img src="README/FeeManagement.png"> 
 
 
