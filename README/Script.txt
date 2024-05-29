@@ -1,0 +1,935 @@
+--TABLE--
+CREATE TABLE NHANVIEN (
+    MaNV INT,
+    HoTen VARCHAR(50),
+    ChucVu VARCHAR(20),
+    NgaySinh DATE,
+    GioiTinh VARCHAR(4),
+    DiaChi VARCHAR(150),
+    SoDT CHAR(15),
+    TaiKhoan CHAR(50),
+    MatKhau CHAR(20),
+    PRIMARY KEY (MaNV)
+);
+
+CREATE TABLE PHONG (
+    MaP INT,
+    TenP VARCHAR(10),
+    SoLuongBNToiDa INT,
+    PRIMARY KEY (MaP)
+);
+
+CREATE TABLE BENHNHAN (
+    MaBN INT,
+    HoTen VARCHAR(50),
+    NgaySinh DATE,
+    GioiTinh VARCHAR(4),
+    DiaChi VARCHAR(50),
+    SoDT CHAR(15),
+    TongChiPhi DECIMAL(10,2),
+    MaP INT,
+    MaNV INT,
+    PRIMARY KEY (MaBN),
+    FOREIGN KEY (MaP) REFERENCES PHONG(MaP),
+    FOREIGN KEY (MaNV) REFERENCES NHANVIEN(MaNV)
+);
+
+CREATE TABLE DUNGCU (
+    MaDC INT,
+    MaP INT,
+    TenDC VARCHAR(150),
+    NgayNhap DATE,
+    HanSuDung DATE,
+    TrangThai VARCHAR(20),
+    PRIMARY KEY (MaDC),
+    FOREIGN KEY (MaP) REFERENCES PHONG(MaP)
+);
+
+
+CREATE TABLE TOATHUOC (
+    MaToaThuoc INT,
+    PRIMARY KEY (MaToaThuoc)
+);
+
+CREATE TABLE THUOC (
+    MaThuoc INT,
+    TenThuoc VARCHAR(50),
+    NgayNhap DATE,
+    Gia DECIMAL(10,2),
+    NgayHetHan DATE,
+    SLTonKho INT,
+    PRIMARY KEY (MaThuoc)
+);
+
+CREATE TABLE CTTT (
+    MaThuoc INT,
+    MaToaThuoc INT,
+    SoLuong INT,
+    PRIMARY KEY (MaThuoc, MaToaThuoc),
+    FOREIGN KEY (MaToaThuoc) REFERENCES TOATHUOC(MaToaThuoc),
+    FOREIGN KEY (MaThuoc) REFERENCES THUOC(MaThuoc)
+);
+
+CREATE TABLE BENHAN (
+    MaBA INT,
+    MaBN INT,
+    MaToaThuoc INT,
+    TenBS VARCHAR(50),
+    Phong VARCHAR(10),
+    NgayKham DATE,
+    ChanDoan TEXT,
+    TinhTrang TEXT,
+    PRIMARY KEY (MaBA),
+    FOREIGN KEY (MaToaThuoc) REFERENCES TOATHUOC(MaToaThuoc),
+    FOREIGN KEY (MaBN) REFERENCES BENHNHAN(MaBN)
+);
+
+CREATE TABLE HOADON (
+    MaHD INT,
+    MaBA INT,
+    NgayLap DATE,
+    TongTien DECIMAL(10,2),
+    PRIMARY KEY (MaHD),
+    FOREIGN KEY (MaBA) REFERENCES BENHAN(MaBA)
+);
+--Trigger--
+--1. Ngày khám của bệnh án phải bé hơn hoặc bằng ngày hiện tại.
+DELIMITER //
+CREATE TRIGGER CheckMedicalRecordDateInsert
+BEFORE INSERT ON BENHAN
+FOR EACH ROW
+BEGIN
+    IF NEW.NgayKham > CURDATE() THEN
+        SIGNAL SQLSTATE '45000'
+        SET MESSAGE_TEXT = 'Ngày khám của bệnh án không thể lớn hơn ngày hiện tại';
+    END IF;
+END; //
+DELIMITER ;
+DELIMITER //
+CREATE TRIGGER CheckMedicalRecordDateUpdate
+BEFORE UPDATE ON BENHAN
+FOR EACH ROW
+BEGIN
+    IF NEW.NgayKham > CURDATE() THEN
+        SIGNAL SQLSTATE '45000'
+        SET MESSAGE_TEXT = 'Ngày khám của bệnh án không thể lớn hơn ngày hiện tại';
+    END IF;
+END; //
+DELIMITER ;
+
+--2. Tài khoản của mỗi nhân viên phải khác nhau
+DELIMITER //
+CREATE TRIGGER uniqueAccount BEFORE INSERT ON NHANVIEN
+FOR EACH ROW
+BEGIN
+    DECLARE existing_account INT;
+    SELECT COUNT(*) INTO existing_account FROM NHANVIEN WHERE TaiKhoan = NEW.TaiKhoan;
+    IF existing_account > 0 THEN
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Tài khoản đã tồn tại';
+    END IF;
+END //
+DELIMITER ;
+
+--3. Số lượng bệnh nhân của một phòng không lớn hơn số lượng bệnh nhân tối đa của phòng đó.
+--BENHNHAN
+DELIMITER //
+CREATE TRIGGER MaxPatientOfRoomInsert AFTER INSERT ON BENHNHAN
+FOR EACH ROW
+BEGIN
+    DECLARE v_so_luong_benh_nhan INT;
+    DECLARE v_so_luong_BN_toi_da INT;
+
+    SELECT COUNT(*) INTO v_so_luong_benh_nhan FROM BENHNHAN WHERE MaP = NEW.MaP;
+    SELECT SoLuongBNToiDa INTO v_so_luong_BN_toi_da FROM PHONG WHERE MaP = NEW.MaP;
+
+    IF v_so_luong_benh_nhan > v_so_luong_BN_toi_da THEN
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Số lượng bệnh nhân lớn hơn số lượng người tối đa trong một phòng';
+    END IF;
+END//
+DELIMITER ;
+
+DELIMITER //
+CREATE TRIGGER MaxPatientOfRoomUpdate AFTER UPDATE ON BENHNHAN
+FOR EACH ROW
+BEGIN
+    DECLARE v_so_luong_benh_nhan INT;
+    DECLARE v_so_luong_BN_toi_da INT;
+
+    SELECT COUNT(*) INTO v_so_luong_benh_nhan FROM BENHNHAN WHERE MaP = NEW.MaP;
+    SELECT SoLuongBNToiDa INTO v_so_luong_BN_toi_da FROM PHONG WHERE MaP = NEW.MaP;
+
+    IF v_so_luong_benh_nhan > v_so_luong_BN_toi_da THEN
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Số lượng bệnh nhân lớn hơn số lượng người tối đa trong một phòng';
+    END IF;
+END//
+DELIMITER ;
+--PHONG
+DELIMITER //
+CREATE TRIGGER modifyRoom AFTER UPDATE ON PHONG
+FOR EACH ROW
+BEGIN
+    DECLARE v_so_luong_BN_nhap_vien INT;
+
+    SELECT COUNT(*) INTO v_so_luong_BN_nhap_vien
+    FROM BENHNHAN
+    WHERE MaP = OLD.MaP;
+
+    IF v_so_luong_BN_nhap_vien > NEW.SoLuongBNToiDa THEN
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'SỐ LƯỢNG BỆNH NHÂN LỚN HƠN SỨC CHỨA CỦA PHÒNG';
+    END IF;
+END//
+DELIMITER ;
+--4.Ngày nhập dụng cụ phải bé hơn hạn sử dụng của dụng cụ đó
+DELIMITER //
+CREATE TRIGGER checkImportToolDateInsert
+BEFORE INSERT ON DUNGCU
+FOR EACH ROW
+BEGIN
+    IF NEW.NgayNhap >= NEW.HanSuDung THEN
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Ngày nhập phải nhỏ hơn hạn sử dụng!';
+    END IF;
+END; //
+DELIMITER ;
+DELIMITER //
+CREATE TRIGGER checkImportToolDateUpdate
+BEFORE INSERT ON DUNGCU
+FOR EACH ROW
+BEGIN
+    IF NEW.NgayNhap >= NEW.HanSuDung THEN
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Ngày nhập phải nhỏ hơn hạn sử dụng!';
+    END IF;
+END; //
+DELIMITER ;
+--5.Trị giá hoá đơn bằng tổng trị giá các loại thuốc trong toa thuốc ( số lượng x đơn giá)
+DELIMITER //
+CREATE TRIGGER updateTotalMoneyFromInsertCTTT
+AFTER INSERT ON CTTT
+FOR EACH ROW
+BEGIN
+    DECLARE total DECIMAL(10, 2);
+    SELECT SUM(THUOC.Gia * CTTT.SoLuong) INTO total
+    FROM THUOC, CTTT
+    WHERE CTTT.MaThuoc = THUOC.MaThuoc
+    AND CTTT.MaToaThuoc = NEW.MaToaThuoc;
+    UPDATE HOADON
+    SET TongTien = total
+    WHERE MaBA = (SELECT MaBA FROM  BENHAN
+                    WHERE BENHAN.MaToaThuoc = NEW.MaToaThuoc);
+END; //
+DELIMITER ;
+DELIMITER //
+CREATE TRIGGER updateTotalMoneyFromDeleteCTTT
+AFTER DELETE ON CTTT
+FOR EACH ROW
+BEGIN
+    DECLARE total DECIMAL(10, 2);
+    SELECT SUM(THUOC.Gia * CTTT.SoLuong) INTO total
+    FROM THUOC, CTTT
+    WHERE CTTT.MaThuoc = THUOC.MaThuoc
+    AND CTTT.MaToaThuoc = OLD.MaToaThuoc;
+    IF total IS NULL THEN
+        SELECT 0 INTO total;
+    END IF;
+    UPDATE HOADON
+    SET TongTien = total
+    WHERE MaBA = (SELECT MaBA FROM  BENHAN
+                    WHERE BENHAN.MaToaThuoc = OLD.MaToaThuoc);
+END; //
+DELIMITER ;
+-- 6.Số lượng thuốc được kê phải nhỏ hơn số lượng thuốc tồn kho
+DELIMITER //
+CREATE TRIGGER checkMedicationQuantityInsert
+BEFORE INSERT ON CTTT
+FOR EACH ROW
+BEGIN
+    DECLARE SLTK INT;
+    SELECT SLTonKho INTO SLTK FROM THUOC WHERE MaThuoc = NEW.MaThuoc;
+
+    IF NEW.SoLuong > SLTK THEN
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Số lượng thuốc được kê phải nhỏ hơn số lượng thuốc tồn kho!';
+    ELSE
+        UPDATE THUOC
+        SET SLTonKho = SLTonKho - NEW.SoLuong
+        WHERE MaThuoc = NEW.MaThuoc;
+    END IF;
+END; //
+DELIMITER ;
+
+DELIMITER //
+CREATE TRIGGER checkMedicationQuantityUpdate
+BEFORE UPDATE ON CTTT
+FOR EACH ROW
+BEGIN
+    DECLARE SLTK INT;
+    SELECT SLTonKho INTO SLTK FROM THUOC WHERE MaThuoc = NEW.MaThuoc;
+    IF NEW.SoLuong > SLTK + OLD.SoLuong THEN
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Số lượng thuốc được kê phải nhỏ hơn số lượng thuốc tồn kho!';
+    ELSE
+        UPDATE THUOC
+        SET SLTonKho = SLTonKho + OLD.SoLuong - NEW.SoLuong
+        WHERE MaThuoc = NEW.MaThuoc;
+    END IF;
+END; //
+DELIMITER ;
+--7. Ngày nhập thuốc phải trước ngày hết hạn thuốc
+--checked
+DELIMITER //
+CREATE TRIGGER checkImportMedicineDateInsert
+BEFORE INSERT
+ON THUOC
+FOR EACH ROW
+BEGIN
+    IF NEW.NgayNhap > NEW.NgayHetHan THEN
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Ngày nhập phải trước ngày hết hạn thuốc';
+    END IF;
+END //
+DELIMITER ;
+DELIMITER //
+CREATE TRIGGER checkImportMedicineDateUpdate
+BEFORE UPDATE
+ON THUOC
+FOR EACH ROW
+BEGIN
+    IF NEW.NgayNhap > NEW.NgayHetHan THEN
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Ngày nhập phải trước ngày hết hạn thuốc';
+    END IF;
+END //
+DELIMITER ;
+--8. Tổng chi phí của bệnh nhân bằng tổng tiền của tất cả các hóa đơn
+DELIMITER //
+CREATE TRIGGER setTotalCostPatientInsert
+BEFORE INSERT
+ON BENHNHAN
+FOR EACH ROW
+BEGIN
+    SET NEW.TongChiPhi = 0;
+END; //
+DELIMITER ;
+
+DELIMITER //
+CREATE TRIGGER setTotalInvoiceInsert
+AFTER INSERT
+ON HOADON
+FOR EACH ROW
+BEGIN
+    UPDATE BENHNHAN
+    SET TongChiPhi = TongChiPhi + NEW.TongTien
+    WHERE MaBN = (SELECT MaBN FROM BENHAN
+                WHERE MaBA = NEW.MaBA);
+END; //
+DELIMITER ;
+
+DELIMITER //
+CREATE TRIGGER setTotalInvoiceUpdate
+AFTER UPDATE
+ON HOADON
+FOR EACH ROW
+BEGIN
+    DECLARE old_total DECIMAL(10,2);
+    DECLARE new_total DECIMAL(10,2);
+
+    SELECT OLD.TongTien INTO old_total FROM HOADON WHERE MaBA = OLD.MaBA;
+    SELECT NEW.TongTien INTO new_total FROM HOADON WHERE MaBA = NEW.MaBA;
+
+    UPDATE BENHNHAN
+    SET TongChiPhi = TongChiPhi - old_total + new_total
+    WHERE MaBN = (SELECT MaBN FROM BENHAN
+                WHERE MaBA = NEW.MaBA);
+END; //
+DELIMITER ;
+--PROCEDURE--
+--NHANVIEN
+DELIMITER //
+CREATE PROCEDURE ThemNhanVien
+(
+    IN p_HoTen VARCHAR(50),
+    IN p_ChucVu VARCHAR(20),
+    IN p_NgaySinh DATE,
+    IN p_GioiTinh VARCHAR(4),
+    IN p_DiaChi VARCHAR(150),
+    IN p_SoDT VARCHAR(15),
+    IN p_TaiKhoan CHAR(50),
+    IN p_MatKhau CHAR(20)
+)
+BEGIN
+    DECLARE v_MaNV INT(10);
+    SET v_MaNV = (SELECT COALESCE(MAX(MaNV), 0) + 1 FROM NHANVIEN);
+    INSERT INTO NHANVIEN (MaNV, HoTen, ChucVu, NgaySinh, GioiTinh, DiaChi, SoDT, TaiKhoan, MatKhau)
+    VALUES (v_MaNV, p_HoTen, p_ChucVu, p_NgaySinh, p_GioiTinh, p_DiaChi, p_SoDT, p_TaiKhoan, p_MatKhau);
+END //
+DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE XoaNhanVien
+(
+    IN p_MaNV INT
+)
+BEGIN
+    DECLARE v_count INT;
+    SELECT COUNT(*) INTO v_count FROM NHANVIEN WHERE MaNV = p_MaNV;
+    IF v_count > 0 THEN
+        DELETE FROM NHANVIEN WHERE MaNV = p_MaNV;
+    ELSE
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Không tồn tại nhân viên';
+    END IF;
+END //
+DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE SuaNhanVien
+(
+    IN p_MaNV INT,
+    IN p_HoTen VARCHAR(50),
+    IN p_ChucVu VARCHAR(20),
+    IN p_NgaySinh DATE,
+    IN p_GioiTinh VARCHAR(4),
+    IN p_DiaChi VARCHAR(150),
+    IN p_SoDT VARCHAR(15),
+    IN p_TaiKhoan CHAR(50),
+    IN p_MatKhau CHAR(20)
+)
+BEGIN
+    DECLARE v_count INT;
+    SELECT COUNT(*) INTO v_count FROM NHANVIEN WHERE MaNV = p_MaNV;
+    IF v_count > 0 THEN
+        UPDATE NHANVIEN
+        SET HoTen = p_HoTen,
+            NgaySinh = p_NgaySinh,
+            GioiTinh = p_GioiTinh,
+            DiaChi = p_DiaChi,
+            SoDT = p_SoDT,
+            TaiKhoan = p_TaiKhoan,
+    	    MatKhau = p_MatKhau
+        WHERE MaNV = p_MaNV;
+    ELSE
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Không tồn tại nhân viên';
+    END IF;
+END //
+DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE LayTatCaNhanVien()
+BEGIN
+    SELECT * FROM NHANVIEN;
+END //
+DELIMITER ;
+
+--PHONG
+DELIMITER //
+CREATE PROCEDURE ThemPhong
+(
+    IN p_TenP VARCHAR(10),
+    IN p_SLBNToiDa INT
+)
+BEGIN
+    DECLARE v_MaP INT;
+    SET v_MaP = (SELECT COALESCE(MAX(MaP), 0) + 1 FROM PHONG);
+    INSERT INTO PHONG (MaP, TenP, SoLuongBNToiDa)
+    VALUES (v_MaP, p_TenP, p_SLBNToiDa);
+END //
+DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE XoaPhong
+(
+    IN p_MaP INT
+)
+BEGIN
+    DECLARE v_count INT;
+    SELECT COUNT(*) INTO v_count FROM PHONG WHERE MaP = p_MaP;
+    IF v_count > 0 THEN
+        DELETE FROM PHONG WHERE MaP = p_MaP;
+    ELSE
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Không tồn tại phòng';
+    END IF;
+END //
+DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE SuaPhong
+(
+    IN p_MaP INT,
+    IN p_TenP VARCHAR(10),
+    IN p_SLBNToiDa INT
+)
+BEGIN
+    DECLARE v_count INT;
+    SELECT COUNT(*) INTO v_count FROM PHONG WHERE MaP = p_MaP;
+    IF v_count > 0 THEN
+        UPDATE PHONG
+        SET TenP = p_TenP,
+            SoLuongBNToiDa = p_SLBNToiDa
+        WHERE MaP = p_MaP;
+    ELSE
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Không tồn tại phòng';
+    END IF;
+END //
+DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE LayTatCaPhong()
+BEGIN
+    SELECT * FROM PHONG;
+END //
+DELIMITER ;
+
+--DUNGCU
+DELIMITER //
+CREATE PROCEDURE ThemDungCu (
+    IN p_MaP INT,
+    IN p_TenDC VARCHAR(255),
+    IN p_NgNhap DATE,
+    IN p_HanSuDung DATE,
+    IN p_TrangThai VARCHAR(50)
+)
+BEGIN
+    DECLARE v_MaDC INT;
+    SET v_MaDC = (SELECT COALESCE(MAX(MaDC), 0) + 1 FROM DUNGCU);
+    INSERT INTO DUNGCU (MaDC, MaP, TenDC, NgNhap, HanSuDung, TrangThai)
+    VALUES (v_MaDC, p_MaP, p_TenDC, p_NgNhap, p_HanSuDung, p_TrangThai);
+END //
+DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE XoaDungCu (
+    IN p_MaDC INT
+)
+BEGIN
+    DECLARE v_record_count INT;
+    SELECT COUNT(*) INTO v_record_count FROM DUNGCU WHERE MaDC = p_MaDC;
+    IF v_record_count > 0 THEN
+        DELETE FROM DUNGCU WHERE MaDC = p_MaDC;
+    ELSE
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Không tồn tại dụng cụ';
+    END IF;
+END //
+DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE SuaDungCu (
+    IN p_MaDC INT,
+    IN p_MaP INT,
+    IN p_TenDC VARCHAR(255),
+    IN p_NgNhap DATE,
+    IN p_HanSuDung DATE,
+    IN p_TrangThai VARCHAR(50)
+)
+BEGIN
+    DECLARE v_record_count INT;
+    SELECT COUNT(*) INTO v_record_count FROM DUNGCU WHERE MaDC = p_MaDC;
+    IF v_record_count > 0 THEN
+        UPDATE DUNGCU
+        SET MaP = p_MaP,
+            TenDC = p_TenDC,
+            NgNhap = p_NgNhap,
+            HanSuDung = p_HanSuDung,
+            TrangThai = p_TrangThai
+        WHERE MaDC = p_MaDC;
+    ELSE
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Không tồn tại dụng cụ';
+    END IF;
+END //
+DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE LayTatCaDungCu ()
+BEGIN
+    SELECT * FROM DUNGCU;
+END //
+DELIMITER ;
+
+--THUOC
+
+DELIMITER //
+CREATE PROCEDURE ThemThuoc (
+    IN p_TenThuoc VARCHAR(255),
+    IN p_NgayNhap DATE,
+    IN p_Gia DECIMAL(10,2),
+    IN p_NgayHetHan DATE,
+    IN p_SLTonKho INT
+)
+BEGIN
+    DECLARE p_MaThuoc INT;
+    SET p_MaThuoc = (SELECT COALESCE(MAX(MaThuoc), 0) + 1 FROM THUOC);
+    INSERT INTO THUOC (MaThuoc, TenThuoc, NgayNhap, Gia, NgayHetHan, SLTonKho)
+    VALUES (p_MaThuoc, p_TenThuoc, p_NgayNhap, p_Gia, p_NgayHetHan, p_SLTonKho);
+END //
+DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE XoaThuoc
+(
+    IN p_MaThuoc INT
+)
+BEGIN
+    UPDATE THUOC
+    SET SLTonKho = 0
+    WHERE MaThuoc = p_MaThuoc;
+END//
+DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE SuaThuoc (
+    IN p_MaThuoc INT,
+    IN p_TenThuoc VARCHAR(255),
+    IN p_NgNhap DATE,
+    IN p_Gia DECIMAL(10,2),
+    IN p_NgHetHan DATE,
+    IN p_SLTonKho INT
+)
+BEGIN
+    DECLARE v_record_count INT;
+    SELECT COUNT(*) INTO v_record_count FROM THUOC WHERE MaThuoc = p_MaThuoc;
+    IF v_record_count > 0 THEN
+        UPDATE THUOC
+        SET TenThuoc = p_TenThuoc,
+            NgayNhap = p_NgNhap,
+            Gia = p_Gia,
+            NgayHetHan = p_NgHetHan,
+            SLTonKho = p_SLTonKho
+        WHERE MaThuoc = p_MaThuoc;
+    ELSE
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Không tồn tại thuốc';
+    END IF;
+END //
+DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE LayTatCaThuoc ()
+BEGIN
+    SELECT * FROM THUOC;
+END //
+DELIMITER ;
+
+--TOATHUOC
+DELIMITER //
+
+CREATE PROCEDURE ThemToaThuoc()
+BEGIN
+    DECLARE p_MaToaThuoc INT;
+    SET p_MaToaThuoc = (SELECT COALESCE(MAX(MaToaThuoc), 0) + 1 FROM TOATHUOC);
+    INSERT INTO TOATHUOC (MaToaThuoc) VALUES (p_MaToaThuoc);
+END //
+
+DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE XoaToaThuoc (
+    IN in_MaToaThuoc INT
+)
+BEGIN
+    DECLARE v_record_count INT;
+    SELECT COUNT(*) INTO v_record_count FROM TOATHUOC WHERE MaToaThuoc = in_MaToaThuoc;
+    IF v_record_count > 0 THEN
+        DELETE FROM TOATHUOC WHERE MaToaThuoc = in_MaToaThuoc;
+    ELSE
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Không tồn tại toa thuốc';
+    END IF;
+END //
+DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE LayTatCaToaThuoc ()
+BEGIN
+    SELECT * FROM TOATHUOC;
+END //
+DELIMITER ;
+
+--HOADON
+
+DELIMITER //
+CREATE PROCEDURE ThemHoaDon(
+    IN v_MaBA INT,
+    IN v_NgayLap DATE
+)
+BEGIN
+    DECLARE p_MaHD INT;
+    DECLARE total DECIMAL(10, 2);
+    SET p_MaHD = (SELECT COALESCE(MAX(MaHD), 0) + 1 FROM HOADON);
+    SELECT SUM(CT.Soluong * T.Gia) INTO total
+    FROM CTTT CT, THUOC T, BENHAN BA
+    WHERE v_MaBA = BA.MaBA
+    AND BA.MaToaThuoc = CT.MaToaThuoc
+    AND T.MaThuoc = CT.MaThuoc;
+    INSERT INTO HOADON(MaHD, MaBA, NgayLap, TongTien) VALUES (p_MaHD, v_MaBA, v_NgayLap, total);
+END //
+DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE XoaHoaDon (
+    IN p_MaHD INT
+)
+BEGIN
+    DECLARE v_record_count INT;
+    SELECT COUNT(*) INTO v_record_count FROM HOADON WHERE MaHD = p_MaHD;
+    IF v_record_count > 0 THEN
+        DELETE FROM HOADON WHERE MaHD = p_MaHD;
+    ELSE
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Không tồn tại hóa đơn';
+    END IF;
+END //
+DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE SuaHoaDon (
+    IN p_MaHD INT,
+    IN p_MaBA INT,
+    IN p_NgayLap DATE
+)
+BEGIN
+    DECLARE v_record_count INT;
+    SELECT COUNT(*) INTO v_record_count FROM HOADON WHERE MaHD = p_MaHD;
+    IF v_record_count > 0 THEN
+        UPDATE HOADON
+        SET MaBA = p_MaBA,
+            NgayLap = p_NgayLap
+        WHERE MaHD = p_MaHD;
+    ELSE
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Không tồn tại hóa đơn';
+    END IF;
+END //
+DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE LayTatCaHoaDon ()
+BEGIN
+    SELECT * FROM HOADON;
+END //
+DELIMITER ;
+
+--BENHAN
+DELIMITER //
+CREATE PROCEDURE ThemBenhAn (
+    IN p_MaBN INT,
+	IN p_MaToaThuoc INT,
+	IN p_TenBS VARCHAR(50),
+	IN p_Phong VARCHAR(10),
+    IN p_NgayKham DATE,
+    IN p_ChanDoan TEXT,
+    IN p_TinhTrang TEXT
+)
+BEGIN
+    DECLARE p_MaBA INT;
+    SET p_MaBA = (SELECT COALESCE(MAX(MaBA), 0) + 1 FROM BENHAN);
+    INSERT INTO BENHAN(MaBA, MaBN, MaToaThuoc, TenBS, Phong, NgayKham, ChanDoan, TinhTrang) VALUES (p_MaBA, p_MaBN, p_MaToaThuoc, p_TenBS, p_Phong, p_NgayKham, p_ChanDoan, p_TinhTrang);
+END //
+DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE XoaBenhAn(IN p_MaBA INT)
+BEGIN
+    DECLARE v_record_count INT;
+    SELECT COUNT(*) INTO v_record_count FROM BENHAN WHERE MaBA = p_MaBA;
+    IF v_record_count > 0 THEN
+        DELETE FROM CTTT WHERE MaToaThuoc = (SELECT MaToaThuoc FROM BENHAN WHERE MaBA = p_MaBA);
+        DELETE FROM HOADON WHERE MaBA = p_MaBA;
+        DELETE FROM BENHAN WHERE MaBA = p_MaBA;
+        DELETE FROM TOATHUOC WHERE MaToaThuoc = (SELECT MaToaThuoc FROM BENHAN WHERE MaBA = p_MaBA);
+    ELSE
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Không tồn tại bệnh án';
+    END IF;
+END //
+DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE SuaBenhAn (
+    IN p_MaBA INT,
+    IN p_MaBN INT,
+	IN p_MaToaThuoc INT,
+	IN p_TenBS VARCHAR(50),
+	IN p_Phong VARCHAR(10),
+    IN p_NgayKham DATE,
+    IN p_ChanDoan TEXT,
+    IN p_TinhTrang TEXT
+)
+BEGIN
+    DECLARE v_record_count INT;
+    SELECT COUNT(*) INTO v_record_count FROM BENHAN WHERE MaBA = p_MaBA;
+    IF v_record_count > 0 THEN
+        UPDATE BENHAN
+        SET MaBN = p_MaBN,
+            MaToaThuoc = p_MaToaThuoc,
+            TenBS = p_TenBS,
+            MaBN = p_MaBN,
+			Phong = p_Phong,
+            NgayKham = p_NgayKham,
+            ChanDoan = p_ChanDoan,
+            TinhTrang = p_TinhTrang
+        WHERE MaBA = p_MaBA;
+    ELSE
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Không tồn tại bệnh án';
+    END IF;
+END //
+DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE LayTatCaBenhAn ()
+BEGIN
+    SELECT * FROM BENHAN;
+END //
+DELIMITER ;
+
+--CTTT
+DELIMITER //
+CREATE PROCEDURE ThemCTTT (
+    IN in_MaThuoc INT,
+    IN in_MaToaThuoc INT,
+    IN in_SoLuong INT
+)
+BEGIN
+    INSERT INTO CTTT (MaThuoc, MaToaThuoc, SoLuong)
+    VALUES (in_MaThuoc, in_MaToaThuoc, in_SoLuong);
+END //
+DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE SuaCTTT (
+    IN in_MaThuoc INT,
+    IN in_MaToaThuoc INT,
+    IN in_SoLuong INT
+)
+BEGIN
+    DECLARE v_record_count INT;
+    SELECT COUNT(*) INTO v_record_count FROM CTTT WHERE MaThuoc = in_MaThuoc AND MaToaThuoc = in_MaToaThuoc;
+    IF v_record_count > 0 THEN
+        UPDATE CTTT
+        SET SoLuong = in_SoLuong
+        WHERE MaThuoc = in_MaThuoc AND MaToaThuoc = in_MaToaThuoc;
+    ELSE
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Không tồn tại chi tiết toa thuốc';
+    END IF;
+END //
+DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE XoaCTTT (
+    IN in_MaThuoc INT,
+    IN in_MaToaThuoc INT
+)
+BEGIN
+    DECLARE v_record_count INT;
+    SELECT COUNT(*) INTO v_record_count FROM CTTT WHERE MaThuoc = in_MaThuoc AND MaToaThuoc = in_MaToaThuoc;
+    IF v_record_count > 0 THEN
+        DELETE FROM CTTT WHERE MaThuoc = in_MaThuoc AND MaToaThuoc = in_MaToaThuoc;
+    ELSE
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Không tồn tại chi tiết toa thuốc';
+    END IF;
+END //
+DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE LayTatCaCTTT ()
+BEGIN
+    SELECT * FROM CTTT;
+END //
+DELIMITER ;
+
+--BENHNHAN
+DELIMITER //
+CREATE PROCEDURE ThemBenhNhan (
+    IN p_HoTen VARCHAR(50),
+    IN p_NgaySinh DATE,
+    IN p_GioiTinh VARCHAR(4),
+    IN p_DiaChi VARCHAR(150),
+    IN p_SoDT VARCHAR(15)
+)
+BEGIN
+    DECLARE next_id INT;
+    SET next_id = (SELECT COALESCE(MAX(MaBN), 0) + 1 FROM BENHNHAN);
+    INSERT INTO BENHNHAN (MaBN, HoTen, NgaySinh, GioiTinh, DiaChi, SoDT)
+    VALUES (next_id, p_HoTen, p_NgaySinh, p_GioiTinh, p_DiaChi, p_SoDT);
+END //
+DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE XoaBenhNhan (
+    IN p_MaBN INT
+)
+BEGIN
+    DECLARE v_record_count INT;
+    DECLARE v_MaToaThuoc INT;
+    DECLARE v_MaBA INT;
+
+    SELECT COUNT(*) INTO v_record_count FROM BENHNHAN WHERE MaBN = p_MaBN;
+    IF v_record_count > 0 THEN
+        DELETE FROM CTTT WHERE MaToaThuoc IN (SELECT MaToaThuoc FROM BENHAN WHERE MaBN = p_MaBN);
+        DELETE FROM HOADON WHERE MaBA IN (SELECT MaBA FROM BENHAN WHERE MaBN = p_MaBN);
+        DELETE FROM BENHAN WHERE MaBN = p_MaBN;
+        DELETE FROM TOATHUOC WHERE MaToaThuoc NOT IN (SELECT MaToaThuoc FROM BENHAN);
+        DELETE FROM BENHNHAN WHERE MaBN = p_MaBN;
+    ELSE
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Không tồn tại bệnh nhân';
+    END IF;
+END //
+DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE SuaBenhNhan (
+    IN p_MaBN INT,
+    IN p_HoTen VARCHAR(50),
+    IN p_NgaySinh DATE,
+    IN p_GioiTinh VARCHAR(4),
+    IN p_DiaChi VARCHAR(150),
+    IN p_SoDT VARCHAR(15)
+)
+BEGIN
+    DECLARE v_record_count INT;
+    SELECT COUNT(*) INTO v_record_count FROM BENHNHAN WHERE MaBN = p_MaBN;
+    IF v_record_count > 0 THEN
+        UPDATE BENHNHAN
+        SET HoTen = p_HoTen,
+            NgaySinh = p_NgaySinh,
+            GioiTinh = p_GioiTinh,
+            DiaChi = p_DiaChi,
+            SoDT = p_SoDT
+        WHERE MaBN = p_MaBN;
+    ELSE
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Không tồn tại bệnh nhân';
+    END IF;
+END //
+DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE LayTatCaBenhNhan ()
+BEGIN
+    SELECT * FROM BENHNHAN;
+END //
+DELIMITER;
+
+--Set mã bác sĩ cho bệnh nhan
+DELIMITER //
+CREATE PROCEDURE DatMaNV (
+    IN p_MaBN INT,
+    IN p_MaNV INT
+)
+BEGIN
+    UPDATE BENHNHAN
+    SET MaNV = p_MaNV
+    WHERE MaBN = p_MaBN;
+END //
+DELIMITER ;
+
+--Set mã phòng
+DELIMITER //
+CREATE PROCEDURE DatMaP (
+    IN p_MaBN INT,
+    IN p_MaP INT
+)
+BEGIN
+    UPDATE BENHNHAN
+    SET MaP = p_MaP
+    WHERE MaBN = p_MaBN;
+END //
+DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE TangThuoc (
+    IN p_MaThuoc INT,
+    IN p_SL INT
+)
+BEGIN
+    UPDATE THUOC
+    SET SLTonKho = SLTonKho + p_SL
+    WHERE MaThuoc = p_MaThuoc;
+END //
+DELIMITER ;

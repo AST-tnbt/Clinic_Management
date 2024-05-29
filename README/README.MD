@@ -31,13 +31,12 @@ Cải thiện quy trình quản lý thông tin bệnh nhân:
 -	Tăng cường hiệu quả làm việc của nhân viên phòng khám.
 -	Hệ thống sẵn sàng cho việc mở rộng quy mô phòng khám trong tương lai.
 ## Ngôn ngữ, công nghệ sử dụng
-Ngôn ngữ lập trình: Java  
-Cơ sở dữ liệu: MySQL  
-GUI: JavaSwing  
-Dependence Injection: Google Guice  
-Công cụ phát triển:  
-IDE: NetBeans, Intellij IDEA
-Quản lí mã nguồn: Github
+- Ngôn ngữ lập trình: Java  
+- Cơ sở dữ liệu: MySQL  
+- GUI: JavaSwing  
+- Dependence Injection: Google Guice  
+- Công cụ phát triển: NetBeans, Intellij IDEA  
+- Quản lí mã nguồn: Github
 ## Chức năng chính
 - Quản lý thông tin bệnh nhân.
 - Quản lý thông tin thuốc.
@@ -45,3 +44,32 @@ Quản lí mã nguồn: Github
 - Quản lý bệnh án và kê toa thuốc.
 - Quản lý nhân sự, phòng và dụng cụ.
 - Đăng nhập và phân quyền sử dụng hệ thống.
+## Cài đặt
+- Bước 1: Tạo database cho ứng dụng (sử dụng cơ sở dữ liệu MySql) bao gồm: Các bảng, procedure và trigger (Script trong folder README). 
+- Bước 2: Tải project, kết nối project với cơ sở dữ liệu MySql.
+- Bước 3: Thay đổi cấu hình cơ sở dữ liệu trong file config.properties 
+- Bước 3: Sử dụng câu lệnh `ThemNhanVien('<1>','Quản lý','<2>','<3>','<4>','<5>','<6>','<7>'); ` để thêm tài khoản với quyền quản lý.  
+Trong đó: 
+  - `<1>` : Được thay thế bằng họ và tên
+  - `<2>` : Được thay thế bằng ngày sinh (định dạng yyyy-MM-dd)
+  - `<3>` : Được thay thế bằng giới tính (Nam hoặc Nữ)
+  - `<4>` : Được thay thế bằng địa chỉ
+  - `<5>` : Được thay thế bằng số điện thoại
+  - `<6>` : Được thay thế bằng tài khoản
+  - `<7>` : Được thay thế bằng mật khẩu
+- Bước 3: Khởi chạy project, đăng nhập với tên tài khoản và mật khẩu vừa tạo.
+## Giao diện chính
+### Đăng nhập
+<img src="login.png">
+
+### Trang chính
+<img src="dashboard.png">
+
+### Các trang quản lý
+<img src="employeeManagement.png"> 
+<img src="patientManagement.png"> 
+<img src="MedicineManagement.png"> 
+<img src="RoomManagement.png"> 
+<img src="FeeManagement.png"> 
+
+

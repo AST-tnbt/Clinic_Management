@@ -5,6 +5,7 @@ import clinicmanagement.controller.database.DatabaseContext;
 import clinicmanagement.model.entity.Employee;
 import clinicmanagement.model.entity.MedicalRecord;
 import clinicmanagement.model.entity.Patient;
+import clinicmanagement.model.entity.PrescriptionDetail;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import com.google.inject.name.Named;
@@ -21,6 +22,12 @@ public class MedicalRecordService {
     private ArrayList<MedicalRecord> listMedicalRecord;
     @Inject
     private DatabaseContext databaseContext;
+    @Inject
+    private InvoiceService invoiceService;
+    @Inject
+    private PrescriptionService prescriptionService;
+    @Inject
+    private PrescriptionDetailService prescriptionDetailService;
 
     public void getDatabase() throws SQLException {
         Connection con = databaseContext.getConnection();
@@ -141,7 +148,28 @@ public class MedicalRecordService {
         return -1;
     }
 
-    public void deleteById(int id) {
+    public void deleteById(int id) throws SQLException {
+        prescriptionDetailService.getListPrescriptionDetail().removeIf(prescriptionDetail -> prescriptionDetail.getPrescriptionId() == getPrescriptionIdById(id));
+        prescriptionService.getListPrescription().removeIf(prescription -> prescription.getId() == getPrescriptionIdById(id));
+        invoiceService.getListInvoice().removeIf(invoice -> invoice.getMedicalRecord() == id);
+        listMedicalRecord.removeIf(medicalRecord -> medicalRecord.getId() == id);
+        Connection con = databaseContext.getConnection();
+        String sqlQuery = "{CALL XoaBenhAn(?)}";
+        CallableStatement stm;
+        stm = con.prepareCall(sqlQuery);
+        stm.setInt(1, id);
+        stm.execute();
+        con.close();
+    }
 
+    public int getLastId() {
+        return listMedicalRecord.getLast().getId();
+    }
+
+    public int getPrescriptionIdById(int id) {
+        for (MedicalRecord medicalRecord : listMedicalRecord) {
+            if (medicalRecord.getId() == id) return medicalRecord.getPrescriptionId();
+        }
+        return -1;
     }
 }

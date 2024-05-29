@@ -9,6 +9,7 @@ import clinicmanagement.constant.LoginName;
 import clinicmanagement.constant.MedicalRecordName;
 import clinicmanagement.constant.ModifyMedicalRecordName;
 import clinicmanagement.controller.medicalrecordmanagement.worker.ShowMedicalRecordWorker;
+import clinicmanagement.controller.patientmanagement.worker.ShowPatientWorker;
 import clinicmanagement.model.service.*;
 import clinicmanagement.util.DocumentUtil;
 import clinicmanagement.view.manager.AddMedicalRecord_Admin;
@@ -21,6 +22,7 @@ import com.google.inject.name.Named;
 import javax.swing.*;
 import javax.swing.text.Document;
 import java.awt.event.ActionEvent;
+import java.sql.SQLException;
 import java.util.concurrent.ExecutionException;
 
 /**
@@ -30,6 +32,8 @@ import java.util.concurrent.ExecutionException;
 public class DefaultAddMedicalRecordSubmitListener implements AddMedicalRecordSubmitListener {
     @Inject
     private AddMedicalRecord_Admin addMedicalRecordAdmin;
+    @Inject @Named(AddMedicalRecordName.P_PRESCRIPTION_PREVIEW)
+    private Document prescription;
     @Inject @Named(AddMedicalRecordName.P_DIAGNOSIS)
     private Document inputDiagnosis;
     @Inject @Named(AddMedicalRecordName.P_APPOINTMENTDATE)
@@ -64,11 +68,13 @@ public class DefaultAddMedicalRecordSubmitListener implements AddMedicalRecordSu
     private Provider<ShowMedicalRecordWorker> showMedicalRecordWorkerProvider;
     @Inject
     private InvoiceService invoiceService;
+    @Inject
+    private Provider<ShowPatientWorker> showPatientWorkerProvider;
 
     class Worker extends SwingWorker<Boolean, Integer> {
         int p_Id = Integer.parseInt(DocumentUtil.getText(patientId));
         @Override
-        protected Boolean doInBackground() throws Exception {
+        protected Boolean doInBackground() throws SQLException {
             String room = DocumentUtil.getText(inputRoom);
             String diagnosis = DocumentUtil.getText(inputDiagnosis);
             String appointmentDate = DocumentUtil.getText(inputAppointmentDate);
@@ -77,16 +83,21 @@ public class DefaultAddMedicalRecordSubmitListener implements AddMedicalRecordSu
                 diagnosis.isEmpty() || appointmentDate.isEmpty()
             ) {
                 JOptionPane.showMessageDialog(null, "Vui lòng nhập đầy đủ thông tin.");
-//                prescriptionDetailService.deleteByPrescriptionId(prescriptionService.getLastId());
-//                prescriptionService.deleteLastItem();
-//                patientService.setDoctorIdById(p_Id, 0);
                 return false;
             }
             else {
-                medicalRecordService.addMedicalRecord(p_Id, prescriptionService.getLastId(), employeeService.getNameById(patientService.getDoctorIdById(p_Id)), room, appointmentDate, diagnosis, status);
-                patientService.setRoomById(p_Id, roomService.getIdByName(room));
-                invoiceService.addInvoice(prescriptionService.getLastId(), appointmentDate);
-                addMedicalRecordAdmin.setVisible(false);
+                try {
+                    medicalRecordService.addMedicalRecord(p_Id, prescriptionService.getLastId(), employeeService.getNameById(patientService.getDoctorIdById(p_Id)), room, appointmentDate, diagnosis, status);
+                    patientService.setRoomById(p_Id, roomService.getIdByName(room));
+                    invoiceService.addInvoice(medicalRecordService.getLastId(), appointmentDate);
+                    addMedicalRecordAdmin.setVisible(false);
+                } catch (SQLException e) {
+                    //Khong chay cau lenh sql duoc//
+                    medicalRecordService.deleteById(medicalRecordService.getLastId());
+                    patientService.setRoomById(p_Id, 0);
+                    JOptionPane.showMessageDialog(null, e.getMessage(), "Database Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+                    throw new RuntimeException(e);
+                }
                 return true;
             }
         }
@@ -98,10 +109,12 @@ public class DefaultAddMedicalRecordSubmitListener implements AddMedicalRecordSu
             DocumentUtil.removeText(inputRoom);
             DocumentUtil.removeText(inputAppointmentDate);
             DocumentUtil.removeText(inputName);
+            DocumentUtil.removeText(prescription);
             addMedicalRecordAdmin.setVisible(false);
             try {
                 if (get()) {
                     showMedicalRecordWorkerProvider.get().refreshTable(medicalRecordService.getListMedicalRecordByPatientId(p_Id));
+                    showPatientWorkerProvider.get().refreshTable(patientService.getListPatient());
                     JOptionPane.showMessageDialog(null, "Thêm thành công");
                 }
             } catch (InterruptedException | ExecutionException e) {

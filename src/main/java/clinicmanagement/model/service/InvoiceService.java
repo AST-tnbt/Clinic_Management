@@ -2,9 +2,7 @@ package clinicmanagement.model.service;
 
 import clinicmanagement.constant.EntityName;
 import clinicmanagement.controller.database.DatabaseContext;
-import clinicmanagement.model.entity.Employee;
-import clinicmanagement.model.entity.Invoice;
-import clinicmanagement.model.entity.PrescriptionDetail;
+import clinicmanagement.model.entity.*;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import com.google.inject.name.Named;
@@ -25,6 +23,11 @@ public class InvoiceService {
     private PrescriptionDetailService prescriptionDetailService;
     @Inject
     private MedicineService medicineService;
+    @Inject
+    private PatientService patientService;
+    @Inject
+    private MedicalRecordService medicalRecordService;
+
 
     public void getDatabase() throws SQLException {
         Connection con = databaseContext.getConnection();
@@ -42,7 +45,7 @@ public class InvoiceService {
         }
     }
 
-    public void addInvoice(int prescriptionId, String dateExport) throws SQLException {
+    public void addInvoice(int medicalRecordId, String dateExport) throws SQLException {
         LocalDate realDateExport = LocalDate.parse(dateExport, DateTimeFormatter.ofPattern("dd-MM-yyyy"));
         int nextId = 0;
         for (Invoice invoice : listInvoice) {
@@ -50,15 +53,20 @@ public class InvoiceService {
         }
         BigDecimal total = BigDecimal.valueOf(0);
         for (PrescriptionDetail prescriptionDetail : prescriptionDetailService.getListPrescriptionDetail()) {
-            if (prescriptionDetail.getPrescriptionId() == prescriptionId)
-                total.add(medicineService.getPriceById(prescriptionDetail.getMedicineId()).multiply(BigDecimal.valueOf(prescriptionDetail.getAmount())));
+            if (prescriptionDetail.getPrescriptionId() == medicalRecordService.getPrescriptionIdById(medicalRecordId))
+                total = total.add(medicineService.getPriceById(prescriptionDetail.getMedicineId()).multiply(BigDecimal.valueOf(prescriptionDetail.getAmount())));
         }
-        this.listInvoice.add(new Invoice(nextId + 1, prescriptionId, realDateExport, total));
+        for (Patient patient : patientService.getListPatient()) {
+            if (patient.getId() == medicalRecordService.getPatientIdById(medicalRecordId)) {
+                patient.setTotalCost(patient.getTotalCost().add(total));
+            }
+        }
+        this.listInvoice.add(new Invoice(nextId + 1, medicalRecordId, realDateExport, total));
         Connection con = databaseContext.getConnection();
         String sqlQuery = "{CALL ThemHoaDon(?, ?)}";
         CallableStatement stm;
         stm = con.prepareCall(sqlQuery);
-        stm.setInt(1, prescriptionId);
+        stm.setInt(1, medicalRecordId);
         stm.setDate(2, Date.valueOf(realDateExport));
         stm.execute();
         con.close();

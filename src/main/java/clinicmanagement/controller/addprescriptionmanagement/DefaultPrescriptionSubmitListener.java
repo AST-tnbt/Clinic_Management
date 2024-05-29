@@ -14,6 +14,7 @@ import clinicmanagement.view.manager.AddPrescriptionManagement_Admin;
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
 
+import javax.swing.*;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.Document;
 import java.awt.event.ActionEvent;
@@ -50,6 +51,12 @@ public class DefaultPrescriptionSubmitListener implements PrescriptionSubmitList
     @Override
     public void actionPerformed(ActionEvent e) {
         try {
+            if (DocumentUtil.getText(m_prescription).isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Vui lòng kê toa");
+                DocumentUtil.removeText(amount);
+                DocumentUtil.removeText(m_prescription);
+                return;
+            }
             prescription.insertString(0, DocumentUtil.getText(m_prescription), null);
             DocumentUtil.removeText(amount);
             DocumentUtil.removeText(m_prescription);
