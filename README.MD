@@ -60,16 +60,16 @@ Trong đó:
 - Bước 3: Khởi chạy project, đăng nhập với tên tài khoản và mật khẩu vừa tạo.
 ## Giao diện chính
 ### Đăng nhập
-<img src="login.png">
+<img src="README/login.png">
 
 ### Trang chính
-<img src="dashboard.png">
+<img src="README/dashboard.png">
 
 ### Các trang quản lý
-<img src="employeeManagement.png"> 
-<img src="patientManagement.png"> 
-<img src="MedicineManagement.png"> 
-<img src="RoomManagement.png"> 
-<img src="FeeManagement.png"> 
+<img src="README/employeeManagement.png"> 
+<img src="README/patientManagement.png"> 
+<img src="README/MedicineManagement.png"> 
+<img src="README/RoomManagement.png"> 
+<img src="README/FeeManagement.png"> 
 
 
