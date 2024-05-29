@@ -478,7 +478,7 @@ DELIMITER //
 CREATE PROCEDURE ThemDungCu (
     IN p_MaP INT,
     IN p_TenDC VARCHAR(255),
-    IN p_NgNhap DATE,
+    IN p_NgayNhap DATE,
     IN p_HanSuDung DATE,
     IN p_TrangThai VARCHAR(50)
 )
@@ -510,7 +510,7 @@ CREATE PROCEDURE SuaDungCu (
     IN p_MaDC INT,
     IN p_MaP INT,
     IN p_TenDC VARCHAR(255),
-    IN p_NgNhap DATE,
+    IN p_NgayNhap DATE,
     IN p_HanSuDung DATE,
     IN p_TrangThai VARCHAR(50)
 )

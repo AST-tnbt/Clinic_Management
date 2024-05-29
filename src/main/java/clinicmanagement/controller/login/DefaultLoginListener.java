@@ -68,7 +68,7 @@ public class DefaultLoginListener implements LoginListener {
                 medicineService.getDatabase();
                 roomService.getDatabase();
                 prescriptionService.getDatabase();
-//                toolService.getDatabase();
+                toolService.getDatabase();
                 invoiceService.getDatabase();
             }
 //            else if (employeeService.getAccount(username, password).equals("Chuyên viên")) {

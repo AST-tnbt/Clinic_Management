@@ -27,7 +27,7 @@ public class ToolManagement_Admin extends javax.swing.JFrame {
      */
     public ToolManagement_Admin() {
         initComponents();
-        setTitle("TWP clinic management - Nhân sự");
+        setTitle("TWP clinic management - Dụng cụ");
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -206,7 +206,7 @@ public class ToolManagement_Admin extends javax.swing.JFrame {
     
     @Inject
     public void setListener(
-       ToolManagementAddButtonListener toolManagementAddButtonListener,
+        ToolManagementAddButtonListener toolManagementAddButtonListener,
         ToolManagementBackDashboard toolManagementBackDashboard,
         ToolManagementShowTool toolManagementShowTool,
         ToolManagementDeleteButtonListener toolManagementDeleteButtonListener,
