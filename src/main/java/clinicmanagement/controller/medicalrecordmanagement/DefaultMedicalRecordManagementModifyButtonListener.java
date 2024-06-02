@@ -4,18 +4,20 @@
  */
 package clinicmanagement.controller.medicalrecordmanagement;
 
-import clinicmanagement.constant.MedicalRecordName;
+import clinicmanagement.constant.MedicalRecordManagementName;
 import clinicmanagement.constant.ModifyMedicalRecordName;
-import clinicmanagement.model.factory.ModifyMedicalRecordFactory;
+import clinicmanagement.constant.PatientManagementName;
+import clinicmanagement.model.base.TableListModelSelectionWrapper;
+import clinicmanagement.model.base.TableModelWrapper;
+import clinicmanagement.model.entity.PrescriptionDetail;
+import clinicmanagement.model.service.MedicalRecordService;
+import clinicmanagement.model.service.MedicineService;
+import clinicmanagement.model.service.PrescriptionDetailService;
 import clinicmanagement.util.DocumentUtil;
-import clinicmanagement.view.manager.MedicalRecord_Admin;
 import clinicmanagement.view.manager.ModifyMedicalRecord_Admin;
-import com.google.inject.Guice;
 import com.google.inject.Inject;
-import com.google.inject.Injector;
 import com.google.inject.name.Named;
 
-import javax.print.Doc;
 import javax.swing.*;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.Document;
@@ -31,19 +33,15 @@ import java.time.format.DateTimeFormatter;
 public class DefaultMedicalRecordManagementModifyButtonListener extends MouseAdapter implements MedicalRecordManagementModifyButtonListener {
     @Inject
     private ModifyMedicalRecord_Admin modifyMedicalRecordAdmin;
-    @Inject @Named(MedicalRecordName.P_NAME)
-    private Document name;
-    @Inject @Named(MedicalRecordName.P_DATEOFBIRTH)
-    private Document dateOfBirth;
-    @Inject @Named(MedicalRecordName.P_SEX)
-    private ComboBoxModel sex;
     @Inject @Named(ModifyMedicalRecordName.P_NAME)
     private Document inputName;
     @Inject @Named(ModifyMedicalRecordName.P_DATEOFBIRTH)
     private Document inputDateOfBirth;
     @Inject @Named(ModifyMedicalRecordName.P_SEX)
     private ComboBoxModel inputSex;
-    @Inject @Named(ModifyMedicalRecordName.P_PRESCRIPTION)
+    @Inject @Named(ModifyMedicalRecordName.P_STATUS)
+    private ComboBoxModel inputStatus;
+    @Inject @Named(ModifyMedicalRecordName.P_PRESCRIPTION_PREVIEW)
     private Document prescription;
     @Inject @Named(ModifyMedicalRecordName.P_AMOUNT)
     private Document inputAmount;
@@ -53,28 +51,54 @@ public class DefaultMedicalRecordManagementModifyButtonListener extends MouseAda
     private Document inputRoom;
     @Inject @Named(ModifyMedicalRecordName.P_APPOINTMENTDATE)
     private Document inputAppointmentDate;
+    @Inject @Named(MedicalRecordManagementName.MEDICAL_RECORD_TABLE)
+    private TableModelWrapper tableModelWrapper;
+    @Inject @Named(MedicalRecordManagementName.MEDICAL_RECORD_TABLE_LIST_SELECTION)
+    private TableListModelSelectionWrapper tableListModelSelectionWrapper;
+    @Inject @Named(PatientManagementName.PATIENT_TABLE)
+    private TableModelWrapper tableModelWrapperPatient;
+    @Inject @Named(PatientManagementName.PATIENT_TABLE_LIST_SELECTION)
+    private TableListModelSelectionWrapper tableListModelSelectionWrapperPatient;
     @Inject
-    MedicalRecord_Admin medicalRecordAdmin;
+    private MedicalRecordService medicalRecordService;
+    @Inject
+    private PrescriptionDetailService prescriptionDetailService;
+    @Inject
+    private MedicineService medicineService;
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        modifyMedicalRecordAdmin.setVisible(true);
-        try {
-            this.inputName.remove(0, this.inputName.getLength());
-            this.inputDateOfBirth.remove(0, this.inputDateOfBirth.getLength());
-            this.inputAmount.remove(0, this.inputDateOfBirth.getLength());
-            this.prescription.remove(0, this.inputDateOfBirth.getLength());
-            this.inputDiagnosis.remove(0, this.inputDateOfBirth.getLength());
-            this.inputRoom.remove(0, this.inputDateOfBirth.getLength());
-            DocumentUtil.removeText(this.inputAppointmentDate);
-            medicalRecordAdmin.setVisible(false);
+        int []rows = tableListModelSelectionWrapper.getSelectionModel().getSelectedIndices();
+        if (rows.length == 0) {
+            JOptionPane.showMessageDialog(null, "Vui lòng chọn bệnh án để chỉnh sửa.");
+        }
+        else if (rows.length >1) {
+            JOptionPane.showMessageDialog(null, "Vui lòng chọn 1 bệnh án.");
+        }
+        else {
+            modifyMedicalRecordAdmin.setVisible(true);
+            int medicalRecordId = Integer.parseInt((String) tableModelWrapper.getModel().getValueAt(rows[0], 0));
+            try {
+                DocumentUtil.removeText(this.inputName);
+                DocumentUtil.removeText(this.inputDateOfBirth);
+                DocumentUtil.removeText(this.inputAppointmentDate);
+                DocumentUtil.removeText(this.inputDiagnosis);
+                DocumentUtil.removeText(this.inputRoom);
+                DocumentUtil.removeText(this.prescription);
 
-            this.inputName.insertString(0, DocumentUtil.getText(name), null);
-            this.inputDateOfBirth.insertString(0, DocumentUtil.getText(dateOfBirth), null);
-            this.inputSex.setSelectedItem(sex.getSelectedItem());
-            this.inputAppointmentDate.insertString(0, LocalDate.now().format(DateTimeFormatter.ofPattern("dd-MM-yyy")), null);
-        } catch (BadLocationException ex) {
-            throw new RuntimeException(ex);
+                inputName.insertString(0, (String) tableModelWrapperPatient.getModel().getValueAt(rows[0], 1), null);
+                inputDateOfBirth.insertString(0, (String) tableModelWrapperPatient.getModel().getValueAt(rows[0], 2), null);
+                inputSex.setSelectedItem(tableModelWrapperPatient.getModel().getValueAt(rows[0], 3));
+                inputAppointmentDate.insertString(0, LocalDate.now().format(DateTimeFormatter.ofPattern("dd-MM-yyy")), null);
+                inputDiagnosis.insertString(0, medicalRecordService.getDiagnosisById(medicalRecordId), null);
+                inputRoom.insertString(0, medicalRecordService.getRoomById(medicalRecordId), null);
+                inputStatus.setSelectedItem(medicalRecordService.getStatusById(medicalRecordId));
+                for (PrescriptionDetail prescriptionDetail : prescriptionDetailService.getListPrescriptionDetailByPrescriptionId(medicalRecordService.getPrescriptionIdById(medicalRecordId))) {
+                    prescription.insertString(prescription.getLength(), medicineService.getNameById(prescriptionDetail.getMedicineId()) + " : " + prescriptionDetail.getAmount() + "\n", null );
+                }
+            } catch (BadLocationException ex) {
+                throw new RuntimeException(ex);
+            }
         }
     }
 }

@@ -7,6 +7,7 @@ package clinicmanagement.view.manager;
 import clinicmanagement.constant.MedicalRecordManagementName;
 import clinicmanagement.controller.medicalrecordmanagement.MedicalRecordManagementAddButtonListener;
 import clinicmanagement.controller.medicalrecordmanagement.MedicalRecordManagementDeleteButtonListener;
+import clinicmanagement.controller.medicalrecordmanagement.MedicalRecordManagementModifyButtonListener;
 import clinicmanagement.controller.medicalrecordmanagement.MedicalRecordManagementShowMedicalRecord;
 import clinicmanagement.model.base.TableListModelSelectionWrapper;
 import clinicmanagement.model.base.TableModelWrapper;
@@ -208,10 +209,12 @@ public class MedicalRecordManagement_Admin extends javax.swing.JFrame {
     public void setListeners (
         MedicalRecordManagementShowMedicalRecord medicalRecordManagementShowMedicalRecord,
         MedicalRecordManagementAddButtonListener medicalRecordManagementAddButtonListener,
-        MedicalRecordManagementDeleteButtonListener medicalRecordManagementDeleteButtonListener
+        MedicalRecordManagementDeleteButtonListener medicalRecordManagementDeleteButtonListener,
+        MedicalRecordManagementModifyButtonListener medicalRecordManagementModifyButtonListener
     ) {
         this.addComponentListener(medicalRecordManagementShowMedicalRecord);
         this.addBtn.addMouseListener(medicalRecordManagementAddButtonListener);
         this.deleteBtn.addMouseListener(medicalRecordManagementDeleteButtonListener);
+        this.modifyBtn.addMouseListener(medicalRecordManagementModifyButtonListener);
     }
 }

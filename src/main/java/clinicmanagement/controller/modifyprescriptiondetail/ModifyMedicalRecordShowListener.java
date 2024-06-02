@@ -1,4 +1,4 @@
-package clinicmanagement.controller.modifymedicalrecord;
+package clinicmanagement.controller.modifyprescriptiondetail;
 
 import com.google.inject.ImplementedBy;
 

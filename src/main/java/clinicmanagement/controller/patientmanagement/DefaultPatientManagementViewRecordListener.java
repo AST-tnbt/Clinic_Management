@@ -1,28 +1,19 @@
 package clinicmanagement.controller.patientmanagement;
 
 import clinicmanagement.constant.AddMedicalRecordName;
-import clinicmanagement.constant.MedicalRecordManagementName;
-import clinicmanagement.constant.MedicalRecordName;
 import clinicmanagement.constant.PatientManagementName;
 import clinicmanagement.model.base.TableListModelSelectionWrapper;
 import clinicmanagement.model.base.TableModelWrapper;
-import clinicmanagement.model.service.MedicalRecordService;
-import clinicmanagement.model.service.MedicineService;
-import clinicmanagement.model.service.PrescriptionDetailService;
-import clinicmanagement.model.service.RoomService;
 import clinicmanagement.util.DocumentUtil;
 import clinicmanagement.view.manager.MedicalRecordManagement_Admin;
-import clinicmanagement.view.manager.MedicalRecord_Admin;
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
 
-import javax.print.Doc;
 import javax.swing.*;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.Document;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.ArrayList;
 
 public class DefaultPatientManagementViewRecordListener extends MouseAdapter implements PatientManagementViewRecordListener {
     @Inject

@@ -47,7 +47,7 @@ public class AddMedicalRecordFactory extends AbstractModule {
     @Singleton
     @Named(AddMedicalRecordName.P_STATUS)
     static ComboBoxModel provideStatusModel() {
-        return new DefaultComboBoxModel(List.of("Đã điều trị", "Nhập viện", "Đã xuất viện").toArray());
+        return new DefaultComboBoxModel(List.of("Đang điều trị", "Nhập viện", "Đã xuất viện").toArray());
     }
     @Provides
     @Singleton

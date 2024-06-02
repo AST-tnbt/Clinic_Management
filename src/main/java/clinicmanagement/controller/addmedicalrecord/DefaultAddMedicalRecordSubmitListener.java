@@ -6,15 +6,11 @@ package clinicmanagement.controller.addmedicalrecord;
 
 import clinicmanagement.constant.AddMedicalRecordName;
 import clinicmanagement.constant.LoginName;
-import clinicmanagement.constant.MedicalRecordName;
-import clinicmanagement.constant.ModifyMedicalRecordName;
 import clinicmanagement.controller.medicalrecordmanagement.worker.ShowMedicalRecordWorker;
 import clinicmanagement.controller.patientmanagement.worker.ShowPatientWorker;
 import clinicmanagement.model.service.*;
 import clinicmanagement.util.DocumentUtil;
 import clinicmanagement.view.manager.AddMedicalRecord_Admin;
-import clinicmanagement.view.manager.MedicalRecord_Admin;
-import clinicmanagement.view.manager.ModifyMedicalRecord_Admin;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 import com.google.inject.name.Named;
@@ -87,12 +83,12 @@ public class DefaultAddMedicalRecordSubmitListener implements AddMedicalRecordSu
             }
             else {
                 try {
+                    patientService.setRoomById(p_Id, 0);
                     medicalRecordService.addMedicalRecord(p_Id, prescriptionService.getLastId(), employeeService.getNameById(patientService.getDoctorIdById(p_Id)), room, appointmentDate, diagnosis, status);
                     patientService.setRoomById(p_Id, roomService.getIdByName(room));
                     invoiceService.addInvoice(medicalRecordService.getLastId(), appointmentDate);
                     addMedicalRecordAdmin.setVisible(false);
                 } catch (SQLException e) {
-                    //Khong chay cau lenh sql duoc//
                     medicalRecordService.deleteById(medicalRecordService.getLastId());
                     patientService.setRoomById(p_Id, 0);
                     JOptionPane.showMessageDialog(null, e.getMessage(), "Database Error", javax.swing.JOptionPane.ERROR_MESSAGE);

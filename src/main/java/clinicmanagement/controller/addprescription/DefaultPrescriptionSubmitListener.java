@@ -1,10 +1,9 @@
-package clinicmanagement.controller.addprescriptionmanagement;/*
+package clinicmanagement.controller.addprescription;/*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 
 import clinicmanagement.constant.AddMedicalRecordName;
-import clinicmanagement.constant.ModifyMedicalRecordName;
 import clinicmanagement.constant.PatientManagementName;
 import clinicmanagement.model.base.TableListModelSelectionWrapper;
 import clinicmanagement.model.base.TableModelWrapper;

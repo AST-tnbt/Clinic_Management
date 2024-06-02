@@ -91,6 +91,13 @@ public class MedicalRecordService {
         return "";
     }
 
+    public String getRoomById(int id) {
+        for (MedicalRecord medicalRecord : listMedicalRecord) {
+            if (medicalRecord.getId() == id) return medicalRecord.getRoom();
+        }
+        return "";
+    }
+
     public void updateMedicalRecord(int medicalRecordId, int patientId, int prescriptionId, String doctor, String room, String appointmentDate, String diagnosis, String status) throws SQLException {
         LocalDate realAppointmentDate = LocalDate.parse(appointmentDate, DateTimeFormatter.ofPattern("dd-MM-yyyy"));
         for (MedicalRecord medicalRecord : listMedicalRecord) {
@@ -105,20 +112,20 @@ public class MedicalRecordService {
                 break;
             }
         }
-//        Connection con = databaseContext.getConnection();
-//        String sqlQuery = "{CALL SuaBenhAn(?, ?, ?, ?, ?, ?, ?, ?)}";
-//        CallableStatement pst;
-//        pst = con.prepareCall(sqlQuery);
-//        pst.setInt(1, medicalRecordId);
-//        pst.setInt(2, roomId);
-//        pst.setInt(3, prescriptionId);
-//        pst.setInt(4, doctorId);
-//        pst.setInt(5, patientId);
-//        pst.setDate(6, Date.valueOf(realAppointmentDate));
-//        pst.setString(7, diagnosis);
-//        pst.setString(8, status);
-//        pst.executeUpdate();
-//        con.close();
+        Connection con = databaseContext.getConnection();
+        String sqlQuery = "{CALL SuaBenhAn(?, ?, ?, ?, ?, ?, ?, ?)}";
+        CallableStatement pst;
+        pst = con.prepareCall(sqlQuery);
+        pst.setInt(1, medicalRecordId);
+        pst.setInt(2, patientId);
+        pst.setInt(3, prescriptionId);
+        pst.setString(4, doctor);
+        pst.setString(5, room);
+        pst.setDate(6, Date.valueOf(realAppointmentDate));
+        pst.setString(7, diagnosis);
+        pst.setString(8, status);
+        pst.executeUpdate();
+        con.close();
 
     }
 
@@ -131,15 +138,12 @@ public class MedicalRecordService {
         return -1;
     }
 
-//    public int getPatientOfRoom(int roomId) {
-//        int result = 0;
-//        for (MedicalRecord medicalRecord : listMedicalRecord) {
-//            if ((medicalRecord.getRoomId() == roomId) && (medicalRecord.getStatus().equals("Nhập viện"))) {
-//                result ++;
-//            }
-//        }
-//        return result;
-//    }
+    public String getDiagnosisById(int id) {
+        for (MedicalRecord medicalRecord : listMedicalRecord) {
+            if (medicalRecord.getId() == id) return medicalRecord.getDiagnosis();
+        }
+        return "";
+    }
 
     public int getPatientIdById(int id) {
         for (MedicalRecord medicalRecord : listMedicalRecord) {
@@ -171,5 +175,12 @@ public class MedicalRecordService {
             if (medicalRecord.getId() == id) return medicalRecord.getPrescriptionId();
         }
         return -1;
+    }
+
+    public String getStatusById(int medicalRecordId) {
+        for (MedicalRecord medicalRecord : listMedicalRecord) {
+            if (medicalRecord.getId() == medicalRecordId) return medicalRecord.getStatus();
+        }
+        return "";
     }
 }

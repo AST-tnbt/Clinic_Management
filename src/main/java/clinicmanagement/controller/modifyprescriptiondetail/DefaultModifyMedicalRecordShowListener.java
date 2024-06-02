@@ -1,6 +1,5 @@
-package clinicmanagement.controller.addprescriptionmanagement;
+package clinicmanagement.controller.modifyprescriptiondetail;
 
-import clinicmanagement.constant.AddMedicalRecordName;
 import clinicmanagement.constant.ModifyMedicalRecordName;
 import clinicmanagement.model.entity.Medicine;
 import clinicmanagement.model.service.MedicineService;
@@ -12,8 +11,8 @@ import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.util.ArrayList;
 
-public class DefaultAddMedicalRecordShowListener extends ComponentAdapter implements AddMedicalRecordShowListener {
-    @Inject @Named(AddMedicalRecordName.P_MEDICINELIST)
+public class DefaultModifyMedicalRecordShowListener extends ComponentAdapter implements ModifyMedicalRecordShowListener {
+    @Inject @Named(ModifyMedicalRecordName.P_MEDICINELIST)
     private ComboBoxModel medicineList;
     @Inject
     private MedicineService medicineService;

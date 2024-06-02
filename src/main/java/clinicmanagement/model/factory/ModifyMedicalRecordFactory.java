@@ -22,12 +22,16 @@ import java.util.List;
  * @author tin-ast
  */
 public class ModifyMedicalRecordFactory extends AbstractModule {
-    @Inject
-    private static MedicineService medicineService;
     @Provides
     @Singleton
     @Named(ModifyMedicalRecordName.P_NAME)
     static Document provideNameModel() {
+        return new PlainDocument();
+    }
+    @Provides
+    @Singleton
+    @Named(ModifyMedicalRecordName.P_ID)
+    static Document provideIdModel() {
         return new PlainDocument();
     }
     @Provides

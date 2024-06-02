@@ -8,7 +8,6 @@ import clinicmanagement.constant.ModifyMedicalRecordName;
 import clinicmanagement.controller.modifymedicalrecord.ModifyMedicalRecordAddPrescriptionListener;
 import clinicmanagement.controller.modifymedicalrecord.ModifyMedicalRecordCancelListener;
 import clinicmanagement.controller.modifymedicalrecord.ModifyMedicalRecordSubmitListener;
-import clinicmanagement.controller.modifypatient.ModifyPatientSubmitListener;
 import clinicmanagement.view.BaseView;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
@@ -320,7 +319,7 @@ public class ModifyMedicalRecord_Admin extends BaseView {
         @Named(ModifyMedicalRecordName.P_APPOINTMENTDATE) Document p_appointmentDate,
         @Named(ModifyMedicalRecordName.P_STATUS) ComboBoxModel p_status,
         @Named(ModifyMedicalRecordName.P_ROOM) Document p_room,
-        @Named(ModifyMedicalRecordName.P_PRESCRIPTION) Document p_prescription
+        @Named(ModifyMedicalRecordName.P_PRESCRIPTION_PREVIEW) Document p_prescription
 
     ) {
         this.name.setDocument(p_name);

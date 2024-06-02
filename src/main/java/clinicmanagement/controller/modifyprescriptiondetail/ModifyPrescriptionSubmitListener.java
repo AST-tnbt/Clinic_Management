@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package clinicmanagement.controller.addprescriptionmanagement;
+package clinicmanagement.controller.modifyprescriptiondetail;
 
 import com.google.inject.ImplementedBy;
 
@@ -12,5 +12,5 @@ import java.awt.event.ActionListener;
  *
  * @author tin-ast
  */
-@ImplementedBy(DefaultPrescriptionSubmitListener.class)
-public interface PrescriptionSubmitListener extends ActionListener{}
+@ImplementedBy(DefaultModifyPrescriptionSubmitListener.class)
+public interface ModifyPrescriptionSubmitListener extends ActionListener{}

@@ -82,4 +82,12 @@ public class PrescriptionDetailService {
         }
         listPrescriptionDetails.removeAll(listRemove);
     }
+
+    public ArrayList<PrescriptionDetail> getListPrescriptionDetailByPrescriptionId(int prescriptionId) {
+        ArrayList<PrescriptionDetail> list = new ArrayList<>();
+        for (PrescriptionDetail prescriptionDetail : listPrescriptionDetails) {
+            if (prescriptionDetail.getPrescriptionId() ==  prescriptionId) list.add(prescriptionDetail);
+        }
+        return list;
+    }
 }

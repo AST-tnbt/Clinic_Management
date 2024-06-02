@@ -1,4 +1,4 @@
-package clinicmanagement.controller.addprescriptionmanagement;
+package clinicmanagement.controller.addprescription;
 
 import com.google.inject.ImplementedBy;
 

@@ -16,7 +16,6 @@ import clinicmanagement.model.service.PrescriptionDetailService;
 import clinicmanagement.model.service.PrescriptionService;
 import clinicmanagement.util.DocumentUtil;
 import clinicmanagement.view.manager.AddMedicalRecord_Admin;
-import clinicmanagement.view.manager.MedicalRecord_Admin;
 import clinicmanagement.view.manager.ModifyMedicalRecord_Admin;
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
@@ -33,6 +32,10 @@ import java.sql.SQLException;
 public class DefaultAddMedicalRecordCancelListener implements AddMedicalRecordCancelListener {
     @Inject @Named(AddMedicalRecordName.P_DIAGNOSIS)
     private Document inputDiagnosis;
+    @Inject @Named(AddMedicalRecordName.P_PRESCRIPTION_PREVIEW)
+    private Document prescription;
+    @Inject @Named(AddMedicalRecordName.P_PRESCRIPTION)
+    private Document m_prescription;
     @Inject @Named(AddMedicalRecordName.P_APPOINTMENTDATE)
     private Document inputAppointmentDate;
     @Inject @Named(AddMedicalRecordName.P_STATUS)
@@ -69,6 +72,8 @@ public class DefaultAddMedicalRecordCancelListener implements AddMedicalRecordCa
         DocumentUtil.removeText(this.inputDiagnosis);
         DocumentUtil.removeText(this.inputRoom);
         DocumentUtil.removeText(this.inputAppointmentDate);
+        DocumentUtil.removeText(this.m_prescription);
+        DocumentUtil.removeText(this.prescription);
         int []rows = tableListModelSelectionWrapper.getSelectionModel().getSelectedIndices();
         int patientId = Integer.parseInt((String) tableModelWrapper.getModel().getValueAt(rows[0], 0)) ;
         try {

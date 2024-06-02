@@ -4,16 +4,16 @@
  */
 package clinicmanagement.controller.modifymedicalrecord;
 
+import clinicmanagement.constant.AddMedicalRecordName;
 import clinicmanagement.constant.LoginName;
-import clinicmanagement.constant.MedicalRecordName;
-import clinicmanagement.constant.ModifyEmployeeName;
+import clinicmanagement.constant.MedicalRecordManagementName;
 import clinicmanagement.constant.ModifyMedicalRecordName;
-import clinicmanagement.controller.employeemanagement.worker.ShowEmployeeWorker;
+import clinicmanagement.controller.medicalrecordmanagement.worker.ShowMedicalRecordWorker;
+import clinicmanagement.controller.patientmanagement.worker.ShowPatientWorker;
+import clinicmanagement.model.base.TableListModelSelectionWrapper;
+import clinicmanagement.model.base.TableModelWrapper;
 import clinicmanagement.model.service.*;
 import clinicmanagement.util.DocumentUtil;
-import clinicmanagement.view.manager.EmployeeManagement_Admin;
-import clinicmanagement.view.manager.MedicalRecord_Admin;
-import clinicmanagement.view.manager.ModifyEmployee_Admin;
 import clinicmanagement.view.manager.ModifyMedicalRecord_Admin;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
@@ -31,24 +31,33 @@ import java.util.concurrent.ExecutionException;
  */
 public class DefaultModifyMedicalRecordSubmitListener implements ModifyMedicalRecordSubmitListener {
     @Inject
-    private MedicalRecord_Admin medicalRecordAdmin;
-    @Inject
     private ModifyMedicalRecord_Admin modifyMedicalRecordAdmin;
-    @Inject @Named(ModifyMedicalRecordName.P_DIAGNOSIS)
+    @Inject
+    @Named(ModifyMedicalRecordName.P_PRESCRIPTION_PREVIEW)
+    private Document prescription;
+    @Inject
+    @Named(ModifyMedicalRecordName.P_DIAGNOSIS)
     private Document inputDiagnosis;
-    @Inject @Named(ModifyMedicalRecordName.P_APPOINTMENTDATE)
+    @Inject
+    @Named(ModifyMedicalRecordName.P_APPOINTMENTDATE)
     private Document inputAppointmentDate;
-    @Inject @Named(ModifyMedicalRecordName.P_STATUS)
+    @Inject
+    @Named(ModifyMedicalRecordName.P_STATUS)
     private ComboBoxModel inputStatus;
-    @Inject @Named(ModifyMedicalRecordName.P_ROOM)
+    @Inject
+    @Named(ModifyMedicalRecordName.P_ROOM)
     private Document inputRoom;
-    @Inject @Named(MedicalRecordName.P_ID)
+    @Inject
+    @Named(AddMedicalRecordName.P_ID)
     private Document patientId;
-    @Inject @Named(ModifyMedicalRecordName.P_NAME)
+    @Inject
+    @Named(ModifyMedicalRecordName.P_NAME)
     private Document inputName;
-    @Inject @Named(ModifyMedicalRecordName.P_DATEOFBIRTH)
+    @Inject
+    @Named(ModifyMedicalRecordName.P_DATEOFBIRTH)
     private Document inputDateOfBirth;
-    @Inject @Named(ModifyMedicalRecordName.P_SEX)
+    @Inject
+    @Named(ModifyMedicalRecordName.P_SEX)
     private ComboBoxModel inputSex;
     @Inject
     private MedicalRecordService medicalRecordService;
@@ -56,27 +65,60 @@ public class DefaultModifyMedicalRecordSubmitListener implements ModifyMedicalRe
     private RoomService roomService;
     @Inject
     private PrescriptionService prescriptionService;
-    @Inject @Named(LoginName.USERNAME)
+    @Inject
+    @Named(LoginName.USERNAME)
     private Document username;
     @Inject
     private EmployeeService employeeService;
+    @Inject
+    private PatientService patientService;
+    @Inject
+    private PrescriptionDetailService prescriptionDetailService;
+    @Inject
+    private Provider<ShowMedicalRecordWorker> showMedicalRecordWorkerProvider;
+    @Inject
+    private InvoiceService invoiceService;
+    @Inject
+    private Provider<ShowPatientWorker> showPatientWorkerProvider;
+    @Inject
+    @Named(MedicalRecordManagementName.MEDICAL_RECORD_TABLE)
+    private TableModelWrapper medicalRecorTableModelWrapper;
+    @Inject
+    @Named(MedicalRecordManagementName.MEDICAL_RECORD_TABLE_LIST_SELECTION)
+    private TableListModelSelectionWrapper medicalRecorTableListModelSelectionWrapper;
 
     class Worker extends SwingWorker<Boolean, Integer> {
+        int p_Id = Integer.parseInt(DocumentUtil.getText(patientId));
+
         @Override
-        protected Boolean doInBackground() throws Exception {
-            int p_Id = Integer.parseInt(DocumentUtil.getText(patientId));
-            String diagnosis = DocumentUtil.getText(inputDiagnosis);
+        protected Boolean doInBackground() throws SQLException {
             String room = DocumentUtil.getText(inputRoom);
+            String diagnosis = DocumentUtil.getText(inputDiagnosis);
+            String appointmentDate = DocumentUtil.getText(inputAppointmentDate);
             String status = (String) inputStatus.getSelectedItem();
+            int[] medicalRecordRows = medicalRecorTableListModelSelectionWrapper.getSelectionModel().getSelectedIndices();
+            int medicalRecordId = Integer.parseInt((String) medicalRecorTableModelWrapper.getModel().getValueAt(medicalRecordRows[0], 0));
+            int prescriptionId = medicalRecordService.getPrescriptionIdById(medicalRecordId);
             if (
-                diagnosis.isEmpty() || room.isEmpty()
+                    diagnosis.isEmpty() || appointmentDate.isEmpty()
             ) {
                 JOptionPane.showMessageDialog(null, "Vui lòng nhập đầy đủ thông tin.");
                 return false;
+            } else {
+                try {
+                    patientService.setRoomById(p_Id, 0);
+                    medicalRecordService.updateMedicalRecord(medicalRecordId, p_Id, prescriptionId, employeeService.getNameById(patientService.getDoctorIdById(p_Id)), room, appointmentDate, diagnosis, status);
+                    patientService.setRoomById(p_Id, roomService.getIdByName(room));
+                    invoiceService.addInvoice(medicalRecordId, appointmentDate);
+                    modifyMedicalRecordAdmin.setVisible(false);
+                } catch (SQLException e) {
+                    medicalRecordService.deleteById(medicalRecordId);
+                    patientService.setRoomById(p_Id, 0);
+                    JOptionPane.showMessageDialog(null, e.getMessage(), "Database Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+                    throw new RuntimeException(e);
+                }
+                return true;
             }
-            //                medicalRecordService.updateMedicalRecord(medicalRecordService.getIdByPatientId(p_Id), roomService.getIdByName(room), prescriptionService.getListPrescription().size(), employeeService.getIdByUsername(DocumentUtil.getText(username)), p_Id, DocumentUtil.getText(inputAppointmentDate), diagnosis, status);
-            modifyMedicalRecordAdmin.setVisible(false);
-            return true;
         }
 
         @Override
@@ -86,10 +128,12 @@ public class DefaultModifyMedicalRecordSubmitListener implements ModifyMedicalRe
             DocumentUtil.removeText(inputRoom);
             DocumentUtil.removeText(inputAppointmentDate);
             DocumentUtil.removeText(inputName);
+            DocumentUtil.removeText(prescription);
             modifyMedicalRecordAdmin.setVisible(false);
-            medicalRecordAdmin.setVisible(true);
             try {
                 if (get()) {
+                    showMedicalRecordWorkerProvider.get().refreshTable(medicalRecordService.getListMedicalRecordByPatientId(p_Id));
+                    showPatientWorkerProvider.get().refreshTable(patientService.getListPatient());
                     JOptionPane.showMessageDialog(null, "Sửa thành công");
                 }
             } catch (InterruptedException | ExecutionException e) {
@@ -97,6 +141,7 @@ public class DefaultModifyMedicalRecordSubmitListener implements ModifyMedicalRe
             }
         }
     }
+
     @Override
     public void actionPerformed(ActionEvent e) {
         new Worker().execute();

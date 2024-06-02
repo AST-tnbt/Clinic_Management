@@ -98,4 +98,20 @@ public class InvoiceService {
         this.listInvoice.removeAll(listInvoice);
     }
 
+    public void deleteByPrescriptionId(int medicalRecordId) throws SQLException {
+        ArrayList<Invoice> list = new ArrayList<>();
+        for (Invoice invoice : listInvoice) {
+            if (invoice.getMedicalRecord() == medicalRecordId) {
+                list.add(invoice);
+                Connection con = databaseContext.getConnection();
+                String sqlQuery = "{CALL XoaHoaDon(?)}";
+                CallableStatement stm;
+                stm = con.prepareCall(sqlQuery);
+                stm.setInt(1, invoice.getId() );
+                stm.execute();
+                con.close();
+            }
+        }
+        listInvoice.removeAll(list);
+    }
 }
