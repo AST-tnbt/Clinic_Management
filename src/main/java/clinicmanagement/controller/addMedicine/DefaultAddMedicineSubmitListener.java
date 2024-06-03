@@ -55,7 +55,7 @@ public class DefaultAddMedicineSubmitListener implements AddMedicineSubmitListen
 
     class Worker extends SwingWorker<Boolean, Integer> {
         @Override
-        protected Boolean doInBackground() throws Exception {
+        protected Boolean doInBackground() {
             String name = DocumentUtil.getText(m_name);
             String importDate = DocumentUtil.getText(m_importDate);
             String expireDate = DocumentUtil.getText(m_expireDate);
@@ -69,7 +69,12 @@ public class DefaultAddMedicineSubmitListener implements AddMedicineSubmitListen
                 JOptionPane.showMessageDialog(null, "Vui lòng nhập đầy đủ thông tin.");
                 return false;
             }
-            medicineService.addMedicine(name, importDate, expireDate, price, quantity);
+            try {
+                medicineService.addMedicine(name, importDate, expireDate, price, quantity);
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(null, e.getMessage(), "Database Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+                throw new RuntimeException(e);
+            }
             return true;
         }
 

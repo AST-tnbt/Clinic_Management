@@ -89,9 +89,10 @@ public class DefaultAddMedicalRecordSubmitListener implements AddMedicalRecordSu
                     invoiceService.addInvoice(medicalRecordService.getLastId(), appointmentDate);
                     addMedicalRecordAdmin.setVisible(false);
                 } catch (SQLException e) {
-                    medicalRecordService.deleteById(medicalRecordService.getLastId());
-                    patientService.setRoomById(p_Id, 0);
                     JOptionPane.showMessageDialog(null, e.getMessage(), "Database Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+                    patientService.setRoomById(p_Id, 0);
+                    prescriptionDetailService.deleteByPrescriptionId(prescriptionService.getLastId());
+                    medicalRecordService.deleteById(medicalRecordService.getLastId());
                     throw new RuntimeException(e);
                 }
                 return true;
