@@ -106,9 +106,28 @@ public class DefaultModifyMedicalRecordSubmitListener implements ModifyMedicalRe
                 return false;
             } else {
                 try {
-                    patientService.setRoomById(p_Id, 0);
+                    switch (status) {
+                        case "Đang điều trị":
+                            if (room.isEmpty())
+                                patientService.setRoomById(p_Id, 0);
+                            else {
+                                patientService.setRoomById(p_Id, roomService.getIdByName(room));
+                            }
+                            break;
+                        case "Nhập viện":
+                            if (room.isEmpty()) {
+                                JOptionPane.showMessageDialog(null, "Vui lòng nhập phòng");
+                                patientService.setDoctorIdById(p_Id, 0);
+                                return false;
+                            }
+                            patientService.setRoomById(p_Id, roomService.getIdByName(room));
+                            break;
+                        case "Đã xuất viện":
+                            patientService.setRoomById(p_Id, 0);
+                            break;
+                    }
                     medicalRecordService.updateMedicalRecord(medicalRecordId, p_Id, prescriptionId, employeeService.getNameById(patientService.getDoctorIdById(p_Id)), room, appointmentDate, diagnosis, status);
-                    patientService.setRoomById(p_Id, roomService.getIdByName(room));
+                    invoiceService.deleteByMedicalRecordId(medicalRecordId);
                     invoiceService.addInvoice(medicalRecordId, appointmentDate);
                     modifyMedicalRecordAdmin.setVisible(false);
                 } catch (SQLException e) {
@@ -132,11 +151,12 @@ public class DefaultModifyMedicalRecordSubmitListener implements ModifyMedicalRe
             modifyMedicalRecordAdmin.setVisible(false);
             try {
                 if (get()) {
+                    patientService.setDoctorIdById(p_Id, 0);
                     showMedicalRecordWorkerProvider.get().refreshTable(medicalRecordService.getListMedicalRecordByPatientId(p_Id));
                     showPatientWorkerProvider.get().refreshTable(patientService.getListPatient());
                     JOptionPane.showMessageDialog(null, "Sửa thành công");
                 }
-            } catch (InterruptedException | ExecutionException e) {
+            } catch (InterruptedException | ExecutionException | SQLException e) {
                 throw new RuntimeException(e);
             }
         }

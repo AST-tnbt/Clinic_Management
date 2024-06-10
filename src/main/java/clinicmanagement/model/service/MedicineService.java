@@ -7,10 +7,12 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import com.google.inject.name.Named;
 
+import javax.swing.*;
 import java.math.BigDecimal;
 import java.sql.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
 @Singleton
@@ -41,17 +43,18 @@ public class MedicineService {
 
     public void addMedicine(String name, String importDate, String expireDate, BigDecimal price, int inventoryQuantity) throws SQLException {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-        LocalDate realImportDate = LocalDate.parse(importDate, formatter);
-        LocalDate realExpireDate = LocalDate.parse(expireDate, formatter);
+        LocalDate realImportDate = null;
+        LocalDate realExpireDate = null;
+        try {
+            realImportDate = LocalDate.parse(importDate, formatter);
+            realExpireDate = LocalDate.parse(expireDate, formatter);
+        } catch (DateTimeParseException e) {
+            JOptionPane.showMessageDialog(null, "Nhập định dạng ngày tháng theo dd-mm-yyyy");
+        }
         int nextId = 0;
         for (Medicine medicine : listMedicine) {
             nextId = Math.max(nextId, medicine.getId());
             if (medicine.getName().toLowerCase().trim().equals(name.toLowerCase().trim())){
-                medicine.setImportDate(realImportDate);
-                medicine.setExpireDate(realExpireDate);
-                medicine.setPrice(price);
-                medicine.setInventoryQuantity(medicine.getInventoryQuantity() + inventoryQuantity);
-
                 Connection con = databaseContext.getConnection();
                 String sqlQuery = "{CALL SuaThuoc(?, ?, ?, ?, ?, ?)}";
                 CallableStatement pst;
@@ -64,10 +67,14 @@ public class MedicineService {
                 pst.setInt(6, medicine.getInventoryQuantity());
                 pst.executeUpdate();
                 con.close();
+
+                medicine.setImportDate(realImportDate);
+                medicine.setExpireDate(realExpireDate);
+                medicine.setPrice(price);
+                medicine.setInventoryQuantity(medicine.getInventoryQuantity() + inventoryQuantity);
                 return;
             }
         }
-        listMedicine.add(new Medicine(nextId + 1, name, realImportDate, price, realExpireDate, inventoryQuantity));
         Connection con = databaseContext.getConnection();
         String sqlQuery = "{CALL ThemThuoc(?, ?, ?, ?, ?)}";
         CallableStatement stm;
@@ -79,6 +86,7 @@ public class MedicineService {
         stm.setInt(5, inventoryQuantity);
         stm.execute();
         con.close();
+        listMedicine.add(new Medicine(nextId + 1, name, realImportDate, price, realExpireDate, inventoryQuantity));
     }
 
     public void deleteById(ArrayList<Integer> listId) throws SQLException {
@@ -99,17 +107,14 @@ public class MedicineService {
     }
 
     public void modifyMedicine(int id, String name, String importDate, BigDecimal price, String expireDate, int inventoryQuantity) throws SQLException {
-        LocalDate realImportDate = LocalDate.parse(importDate, DateTimeFormatter.ofPattern("dd-MM-yyyy"));
-        LocalDate realExpireDate = LocalDate.parse(expireDate, DateTimeFormatter.ofPattern("dd-MM-yyyy"));
-        for (Medicine medicine : listMedicine) {
-            if (medicine.getId() == id) {
-                medicine.setName(name);
-                medicine.setImportDate(realImportDate);
-                medicine.setExpireDate(realExpireDate);
-                medicine.setPrice(price);
-                medicine.setInventoryQuantity(inventoryQuantity);
-                break;
-            }
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        LocalDate realImportDate = null;
+        LocalDate realExpireDate = null;
+        try {
+            realImportDate = LocalDate.parse(importDate, formatter);
+            realExpireDate = LocalDate.parse(expireDate, formatter);
+        } catch (DateTimeParseException e) {
+            JOptionPane.showMessageDialog(null, "Nhập định dạng ngày tháng theo dd-mm-yyyy");
         }
         Connection con = databaseContext.getConnection();
         String sqlQuery = "{CALL SuaThuoc(?, ?, ?, ?, ?, ?)}";
@@ -123,6 +128,16 @@ public class MedicineService {
         pst.setInt(6, inventoryQuantity);
         pst.executeUpdate();
         con.close();
+        for (Medicine medicine : listMedicine) {
+            if (medicine.getId() == id) {
+                medicine.setName(name);
+                medicine.setImportDate(realImportDate);
+                medicine.setExpireDate(realExpireDate);
+                medicine.setPrice(price);
+                medicine.setInventoryQuantity(inventoryQuantity);
+                break;
+            }
+        }
     }
 
     public void removeAllObject() {this.listMedicine.removeAll(listMedicine);}

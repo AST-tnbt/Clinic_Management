@@ -7,9 +7,11 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import com.google.inject.name.Named;
 
+import javax.swing.*;
 import java.sql.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.concurrent.Callable;
 
@@ -43,12 +45,16 @@ public class EmployeeService {
     }
 
     public void addEmployee(String name, String position, String dateOfBirth, String sex, String address, String phoneNum, String username, String password) throws SQLException {
-        LocalDate realDateOfBirth = LocalDate.parse(dateOfBirth, DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+        LocalDate realDateOfBirth = null;
+        try {
+            realDateOfBirth = LocalDate.parse(dateOfBirth, DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+        } catch (DateTimeParseException e) {
+            JOptionPane.showMessageDialog(null, "Nhập định dạng ngày tháng theo dd-mm-yyyy");
+        }
         int nextId = 0;
         for (Employee em : listEmployee) {
             nextId = Math.max(nextId, em.getId());
         }
-        this.listEmployee.add(new Employee(nextId + 1, name, position, realDateOfBirth, sex, address, phoneNum, username, password));
         Connection con = databaseContext.getConnection();
         String sqlQuery = "{CALL ThemNhanVien(?, ?, ?, ?, ?, ?, ?, ?)}";
         CallableStatement stm;
@@ -63,6 +69,7 @@ public class EmployeeService {
         stm.setString(8, password);
         stm.execute();
         con.close();
+        this.listEmployee.add(new Employee(nextId + 1, name, position, realDateOfBirth, sex, address, phoneNum, username, password));
     }
 
     public void deleteById(ArrayList<Integer> listId) throws SQLException {
@@ -115,19 +122,11 @@ public class EmployeeService {
     }
 
     public void modifyEmployee(int id, String name, String phone, String position, String dateOfBirth, String sex, String username, String password, String address) throws SQLException {
-        LocalDate realDateOfBirth = LocalDate.parse(dateOfBirth, DateTimeFormatter.ofPattern("dd-MM-yyyy"));
-        for (Employee emp : listEmployee) {
-            if (emp.getId() == id) {
-                emp.setName(name);
-                emp.setPhoneNum(phone);
-                emp.setPosition(position);
-                emp.setSex(sex);
-                emp.setDateOfBirth(realDateOfBirth);
-                emp.setUsername(username);
-                emp.setPassword(password);
-                emp.setAddress(address);
-                break;
-            }
+        LocalDate realDateOfBirth = null;
+        try {
+            realDateOfBirth = LocalDate.parse(dateOfBirth, DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+        } catch (DateTimeParseException e) {
+            JOptionPane.showMessageDialog(null, "Nhập định dạng ngày tháng theo dd-mm-yyyy");
         }
         Connection con = databaseContext.getConnection();
         String sqlQuery = "{CALL SuaNhanVien(?, ?, ?, ?, ?, ?, ?, ?, ?)}";
@@ -144,6 +143,20 @@ public class EmployeeService {
         pst.setString(9, password);
         pst.executeUpdate();
         con.close();
+        for (Employee emp : listEmployee) {
+            if (emp.getId() == id) {
+                emp.setName(name);
+                emp.setPhoneNum(phone);
+                emp.setPosition(position);
+                emp.setSex(sex);
+                emp.setDateOfBirth(realDateOfBirth);
+                emp.setUsername(username);
+                emp.setPassword(password);
+                emp.setAddress(address);
+                break;
+            }
+        }
+
     }
 
     public void removeAllObject() {

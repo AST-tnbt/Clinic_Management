@@ -3,15 +3,18 @@ package clinicmanagement.model.service;
 import clinicmanagement.constant.EntityName;
 import clinicmanagement.constant.ToolManagementName;
 import clinicmanagement.controller.database.DatabaseContext;
+import clinicmanagement.model.entity.Patient;
 import clinicmanagement.model.entity.Room;
 import clinicmanagement.model.entity.Tool;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import com.google.inject.name.Named;
 
+import javax.swing.*;
 import java.sql.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
 @Singleton
@@ -40,9 +43,19 @@ public class ToolService {
     }
 
     public void addTool(int roomId, String name, String importDate, String expireDate, String status) throws SQLException {
-        LocalDate realImportDate = LocalDate.parse(importDate, DateTimeFormatter.ofPattern("dd-MM-yyyy"));
-        LocalDate realExpireDate = LocalDate.parse(expireDate, DateTimeFormatter.ofPattern("dd-MM-yyyy"));
-        listTool.add(new Tool(listTool.size()+1, roomId, name, realImportDate, realExpireDate, status));
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        LocalDate realImportDate = null;
+        LocalDate realExpireDate = null;
+        try {
+            realImportDate = LocalDate.parse(importDate, formatter);
+            realExpireDate = LocalDate.parse(expireDate, formatter);
+        } catch (DateTimeParseException e) {
+            JOptionPane.showMessageDialog(null, "Nhập định dạng ngày tháng theo dd-mm-yyyy");
+        }
+        int nexId = 0;
+        for (Tool tool : listTool) {
+            nexId = Math.max(nexId, tool.getId());
+        }
         Connection con = databaseContext.getConnection();
         String sqlQuery = "{CALL ThemDungCu(?, ?, ?, ?, ?)}";
         CallableStatement stm;
@@ -54,6 +67,7 @@ public class ToolService {
         stm.setString(5, status);
         stm.execute();
         con.close();
+        listTool.add(new Tool(nexId + 1, roomId, name, realImportDate, realExpireDate, status));
     }
 
     public void deleteById(ArrayList<Integer> listId) throws SQLException {
@@ -80,17 +94,14 @@ public class ToolService {
     }
 
     public void modifyTool(int id, int roomId, String name, String importDate, String expireDate, String status) throws SQLException {
-        LocalDate realImportDate = LocalDate.parse(importDate, DateTimeFormatter.ofPattern("dd-MM-yyyy"));
-        LocalDate realExpireDate = LocalDate.parse(expireDate, DateTimeFormatter.ofPattern("dd-MM-yyyy"));
-        for (Tool tool : listTool) {
-            if (tool.getId() == id) {
-                tool.setRoomId(roomId);
-                tool.setName(name);
-                tool.setImportDate(realImportDate);
-                tool.setExpireDate(realExpireDate);
-                tool.setStatus(status);
-                break;
-            }
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        LocalDate realImportDate = null;
+        LocalDate realExpireDate = null;
+        try {
+            realImportDate = LocalDate.parse(importDate, formatter);
+            realExpireDate = LocalDate.parse(expireDate, formatter);
+        } catch (DateTimeParseException e) {
+            JOptionPane.showMessageDialog(null, "Nhập định dạng ngày tháng theo dd-mm-yyyy");
         }
         Connection con = databaseContext.getConnection();
         String sqlQuery = "{CALL SuaDungCu(?, ?, ?, ?, ?, ?)}";
@@ -103,6 +114,16 @@ public class ToolService {
         pst.setDate(5, Date.valueOf(realExpireDate));
         pst.setString(6, status);
         pst.executeUpdate();
+        for (Tool tool : listTool) {
+            if (tool.getId() == id) {
+                tool.setRoomId(roomId);
+                tool.setName(name);
+                tool.setImportDate(realImportDate);
+                tool.setExpireDate(realExpireDate);
+                tool.setStatus(status);
+                break;
+            }
+        }
     }
 
     public void removeAllObject() {

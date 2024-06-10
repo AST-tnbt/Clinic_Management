@@ -49,6 +49,7 @@ public class DefaultEmployeeManagementDeleteButtonListener extends MouseAdapter 
             try {
                 employeeService.deleteById(listId);
             } catch (SQLException e) {
+                JOptionPane.showMessageDialog(null, e.getMessage(), "Database Error", javax.swing.JOptionPane.ERROR_MESSAGE);
                 return false;
             }
             return true;

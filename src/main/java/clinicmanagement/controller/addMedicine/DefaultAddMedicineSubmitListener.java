@@ -59,8 +59,6 @@ public class DefaultAddMedicineSubmitListener implements AddMedicineSubmitListen
             String name = DocumentUtil.getText(m_name);
             String importDate = DocumentUtil.getText(m_importDate);
             String expireDate = DocumentUtil.getText(m_expireDate);
-            BigDecimal price = new BigDecimal(DocumentUtil.getText(m_price));
-            int quantity = Integer.parseInt(DocumentUtil.getText(m_quantity));
             if (
                     name.isEmpty() || DocumentUtil.getText(m_quantity).isEmpty()
                     || importDate.isEmpty() || expireDate.isEmpty()
@@ -69,6 +67,8 @@ public class DefaultAddMedicineSubmitListener implements AddMedicineSubmitListen
                 JOptionPane.showMessageDialog(null, "Vui lòng nhập đầy đủ thông tin.");
                 return false;
             }
+            BigDecimal price = new BigDecimal(DocumentUtil.getText(m_price));
+            int quantity = Integer.parseInt(DocumentUtil.getText(m_quantity));
             try {
                 medicineService.addMedicine(name, importDate, expireDate, price, quantity);
             } catch (SQLException e) {

@@ -114,4 +114,21 @@ public class InvoiceService {
         }
         listInvoice.removeAll(list);
     }
+
+    public void deleteByMedicalRecordId(int medicalRecordId) throws SQLException {
+        for (Invoice invoice : listInvoice) {
+            if (invoice.getMedicalRecord()==medicalRecordId) {
+                Connection con = databaseContext.getConnection();
+                String sqlQuery = "{CALL XoaHoaDon(?)}";
+                CallableStatement stm;
+                stm = con.prepareCall(sqlQuery);
+                stm.setInt(1, invoice.getId() );
+                stm.execute();
+                con.close();
+
+                listInvoice.remove(invoice);
+                break;
+            }
+        }
+    }
 }

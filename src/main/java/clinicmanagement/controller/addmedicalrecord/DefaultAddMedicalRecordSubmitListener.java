@@ -29,7 +29,7 @@ public class DefaultAddMedicalRecordSubmitListener implements AddMedicalRecordSu
     @Inject
     private AddMedicalRecord_Admin addMedicalRecordAdmin;
     @Inject @Named(AddMedicalRecordName.P_PRESCRIPTION_PREVIEW)
-    private Document prescription;
+    private Document prescription_p;
     @Inject @Named(AddMedicalRecordName.P_DIAGNOSIS)
     private Document inputDiagnosis;
     @Inject @Named(AddMedicalRecordName.P_APPOINTMENTDATE)
@@ -75,23 +75,44 @@ public class DefaultAddMedicalRecordSubmitListener implements AddMedicalRecordSu
             String diagnosis = DocumentUtil.getText(inputDiagnosis);
             String appointmentDate = DocumentUtil.getText(inputAppointmentDate);
             String status = (String) inputStatus.getSelectedItem();
+            String prescription = DocumentUtil.getText(prescription_p);
             if (
-                diagnosis.isEmpty() || appointmentDate.isEmpty()
+                diagnosis.isEmpty() || appointmentDate.isEmpty() || prescription.isEmpty()
             ) {
                 JOptionPane.showMessageDialog(null, "Vui lòng nhập đầy đủ thông tin.");
                 return false;
             }
             else {
                 try {
-                    patientService.setRoomById(p_Id, 0);
+                    switch (status) {
+                        case "Đang điều trị":
+                            if (room.isEmpty())
+                                patientService.setRoomById(p_Id, 0);
+                            else {
+                                patientService.setRoomById(p_Id, roomService.getIdByName(room));
+                            }
+                            break;
+                        case "Nhập viện":
+                            if (room.isEmpty()) {
+                                JOptionPane.showMessageDialog(null, "Vui lòng nhập phòng");
+                                patientService.setDoctorIdById(p_Id, 0);
+                                return false;
+                            }
+                            patientService.setRoomById(p_Id, roomService.getIdByName(room));
+                            break;
+                        case "Đã xuất viện":
+                            patientService.setRoomById(p_Id, 0);
+                            break;
+                    }
                     medicalRecordService.addMedicalRecord(p_Id, prescriptionService.getLastId(), employeeService.getNameById(patientService.getDoctorIdById(p_Id)), room, appointmentDate, diagnosis, status);
-                    patientService.setRoomById(p_Id, roomService.getIdByName(room));
                     invoiceService.addInvoice(medicalRecordService.getLastId(), appointmentDate);
                     addMedicalRecordAdmin.setVisible(false);
                 } catch (SQLException e) {
                     JOptionPane.showMessageDialog(null, e.getMessage(), "Database Error", javax.swing.JOptionPane.ERROR_MESSAGE);
                     patientService.setRoomById(p_Id, 0);
+                    patientService.setDoctorIdById(p_Id, 0);
                     prescriptionDetailService.deleteByPrescriptionId(prescriptionService.getLastId());
+                    prescriptionService.deleteLastItem();
                     medicalRecordService.deleteById(medicalRecordService.getLastId());
                     throw new RuntimeException(e);
                 }
@@ -106,7 +127,12 @@ public class DefaultAddMedicalRecordSubmitListener implements AddMedicalRecordSu
             DocumentUtil.removeText(inputRoom);
             DocumentUtil.removeText(inputAppointmentDate);
             DocumentUtil.removeText(inputName);
-            DocumentUtil.removeText(prescription);
+            DocumentUtil.removeText(prescription_p);
+            try {
+                patientService.setDoctorIdById(p_Id, 0);
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
             addMedicalRecordAdmin.setVisible(false);
             try {
                 if (get()) {

@@ -8,10 +8,12 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import com.google.inject.name.Named;
 
+import javax.swing.*;
 import java.math.BigDecimal;
 import java.sql.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Comparator;
 
@@ -45,12 +47,16 @@ public class PatientService {
     }
 
     public void addPatient(String name, String dateOfBirth, String sex, String address, String phoneNum) throws SQLException {
-        LocalDate realDateOfBirth = LocalDate.parse(dateOfBirth, DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+        LocalDate realDateOfBirth = null;
+        try {
+            realDateOfBirth = LocalDate.parse(dateOfBirth, DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+        } catch (DateTimeParseException e) {
+            JOptionPane.showMessageDialog(null, "Nhập định dạng ngày tháng theo dd-mm-yyyy");
+        }
         int nexId = 0;
         for (Patient patient : listPatient) {
             nexId = Math.max(nexId, patient.getId());
         }
-        this.listPatient.add(new Patient(nexId +1 , name, realDateOfBirth, sex, address, phoneNum, BigDecimal.valueOf(0), 0, 0));
         Connection con = databaseContext.getConnection();
         String sqlQuery = "{CALL ThemBenhNhan(?, ?, ?, ?, ?)}";
         CallableStatement stm;
@@ -62,6 +68,7 @@ public class PatientService {
         stm.setString(5, phoneNum);
         stm.execute();
         con.close();
+        this.listPatient.add(new Patient(nexId +1 , name, realDateOfBirth, sex, address, phoneNum, BigDecimal.valueOf(0), 0, 0));
     }
 
     public void deleteById(ArrayList<Integer> listId) throws SQLException {
@@ -87,16 +94,11 @@ public class PatientService {
     }
 
     public void modifyPatient(int id, String name, String dateOfBirth, String sex, String address, String phone) throws SQLException {
-        LocalDate realDateOfBirth = LocalDate.parse(dateOfBirth, DateTimeFormatter.ofPattern("dd-MM-yyyy"));
-        for (Patient patient : listPatient) {
-            if (patient.getId() == id) {
-                patient.setName(name);
-                patient.setDateOfBirth(realDateOfBirth);
-                patient.setSex(sex);
-                patient.setAddress(address);
-                patient.setPhoneNum(phone);
-                break;
-            }
+        LocalDate realDateOfBirth = null;
+        try {
+            realDateOfBirth = LocalDate.parse(dateOfBirth, DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+        } catch (DateTimeParseException e) {
+            JOptionPane.showMessageDialog(null, "Nhập định dạng ngày tháng theo dd-mm-yyyy");
         }
         Connection con = databaseContext.getConnection();
         String sqlQuery = "{CALL SuaBenhNhan(?, ?, ?, ?, ?, ?)}";
@@ -110,6 +112,17 @@ public class PatientService {
         pst.setString(6, phone);
         pst.executeUpdate();
         con.close();
+        for (Patient patient : listPatient) {
+            if (patient.getId() == id) {
+                patient.setName(name);
+                patient.setDateOfBirth(realDateOfBirth);
+                patient.setSex(sex);
+                patient.setAddress(address);
+                patient.setPhoneNum(phone);
+                break;
+            }
+        }
+
     }
     public void removeAllObject() {
         this.listPatient.removeAll(listPatient);

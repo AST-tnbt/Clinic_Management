@@ -52,12 +52,11 @@ public class DefaultMedicalRecordManagementAddButtonListener extends MouseAdapte
         DocumentUtil.removeText(patientDateOfBirth);
         int []rows = tableListModelSelectionWrapper.getSelectionModel().getSelectedIndices();
         try {
-            prescriptionService.addPrescription();
             patientName.insertString(0, (String) tableModelWrapper.getModel().getValueAt(rows[0], 1), null);
             patientDateOfBirth.insertString(0, (String) tableModelWrapper.getModel().getValueAt(rows[0], 2), null);
             patientSex.setSelectedItem(tableModelWrapper.getModel().getValueAt(rows[0], 3));
             inputDate.insertString(0, LocalDate.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy")), null );
-        } catch (BadLocationException | SQLException ex) {
+        } catch (BadLocationException ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage(), "Database Error", javax.swing.JOptionPane.ERROR_MESSAGE);
             throw new RuntimeException(ex);
         }
