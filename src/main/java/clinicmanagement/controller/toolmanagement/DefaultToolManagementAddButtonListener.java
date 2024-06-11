@@ -4,8 +4,6 @@
  */
 package clinicmanagement.controller.toolmanagement;
 
-import clinicmanagement.constant.AddToolName;
-import clinicmanagement.view.manager.AddRoom_Admin;
 import clinicmanagement.view.manager.AddTool_Admin;
 import com.google.inject.Inject;
 

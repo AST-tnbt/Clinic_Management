@@ -1,6 +1,6 @@
 package clinicmanagement.controller.employeemanagement;
 
-import clinicmanagement.constant.EmployeeManagementName;
+import clinicmanagement.constant.admin.EmployeeManagementName;
 import clinicmanagement.controller.employeemanagement.worker.ShowEmployeeWorker;
 import clinicmanagement.model.entity.Employee;
 import clinicmanagement.model.service.EmployeeService;

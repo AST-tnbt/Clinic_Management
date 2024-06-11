@@ -4,12 +4,7 @@
  */
 package clinicmanagement.view.manager;
 
-import clinicmanagement.constant.AddRoomName;
-import clinicmanagement.constant.ModifyRoomName;
-import clinicmanagement.constant.RoomManagementName;
-import clinicmanagement.controller.addroom.AddRoomCancelListener;
-import clinicmanagement.controller.addroom.AddRoomSubmitListener;
-import clinicmanagement.controller.modifyemployee.ModifyEmployeeCancelListener;
+import clinicmanagement.constant.admin.ModifyRoomName;
 import clinicmanagement.controller.modifyroom.ModifyRoomCancelListener;
 import clinicmanagement.controller.modifyroom.ModifyRoomSubmitListener;
 import clinicmanagement.view.BaseView;

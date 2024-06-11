@@ -4,10 +4,8 @@
  */
 package clinicmanagement.controller.toolmanagement.worker;
 
-import clinicmanagement.constant.RoomManagementName;
-import clinicmanagement.constant.ToolManagementName;
+import clinicmanagement.constant.admin.ToolManagementName;
 import clinicmanagement.model.base.TableModelWrapper;
-import clinicmanagement.model.entity.Room;
 import clinicmanagement.model.entity.Tool;
 import clinicmanagement.model.service.RoomService;
 import com.google.inject.Inject;

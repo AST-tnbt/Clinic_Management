@@ -4,8 +4,8 @@
  */
 package clinicmanagement.controller.medicalrecordmanagement;
 
-import clinicmanagement.constant.AddMedicalRecordName;
-import clinicmanagement.constant.PatientManagementName;
+import clinicmanagement.constant.admin.AddMedicalRecordName;
+import clinicmanagement.constant.admin.PatientManagementName;
 import clinicmanagement.model.base.TableListModelSelectionWrapper;
 import clinicmanagement.model.base.TableModelWrapper;
 import clinicmanagement.model.service.PrescriptionService;
@@ -19,7 +19,6 @@ import javax.swing.text.BadLocationException;
 import javax.swing.text.Document;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 

@@ -4,16 +4,9 @@
  */
 package clinicmanagement.view.manager;
 
-import clinicmanagement.constant.AddMedicineName;
-import clinicmanagement.constant.AddRoomName;
-import clinicmanagement.constant.AddToolName;
-import clinicmanagement.constant.RoomManagementName;
-import clinicmanagement.controller.addMedicine.AddMedicineCancelListener;
-import clinicmanagement.controller.addMedicine.AddMedicineSubmitListener;
-import clinicmanagement.controller.addroom.AddRoomCancelListener;
-import clinicmanagement.controller.addroom.AddRoomSubmitListener;
-import clinicmanagement.controller.addtool.AddToolCancelListener;
-import clinicmanagement.controller.addtool.AddToolSubmitListener;
+import clinicmanagement.constant.admin.AddMedicineName;
+import clinicmanagement.controller.addmedicine.admin.AddMedicineCancelListener;
+import clinicmanagement.controller.addmedicine.admin.AddMedicineSubmitListener;
 import clinicmanagement.view.BaseView;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;

@@ -4,9 +4,7 @@
  */
 package clinicmanagement.view.manager;
 
-import clinicmanagement.constant.EmployeeManagementName;
-import clinicmanagement.constant.ToolManagementName;
-import clinicmanagement.controller.employeemanagement.*;
+import clinicmanagement.constant.admin.ToolManagementName;
 import clinicmanagement.controller.toolmanagement.*;
 import clinicmanagement.model.base.TableListModelSelectionWrapper;
 import clinicmanagement.model.base.TableModelWrapper;

@@ -1,6 +1,6 @@
 package clinicmanagement.controller.patientmanagement;
 
-import clinicmanagement.constant.PatientManagementName;
+import clinicmanagement.constant.admin.PatientManagementName;
 import clinicmanagement.controller.patientmanagement.worker.ShowPatientWorker;
 import clinicmanagement.model.service.PatientService;
 import clinicmanagement.util.DocumentUtil;

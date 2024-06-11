@@ -4,12 +4,7 @@
  */
 package clinicmanagement.view.manager;
 
-import clinicmanagement.constant.ModifyEmployeeName;
-import clinicmanagement.constant.ModifyPatientName;
-import clinicmanagement.controller.addemployee.AddEmployeeCancelListener;
-import clinicmanagement.controller.addemployee.AddEmployeeSubmitListener;
-import clinicmanagement.controller.modifyemployee.ModifyEmployeeCancelListener;
-import clinicmanagement.controller.modifyemployee.ModifyEmployeeSubmitListener;
+import clinicmanagement.constant.admin.ModifyPatientName;
 import clinicmanagement.controller.modifypatient.ModifyPatientCancelListener;
 import clinicmanagement.controller.modifypatient.ModifyPatientSubmitListener;
 import clinicmanagement.view.BaseView;

@@ -1,8 +1,8 @@
 package clinicmanagement.controller.modifymedicalrecord;
 
 import clinicmanagement.constant.LoginName;
-import clinicmanagement.constant.MedicalRecordManagementName;
-import clinicmanagement.constant.PatientManagementName;
+import clinicmanagement.constant.admin.MedicalRecordManagementName;
+import clinicmanagement.constant.admin.PatientManagementName;
 import clinicmanagement.model.base.TableListModelSelectionWrapper;
 import clinicmanagement.model.base.TableModelWrapper;
 import clinicmanagement.model.service.*;

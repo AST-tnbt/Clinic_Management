@@ -1,6 +1,6 @@
 package clinicmanagement.controller.modifyprescriptiondetail;
 
-import clinicmanagement.constant.ModifyMedicalRecordName;
+import clinicmanagement.constant.admin.ModifyMedicalRecordName;
 import clinicmanagement.model.entity.Medicine;
 import clinicmanagement.model.service.MedicineService;
 import com.google.inject.Inject;

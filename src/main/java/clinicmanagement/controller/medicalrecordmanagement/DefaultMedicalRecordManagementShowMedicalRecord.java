@@ -4,8 +4,8 @@
  */
 package clinicmanagement.controller.medicalrecordmanagement;
 
-import clinicmanagement.constant.MedicalRecordManagementName;
-import clinicmanagement.constant.PatientManagementName;
+import clinicmanagement.constant.admin.MedicalRecordManagementName;
+import clinicmanagement.constant.admin.PatientManagementName;
 import clinicmanagement.controller.medicalrecordmanagement.worker.ShowMedicalRecordWorker;
 import clinicmanagement.model.base.TableListModelSelectionWrapper;
 import clinicmanagement.model.base.TableModelWrapper;

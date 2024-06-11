@@ -1,12 +1,8 @@
 package clinicmanagement.controller.feemanagement;
 
-import clinicmanagement.constant.EmployeeManagementName;
-import clinicmanagement.constant.FeeManagementName;
-import clinicmanagement.controller.employeemanagement.worker.ShowEmployeeWorker;
+import clinicmanagement.constant.admin.FeeManagementName;
 import clinicmanagement.controller.feemanagement.worker.ShowFeeWorker;
-import clinicmanagement.model.entity.Employee;
 import clinicmanagement.model.entity.Invoice;
-import clinicmanagement.model.service.EmployeeService;
 import clinicmanagement.model.service.InvoiceService;
 import clinicmanagement.model.service.PatientService;
 import clinicmanagement.util.DocumentUtil;

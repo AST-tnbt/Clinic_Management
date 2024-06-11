@@ -1,10 +1,7 @@
 package clinicmanagement.model.service;
 
 import clinicmanagement.constant.EntityName;
-import clinicmanagement.constant.ToolManagementName;
 import clinicmanagement.controller.database.DatabaseContext;
-import clinicmanagement.model.entity.Patient;
-import clinicmanagement.model.entity.Room;
 import clinicmanagement.model.entity.Tool;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;

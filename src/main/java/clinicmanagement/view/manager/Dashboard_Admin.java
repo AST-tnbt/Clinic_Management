@@ -4,7 +4,7 @@
  */
 package clinicmanagement.view.manager;
 
-import clinicmanagement.controller.dashboard.*;
+import clinicmanagement.controller.dashboard.admin.*;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 

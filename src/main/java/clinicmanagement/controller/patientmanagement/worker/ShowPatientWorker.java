@@ -4,7 +4,7 @@
  */
 package clinicmanagement.controller.patientmanagement.worker;
 
-import clinicmanagement.constant.PatientManagementName;
+import clinicmanagement.constant.admin.PatientManagementName;
 import clinicmanagement.model.base.TableModelWrapper;
 import clinicmanagement.model.entity.Patient;
 import com.google.inject.Inject;

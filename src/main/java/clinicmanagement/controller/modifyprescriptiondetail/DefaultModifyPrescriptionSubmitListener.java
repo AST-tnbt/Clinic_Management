@@ -3,14 +3,12 @@ package clinicmanagement.controller.modifyprescriptiondetail;/*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 
-import clinicmanagement.constant.AddMedicalRecordName;
-import clinicmanagement.constant.ModifyMedicalRecordName;
-import clinicmanagement.constant.PatientManagementName;
+import clinicmanagement.constant.admin.ModifyMedicalRecordName;
+import clinicmanagement.constant.admin.PatientManagementName;
 import clinicmanagement.model.base.TableListModelSelectionWrapper;
 import clinicmanagement.model.base.TableModelWrapper;
 import clinicmanagement.model.service.*;
 import clinicmanagement.util.DocumentUtil;
-import clinicmanagement.view.manager.AddPrescriptionManagement_Admin;
 import clinicmanagement.view.manager.ModifyPrescriptionManagement_Admin;
 import com.google.inject.Inject;
 import com.google.inject.name.Named;

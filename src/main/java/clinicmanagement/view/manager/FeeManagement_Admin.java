@@ -4,9 +4,8 @@
  */
 package clinicmanagement.view.manager;
 
-import clinicmanagement.constant.FeeManagementName;
+import clinicmanagement.constant.admin.FeeManagementName;
 import clinicmanagement.controller.feemanagement.*;
-import clinicmanagement.controller.roommanagement.*;
 import clinicmanagement.model.base.TableListModelSelectionWrapper;
 import clinicmanagement.model.base.TableModelWrapper;
 import com.google.inject.Inject;

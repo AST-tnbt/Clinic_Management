@@ -1,6 +1,6 @@
 package clinicmanagement.controller.addprescription;
 
-import clinicmanagement.constant.AddMedicalRecordName;
+import clinicmanagement.constant.admin.AddMedicalRecordName;
 import clinicmanagement.model.service.MedicineService;
 import clinicmanagement.model.service.PrescriptionDetailService;
 import clinicmanagement.model.service.PrescriptionService;

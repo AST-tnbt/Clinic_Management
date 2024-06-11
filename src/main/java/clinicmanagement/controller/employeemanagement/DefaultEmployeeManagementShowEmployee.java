@@ -4,19 +4,16 @@
  */
 package clinicmanagement.controller.employeemanagement;
 
-import clinicmanagement.constant.EmployeeManagementName;
+import clinicmanagement.constant.admin.EmployeeManagementName;
 import clinicmanagement.controller.employeemanagement.worker.ShowEmployeeWorker;
 import clinicmanagement.model.base.TableModelWrapper;
-import clinicmanagement.model.entity.Employee;
 import clinicmanagement.model.service.EmployeeService;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 import com.google.inject.name.Named;
 
-import javax.swing.table.DefaultTableModel;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
-import java.util.ArrayList;
 
 
 /**

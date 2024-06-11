@@ -4,7 +4,7 @@
  */
 package clinicmanagement.controller.addpatient;
 
-import clinicmanagement.constant.AddPatientName;
+import clinicmanagement.constant.admin.AddPatientName;
 import clinicmanagement.controller.database.DatabaseContext;
 import clinicmanagement.controller.patientmanagement.worker.ShowPatientWorker;
 import clinicmanagement.model.service.PatientService;

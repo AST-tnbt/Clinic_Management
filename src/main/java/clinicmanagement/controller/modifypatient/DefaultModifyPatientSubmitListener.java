@@ -4,15 +4,10 @@
  */
 package clinicmanagement.controller.modifypatient;
 
-import clinicmanagement.constant.ModifyEmployeeName;
-import clinicmanagement.constant.ModifyPatientName;
-import clinicmanagement.controller.employeemanagement.worker.ShowEmployeeWorker;
+import clinicmanagement.constant.admin.ModifyPatientName;
 import clinicmanagement.controller.patientmanagement.worker.ShowPatientWorker;
-import clinicmanagement.model.service.EmployeeService;
 import clinicmanagement.model.service.PatientService;
 import clinicmanagement.util.DocumentUtil;
-import clinicmanagement.view.manager.EmployeeManagement_Admin;
-import clinicmanagement.view.manager.ModifyEmployee_Admin;
 import clinicmanagement.view.manager.ModifyPatient_Admin;
 import com.google.inject.Inject;
 import com.google.inject.Provider;

@@ -4,7 +4,7 @@
  */
 package clinicmanagement.view.manager;
 
-import clinicmanagement.constant.MedicalRecordManagementName;
+import clinicmanagement.constant.admin.MedicalRecordManagementName;
 import clinicmanagement.controller.medicalrecordmanagement.MedicalRecordManagementAddButtonListener;
 import clinicmanagement.controller.medicalrecordmanagement.MedicalRecordManagementDeleteButtonListener;
 import clinicmanagement.controller.medicalrecordmanagement.MedicalRecordManagementModifyButtonListener;

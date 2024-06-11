@@ -4,16 +4,12 @@
  */
 package clinicmanagement.controller.modifytool;
 
-import clinicmanagement.constant.ModifyRoomName;
-import clinicmanagement.constant.ModifyToolName;
-import clinicmanagement.controller.roommanagement.worker.ShowRoomWorker;
+import clinicmanagement.constant.admin.ModifyToolName;
 import clinicmanagement.controller.toolmanagement.worker.ShowToolWorker;
 import clinicmanagement.model.service.RoomService;
 import clinicmanagement.model.service.ToolService;
 import clinicmanagement.util.DocumentUtil;
-import clinicmanagement.view.manager.ModifyRoom_Admin;
 import clinicmanagement.view.manager.ModifyTool_Admin;
-import clinicmanagement.view.manager.RoomManagement_Admin;
 import clinicmanagement.view.manager.ToolManagement_Admin;
 import com.google.inject.Inject;
 import com.google.inject.Provider;

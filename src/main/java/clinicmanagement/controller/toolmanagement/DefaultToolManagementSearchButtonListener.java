@@ -1,6 +1,6 @@
 package clinicmanagement.controller.toolmanagement;
 
-import clinicmanagement.constant.ToolManagementName;
+import clinicmanagement.constant.admin.ToolManagementName;
 import clinicmanagement.controller.toolmanagement.worker.ShowToolWorker;
 import clinicmanagement.model.entity.Tool;
 import clinicmanagement.model.service.ToolService;

@@ -4,7 +4,7 @@
  */
 package clinicmanagement.controller.roommanagement;
 
-import clinicmanagement.constant.RoomManagementName;
+import clinicmanagement.constant.admin.RoomManagementName;
 import clinicmanagement.controller.roommanagement.worker.ShowRoomWorker;
 import clinicmanagement.model.base.TableModelWrapper;
 import clinicmanagement.model.service.RoomService;

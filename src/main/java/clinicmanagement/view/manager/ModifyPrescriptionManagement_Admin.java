@@ -9,9 +9,7 @@ package clinicmanagement.view.manager;
  * @author tin-ast
  */
 
-import clinicmanagement.constant.ModifyMedicalRecordName;
-import clinicmanagement.controller.addprescription.PrescriptionAddButtonListener;
-import clinicmanagement.controller.addprescription.PrescriptionSubmitListener;
+import clinicmanagement.constant.admin.ModifyMedicalRecordName;
 import clinicmanagement.controller.modifyprescriptiondetail.ModifyMedicalRecordShowListener;
 import clinicmanagement.controller.modifyprescriptiondetail.ModifyPrescriptionAddButtonListener;
 import clinicmanagement.controller.modifyprescriptiondetail.ModifyPrescriptionSubmitListener;

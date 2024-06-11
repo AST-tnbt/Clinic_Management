@@ -4,7 +4,7 @@
  */
 package clinicmanagement.view.manager;
 
-import clinicmanagement.constant.AddMedicalRecordName;
+import clinicmanagement.constant.admin.AddMedicalRecordName;
 import clinicmanagement.controller.addmedicalrecord.AddMedicalRecordAddPrescriptionListener;
 import clinicmanagement.controller.addmedicalrecord.AddMedicalRecordCancelListener;
 import clinicmanagement.controller.addmedicalrecord.AddMedicalRecordSubmitListener;

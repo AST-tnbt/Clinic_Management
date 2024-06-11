@@ -4,10 +4,8 @@
  */
 package clinicmanagement.view.manager;
 
-import clinicmanagement.constant.MedicineManagementName;
-import clinicmanagement.constant.RoomManagementName;
-import clinicmanagement.controller.medcinemanagement.*;
-import clinicmanagement.controller.roommanagement.*;
+import clinicmanagement.constant.admin.MedicineManagementName;
+import clinicmanagement.controller.medcinemanagement.admin.*;
 import clinicmanagement.model.base.TableListModelSelectionWrapper;
 import clinicmanagement.model.base.TableModelWrapper;
 import com.google.inject.Inject;
@@ -27,7 +25,7 @@ public class MedicineManagement_Admin extends javax.swing.JFrame {
      */
     public MedicineManagement_Admin() {
         initComponents();
-        setTitle("TWP clinic management - Phòng");
+        setTitle("TWP clinic management - Thuốc");
     }
     /**
      * This method is called from within the constructor to initialize the form.

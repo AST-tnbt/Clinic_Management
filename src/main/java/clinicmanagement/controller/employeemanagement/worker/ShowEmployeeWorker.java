@@ -4,21 +4,14 @@
  */
 package clinicmanagement.controller.employeemanagement.worker;
 
-import clinicmanagement.constant.EmployeeManagementName;
-import clinicmanagement.controller.database.DatabaseContext;
+import clinicmanagement.constant.admin.EmployeeManagementName;
 import clinicmanagement.model.base.TableModelWrapper;
 import clinicmanagement.model.entity.Employee;
-import clinicmanagement.model.service.EmployeeService;
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.concurrent.ExecutionException;
-import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
 /**

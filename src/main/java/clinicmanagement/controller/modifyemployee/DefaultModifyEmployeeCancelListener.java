@@ -4,10 +4,8 @@
  */
 package clinicmanagement.controller.modifyemployee;
 
-import clinicmanagement.constant.AddEmployeeName;
-import clinicmanagement.constant.ModifyEmployeeName;
+import clinicmanagement.constant.admin.ModifyEmployeeName;
 import clinicmanagement.util.DocumentUtil;
-import clinicmanagement.view.manager.AddEmployee_Admin;
 import clinicmanagement.view.manager.ModifyEmployee_Admin;
 import com.google.inject.Inject;
 import jakarta.inject.Named;

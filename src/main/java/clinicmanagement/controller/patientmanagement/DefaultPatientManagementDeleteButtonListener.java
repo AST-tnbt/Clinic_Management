@@ -4,20 +4,16 @@
  */
 package clinicmanagement.controller.patientmanagement;
 
-import clinicmanagement.constant.EmployeeManagementName;
-import clinicmanagement.constant.PatientManagementName;
-import clinicmanagement.controller.employeemanagement.worker.ShowEmployeeWorker;
+import clinicmanagement.constant.admin.PatientManagementName;
 import clinicmanagement.controller.patientmanagement.worker.ShowPatientWorker;
 import clinicmanagement.model.base.TableListModelSelectionWrapper;
 import clinicmanagement.model.base.TableModelWrapper;
-import clinicmanagement.model.service.EmployeeService;
 import clinicmanagement.model.service.PatientService;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 import jakarta.inject.Named;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.SQLException;

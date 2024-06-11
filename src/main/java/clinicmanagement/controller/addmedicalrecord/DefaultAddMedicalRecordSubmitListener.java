@@ -4,7 +4,7 @@
  */
 package clinicmanagement.controller.addmedicalrecord;
 
-import clinicmanagement.constant.AddMedicalRecordName;
+import clinicmanagement.constant.admin.AddMedicalRecordName;
 import clinicmanagement.constant.LoginName;
 import clinicmanagement.controller.medicalrecordmanagement.worker.ShowMedicalRecordWorker;
 import clinicmanagement.controller.patientmanagement.worker.ShowPatientWorker;

@@ -4,12 +4,10 @@
  */
 package clinicmanagement.controller.roommanagement.worker;
 
-import clinicmanagement.constant.RoomManagementName;
+import clinicmanagement.constant.admin.RoomManagementName;
 import clinicmanagement.model.base.TableModelWrapper;
 import clinicmanagement.model.entity.Room;
-import clinicmanagement.model.service.MedicalRecordService;
 import clinicmanagement.model.service.PatientService;
-import clinicmanagement.model.service.RoomService;
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
 

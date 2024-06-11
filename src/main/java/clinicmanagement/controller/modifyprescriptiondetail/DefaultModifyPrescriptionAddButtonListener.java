@@ -1,8 +1,7 @@
 package clinicmanagement.controller.modifyprescriptiondetail;
 
-import clinicmanagement.constant.AddMedicalRecordName;
-import clinicmanagement.constant.MedicalRecordManagementName;
-import clinicmanagement.constant.ModifyMedicalRecordName;
+import clinicmanagement.constant.admin.MedicalRecordManagementName;
+import clinicmanagement.constant.admin.ModifyMedicalRecordName;
 import clinicmanagement.model.base.TableListModelSelectionWrapper;
 import clinicmanagement.model.base.TableModelWrapper;
 import clinicmanagement.model.service.MedicalRecordService;

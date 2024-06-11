@@ -4,7 +4,7 @@
  */
 package clinicmanagement.controller.toolmanagement;
 
-import clinicmanagement.constant.ToolManagementName;
+import clinicmanagement.constant.admin.ToolManagementName;
 import clinicmanagement.controller.toolmanagement.worker.ShowToolWorker;
 import clinicmanagement.model.base.TableModelWrapper;
 import clinicmanagement.model.service.ToolService;

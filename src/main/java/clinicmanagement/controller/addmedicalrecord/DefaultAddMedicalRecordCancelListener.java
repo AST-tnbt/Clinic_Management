@@ -4,9 +4,8 @@
  */
 package clinicmanagement.controller.addmedicalrecord;
 
-import clinicmanagement.constant.AddMedicalRecordName;
-import clinicmanagement.constant.ModifyMedicalRecordName;
-import clinicmanagement.constant.PatientManagementName;
+import clinicmanagement.constant.admin.AddMedicalRecordName;
+import clinicmanagement.constant.admin.PatientManagementName;
 import clinicmanagement.model.base.TableListModelSelectionWrapper;
 import clinicmanagement.model.base.TableModelWrapper;
 import clinicmanagement.model.entity.PrescriptionDetail;
@@ -16,7 +15,6 @@ import clinicmanagement.model.service.PrescriptionDetailService;
 import clinicmanagement.model.service.PrescriptionService;
 import clinicmanagement.util.DocumentUtil;
 import clinicmanagement.view.manager.AddMedicalRecord_Admin;
-import clinicmanagement.view.manager.ModifyMedicalRecord_Admin;
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
 

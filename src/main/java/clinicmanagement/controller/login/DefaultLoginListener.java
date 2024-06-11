@@ -6,6 +6,9 @@ import clinicmanagement.model.entity.MedicalRecord;
 import clinicmanagement.model.entity.Prescription;
 import clinicmanagement.model.service.*;
 import clinicmanagement.util.DocumentUtil;
+import clinicmanagement.view.clerk.Dashboard_Clerk;
+import clinicmanagement.view.doctor.Dashboard_Doctor;
+import clinicmanagement.view.expert.Dashboard_Expert;
 import clinicmanagement.view.manager.Dashboard_Admin;
 import clinicmanagement.view.Login;
 import com.google.inject.Inject;
@@ -52,6 +55,12 @@ public class DefaultLoginListener implements LoginListener {
     private ToolService toolService;
     @Inject
     private InvoiceService invoiceService;
+    @Inject
+    private Dashboard_Expert dashboardExpert;
+    @Inject
+    private Dashboard_Doctor dashboardDoctor;
+    @Inject
+    private Dashboard_Clerk dashboardClerk;
 
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -71,12 +80,25 @@ public class DefaultLoginListener implements LoginListener {
                 toolService.getDatabase();
                 invoiceService.getDatabase();
             }
-//            else if (employeeService.getAccount(username, password).equals("Chuyên viên")) {
-//                login.setVisible(false);
-//                dashboardExpert.setVisible(true);
-//                patientService.getDatabase();
-//                medicineService.getDatabase();
-//            }
+            else if (employeeService.getAccount(username, password).equals("Chuyên viên")) {
+                login.setVisible(false);
+                dashboardExpert.setVisible(true);
+                patientService.getDatabase();
+                medicineService.getDatabase();
+            }
+            else if (employeeService.getAccount(username, password).equals("Bác sĩ")) {
+                login.setVisible(false);
+                dashboardDoctor.setVisible(true);
+                patientService.getDatabase();
+                medicalRecordService.getDatabase();
+                prescriptionService.getDatabase();
+                prescriptionDetailService.getDatabase();
+            }
+            else if (employeeService.getAccount(username, password).equals("Nhân viên kế toán")) {
+                login.setVisible(false);
+                dashboardClerk.setVisible(true);
+                invoiceService.getDatabase();
+            }
             else if (employeeService.getAccount(username, password).equals("Sai thông tin đăng nhập")) {
                 JOptionPane.showMessageDialog(null, employeeService.getAccount(username, password));
                 employeeService.removeAllObject();

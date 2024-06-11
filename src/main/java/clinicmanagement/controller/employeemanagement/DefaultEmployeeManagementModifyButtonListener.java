@@ -1,7 +1,7 @@
 package clinicmanagement.controller.employeemanagement;
 
-import clinicmanagement.constant.EmployeeManagementName;
-import clinicmanagement.constant.ModifyEmployeeName;
+import clinicmanagement.constant.admin.EmployeeManagementName;
+import clinicmanagement.constant.admin.ModifyEmployeeName;
 import clinicmanagement.model.base.TableListModelSelectionWrapper;
 import clinicmanagement.model.base.TableModelWrapper;
 import clinicmanagement.model.service.EmployeeService;
@@ -12,7 +12,6 @@ import jakarta.inject.Named;
 import javax.swing.*;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.Document;
-import javax.swing.text.PlainDocument;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 

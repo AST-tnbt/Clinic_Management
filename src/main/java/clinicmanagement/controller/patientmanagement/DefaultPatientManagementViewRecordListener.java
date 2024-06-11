@@ -1,7 +1,7 @@
 package clinicmanagement.controller.patientmanagement;
 
-import clinicmanagement.constant.AddMedicalRecordName;
-import clinicmanagement.constant.PatientManagementName;
+import clinicmanagement.constant.admin.AddMedicalRecordName;
+import clinicmanagement.constant.admin.PatientManagementName;
 import clinicmanagement.model.base.TableListModelSelectionWrapper;
 import clinicmanagement.model.base.TableModelWrapper;
 import clinicmanagement.util.DocumentUtil;

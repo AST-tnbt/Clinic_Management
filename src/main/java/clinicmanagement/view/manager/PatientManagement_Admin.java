@@ -4,7 +4,7 @@
  */
 package clinicmanagement.view.manager;
 
-import clinicmanagement.constant.PatientManagementName;
+import clinicmanagement.constant.admin.PatientManagementName;
 import clinicmanagement.controller.patientmanagement.*;
 import clinicmanagement.model.base.TableListModelSelectionWrapper;
 import clinicmanagement.model.base.TableModelWrapper;

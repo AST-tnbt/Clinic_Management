@@ -4,21 +4,18 @@
  */
 package clinicmanagement.controller.modifymedicalrecord;
 
-import clinicmanagement.constant.AddMedicalRecordName;
-import clinicmanagement.constant.MedicalRecordManagementName;
-import clinicmanagement.constant.ModifyEmployeeName;
-import clinicmanagement.constant.ModifyMedicalRecordName;
+import clinicmanagement.constant.admin.AddMedicalRecordName;
+import clinicmanagement.constant.admin.MedicalRecordManagementName;
+import clinicmanagement.constant.admin.ModifyMedicalRecordName;
 import clinicmanagement.model.base.TableListModelSelectionWrapper;
 import clinicmanagement.model.base.TableModelWrapper;
 import clinicmanagement.model.service.MedicalRecordService;
 import clinicmanagement.model.service.PatientService;
 import clinicmanagement.util.DocumentUtil;
-import clinicmanagement.view.manager.ModifyEmployee_Admin;
 import clinicmanagement.view.manager.ModifyMedicalRecord_Admin;
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
 
-import javax.print.Doc;
 import javax.swing.*;
 import javax.swing.text.Document;
 import java.awt.event.ActionEvent;

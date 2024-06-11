@@ -4,10 +4,9 @@
  */
 package clinicmanagement.controller.feemanagement;
 
-import clinicmanagement.constant.EmployeeManagementName;
+import clinicmanagement.constant.admin.EmployeeManagementName;
 import clinicmanagement.controller.feemanagement.worker.ShowFeeWorker;
 import clinicmanagement.model.base.TableModelWrapper;
-import clinicmanagement.model.service.EmployeeService;
 import clinicmanagement.model.service.InvoiceService;
 import com.google.inject.Inject;
 import com.google.inject.Provider;

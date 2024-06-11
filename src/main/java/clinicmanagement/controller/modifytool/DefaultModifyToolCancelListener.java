@@ -4,15 +4,12 @@
  */
 package clinicmanagement.controller.modifytool;
 
-import clinicmanagement.constant.ModifyRoomName;
-import clinicmanagement.constant.ModifyToolName;
+import clinicmanagement.constant.admin.ModifyToolName;
 import clinicmanagement.util.DocumentUtil;
-import clinicmanagement.view.manager.ModifyRoom_Admin;
 import clinicmanagement.view.manager.ModifyTool_Admin;
 import com.google.inject.Inject;
 import jakarta.inject.Named;
 
-import javax.swing.*;
 import javax.swing.text.Document;
 import java.awt.event.ActionEvent;
 
