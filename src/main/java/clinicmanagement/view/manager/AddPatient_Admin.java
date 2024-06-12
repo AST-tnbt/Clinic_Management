@@ -5,8 +5,8 @@
 package clinicmanagement.view.manager;
 
 import clinicmanagement.constant.admin.AddPatientName;
-import clinicmanagement.controller.addpatient.AddPatientCancelListener;
-import clinicmanagement.controller.addpatient.AddPatientSubmitListener;
+import clinicmanagement.controller.addpatient.admin.AddPatientCancelListener;
+import clinicmanagement.controller.addpatient.admin.AddPatientSubmitListener;
 import clinicmanagement.view.BaseView;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;

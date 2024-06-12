@@ -5,7 +5,9 @@
 package clinicmanagement.view.expert;
 
 import clinicmanagement.constant.admin.PatientManagementName;
-import clinicmanagement.controller.patientmanagement.*;
+import clinicmanagement.constant.expert.ExpertPatientManagementName;
+import clinicmanagement.controller.patientmanagement.admin.*;
+import clinicmanagement.controller.patientmanagement.expert.*;
 import clinicmanagement.model.base.TableListModelSelectionWrapper;
 import clinicmanagement.model.base.TableModelWrapper;
 import com.google.inject.Inject;
@@ -193,9 +195,9 @@ public class PatientManagement_Expert extends javax.swing.JFrame {
 
     @Inject
     public void SetModels(
-            @Named(PatientManagementName.PATIENT_TABLE) TableModelWrapper tableModelWrapper,
-            @Named(PatientManagementName.PATIENT_TABLE_LIST_SELECTION) TableListModelSelectionWrapper tableListModelSelectionWrapper,
-            @Named(PatientManagementName.PATIENT_SEARCH_INPUT) Document searchInput
+            @Named(ExpertPatientManagementName.PATIENT_TABLE) TableModelWrapper tableModelWrapper,
+            @Named(ExpertPatientManagementName.PATIENT_TABLE_LIST_SELECTION) TableListModelSelectionWrapper tableListModelSelectionWrapper,
+            @Named(ExpertPatientManagementName.PATIENT_SEARCH_INPUT) Document searchInput
             ) {
         tableModelWrapper.setModel(this.patientTable.getModel());
         tableListModelSelectionWrapper.setSelectionModel(this.patientTable.getSelectionModel());
@@ -204,14 +206,13 @@ public class PatientManagement_Expert extends javax.swing.JFrame {
     
     @Inject
     public void setListener(
-        PatientManagementBackDashboard patientManagementBackDashboard,
-        PatientManagementShowPatient patientManagementShowPatient,
-        PatientManagementSearchButtonListener patientManagementSearchButtonListener,
-        PatientManagementSearchBarKeyPress patientManagementSearchBarKeyPress,
-        PatientManagementViewRecordListener patientManagementViewRecordListener,
-        PatientManagementAddButtonListener patientManagementAddButtonListener,
-        PatientManagementDeleteButtonListener patientManagementDeleteButtonListener,
-        PatientManagementModifyButtonListener patientManagementModifyButtonListener
+        ExpertPatientManagementBackDashboard patientManagementBackDashboard,
+        ExpertPatientManagementShowPatient patientManagementShowPatient,
+        ExpertPatientManagementSearchButtonListener patientManagementSearchButtonListener,
+        ExpertPatientManagementSearchBarKeyPress patientManagementSearchBarKeyPress,
+        ExpertPatientManagementAddButtonListener patientManagementAddButtonListener,
+        ExpertPatientManagementDeleteButtonListener patientManagementDeleteButtonListener,
+        ExpertPatientManagementModifyButtonListener patientManagementModifyButtonListener
     ) {
         this.backDashboardBtn.addMouseListener(patientManagementBackDashboard);
         this.addComponentListener(patientManagementShowPatient);

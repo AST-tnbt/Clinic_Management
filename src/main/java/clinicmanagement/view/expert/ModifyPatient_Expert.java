@@ -4,9 +4,11 @@
  */
 package clinicmanagement.view.expert;
 
-import clinicmanagement.constant.admin.ModifyPatientName;
-import clinicmanagement.controller.modifypatient.ModifyPatientCancelListener;
-import clinicmanagement.controller.modifypatient.ModifyPatientSubmitListener;
+import clinicmanagement.constant.expert.ExpertModifyPatientName;
+import clinicmanagement.controller.modifypatient.admin.ModifyPatientCancelListener;
+import clinicmanagement.controller.modifypatient.admin.ModifyPatientSubmitListener;
+import clinicmanagement.controller.modifypatient.expert.ExpertModifyPatientCancelListener;
+import clinicmanagement.controller.modifypatient.expert.ExpertModifyPatientSubmitListener;
 import clinicmanagement.view.BaseView;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
@@ -222,12 +224,12 @@ public class ModifyPatient_Expert extends BaseView {
     // End of variables declaration//GEN-END:variables
     @Inject
     public void setModels(
-        @Named(ModifyPatientName.P_ID) Document inputPatientID,
-        @Named(ModifyPatientName.P_NAME) Document inputPatientName,
-        @Named(ModifyPatientName.P_SEX) ComboBoxModel inputPatientSex,
-        @Named(ModifyPatientName.P_ADDRESS) Document inputPatientAddress,
-        @Named(ModifyPatientName.P_DAYOFBIRTH) Document inputPatientDayOfBirth,
-        @Named(ModifyPatientName.P_PHONENUMBER) Document inputPatientPhoneNum
+        @Named(ExpertModifyPatientName.P_ID) Document inputPatientID,
+        @Named(ExpertModifyPatientName.P_NAME) Document inputPatientName,
+        @Named(ExpertModifyPatientName.P_SEX) ComboBoxModel inputPatientSex,
+        @Named(ExpertModifyPatientName.P_ADDRESS) Document inputPatientAddress,
+        @Named(ExpertModifyPatientName.P_DAYOFBIRTH) Document inputPatientDayOfBirth,
+        @Named(ExpertModifyPatientName.P_PHONENUMBER) Document inputPatientPhoneNum
     ) {
         this.inputPatientID.setDocument(inputPatientID);
         this.inputPatientName.setDocument(inputPatientName);
@@ -245,8 +247,8 @@ public class ModifyPatient_Expert extends BaseView {
     }
     @Inject
     public void setListeners(
-        ModifyPatientCancelListener modifyPatientCancelListener,
-        ModifyPatientSubmitListener modifyPatientSubmitListener
+        ExpertModifyPatientCancelListener modifyPatientCancelListener,
+        ExpertModifyPatientSubmitListener modifyPatientSubmitListener
     ) {
         this.cancelBtn.addActionListener(modifyPatientCancelListener);
         this.submitBtn.addActionListener(modifyPatientSubmitListener);

@@ -5,8 +5,11 @@
 package clinicmanagement.view.expert;
 
 import clinicmanagement.constant.admin.AddPatientName;
-import clinicmanagement.controller.addpatient.AddPatientCancelListener;
-import clinicmanagement.controller.addpatient.AddPatientSubmitListener;
+import clinicmanagement.constant.expert.ExpertAddPatientName;
+import clinicmanagement.controller.addpatient.admin.AddPatientCancelListener;
+import clinicmanagement.controller.addpatient.admin.AddPatientSubmitListener;
+import clinicmanagement.controller.addpatient.expert.ExpertAddPatientCancelListener;
+import clinicmanagement.controller.addpatient.expert.ExpertAddPatientSubmitListener;
 import clinicmanagement.view.BaseView;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
@@ -200,11 +203,11 @@ public class AddPatient_Expert extends BaseView {
     // End of variables declaration//GEN-END:variables
     @Inject
     public void setModels(
-        @Named(AddPatientName.P_NAME) Document inputEmpName,
-        @Named(AddPatientName.P_SEX) ComboBoxModel inputEmpSex,
-        @Named(AddPatientName.P_ADDRESS) Document inputEmpAddress,
-        @Named(AddPatientName.P_DAYOFBIRTH) Document inputEmpDayOfBirth,
-        @Named(AddPatientName.P_PHONENUMBER) Document inputEmpPhoneNum
+        @Named(ExpertAddPatientName.P_NAME) Document inputEmpName,
+        @Named(ExpertAddPatientName.P_SEX) ComboBoxModel inputEmpSex,
+        @Named(ExpertAddPatientName.P_ADDRESS) Document inputEmpAddress,
+        @Named(ExpertAddPatientName.P_DAYOFBIRTH) Document inputEmpDayOfBirth,
+        @Named(ExpertAddPatientName.P_PHONENUMBER) Document inputEmpPhoneNum
     ) {
         this.inputEmpName.setDocument(inputEmpName);
         this.inputEmpSex.setModel(inputEmpSex);
@@ -221,8 +224,8 @@ public class AddPatient_Expert extends BaseView {
     }
     @Inject
     public void setListeners(
-        AddPatientSubmitListener addPatientSubmitListener,
-        AddPatientCancelListener addPatientCancelListener
+        ExpertAddPatientSubmitListener addPatientSubmitListener,
+        ExpertAddPatientCancelListener addPatientCancelListener
     ) {
         this.submitBtn.addActionListener(addPatientSubmitListener);
         this.cancelBtn.addActionListener(addPatientCancelListener);

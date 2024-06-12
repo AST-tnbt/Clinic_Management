@@ -7,7 +7,7 @@ package clinicmanagement.controller.addmedicalrecord;
 import clinicmanagement.constant.admin.AddMedicalRecordName;
 import clinicmanagement.constant.LoginName;
 import clinicmanagement.controller.medicalrecordmanagement.worker.ShowMedicalRecordWorker;
-import clinicmanagement.controller.patientmanagement.worker.ShowPatientWorker;
+import clinicmanagement.controller.patientmanagement.admin.worker.ShowPatientWorker;
 import clinicmanagement.model.service.*;
 import clinicmanagement.util.DocumentUtil;
 import clinicmanagement.view.manager.AddMedicalRecord_Admin;

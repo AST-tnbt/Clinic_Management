@@ -9,7 +9,7 @@ import clinicmanagement.constant.LoginName;
 import clinicmanagement.constant.admin.MedicalRecordManagementName;
 import clinicmanagement.constant.admin.ModifyMedicalRecordName;
 import clinicmanagement.controller.medicalrecordmanagement.worker.ShowMedicalRecordWorker;
-import clinicmanagement.controller.patientmanagement.worker.ShowPatientWorker;
+import clinicmanagement.controller.patientmanagement.admin.worker.ShowPatientWorker;
 import clinicmanagement.model.base.TableListModelSelectionWrapper;
 import clinicmanagement.model.base.TableModelWrapper;
 import clinicmanagement.model.service.*;
