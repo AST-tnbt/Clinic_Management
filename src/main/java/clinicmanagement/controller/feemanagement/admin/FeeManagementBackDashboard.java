@@ -1,4 +1,4 @@
-package clinicmanagement.controller.feemanagement;
+package clinicmanagement.controller.feemanagement.admin;
 import com.google.inject.ImplementedBy;
 
 import java.awt.event.MouseListener;

@@ -7,6 +7,7 @@ package clinicmanagement;
 import clinicmanagement.constant.expert.ExpertAddMedicineName;
 import clinicmanagement.model.factory.*;
 import clinicmanagement.model.factory.admin.*;
+import clinicmanagement.model.factory.clerk.ClerkFeeManagementFactory;
 import clinicmanagement.model.factory.doctor.DoctorAddMedicalRecordFactory;
 import clinicmanagement.model.factory.doctor.DoctorMedicalRecordManagementFactory;
 import clinicmanagement.model.factory.doctor.DoctorModifyMedicalRecordFactory;
@@ -55,7 +56,8 @@ public class Main {
             new DoctorPatientManagementFactory(),
             new DoctorAddMedicalRecordFactory(),
             new DoctorMedicalRecordManagementFactory(),
-            new DoctorModifyMedicalRecordFactory()
+            new DoctorModifyMedicalRecordFactory(),
+            new ClerkFeeManagementFactory()
         );
         java.awt.EventQueue.invokeLater(() -> injector.getInstance(Login.class).setVisible(true));
     }

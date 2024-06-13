@@ -2,13 +2,17 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package clinicmanagement.view.manager;
+package clinicmanagement.view.clerk;
 
-import clinicmanagement.constant.admin.FeeManagementName;
+import clinicmanagement.constant.clerk.ClerkFeeManagementName;
 import clinicmanagement.controller.feemanagement.admin.FeeManagementBackDashboard;
 import clinicmanagement.controller.feemanagement.admin.FeeManagementSearchBarKeyPress;
 import clinicmanagement.controller.feemanagement.admin.FeeManagementSearchButtonListener;
 import clinicmanagement.controller.feemanagement.admin.FeeManagementShowFee;
+import clinicmanagement.controller.feemanagement.clerk.ClerkFeeManagementBackDashboard;
+import clinicmanagement.controller.feemanagement.clerk.ClerkFeeManagementSearchBarKeyPress;
+import clinicmanagement.controller.feemanagement.clerk.ClerkFeeManagementSearchButtonListener;
+import clinicmanagement.controller.feemanagement.clerk.ClerkFeeManagementShowFee;
 import clinicmanagement.model.base.TableListModelSelectionWrapper;
 import clinicmanagement.model.base.TableModelWrapper;
 import com.google.inject.Inject;
@@ -22,11 +26,11 @@ import javax.swing.text.Document;
  * @author tin-ast
  */
 @Singleton
-public class FeeManagement_Admin extends javax.swing.JFrame {
+public class FeeManagement_Clerk extends javax.swing.JFrame {
     /**
      * Creates new form EmployeeManagement
      */
-    public FeeManagement_Admin() {
+    public FeeManagement_Clerk() {
         initComponents();
         setTitle("TWP clinic management - Viện phí");
     }
@@ -173,9 +177,9 @@ public class FeeManagement_Admin extends javax.swing.JFrame {
 
     @Inject
     public void SetModels(
-            @Named(FeeManagementName.FEE_TABLE) TableModelWrapper tableModelWrapper,
-            @Named(FeeManagementName.FEE_TABLE_LIST_SELECTION) TableListModelSelectionWrapper tableListModelSelectionWrapper,
-            @Named(FeeManagementName.FEE_SEARCH_INPUT) Document searchInput
+            @Named(ClerkFeeManagementName.FEE_TABLE) TableModelWrapper tableModelWrapper,
+            @Named(ClerkFeeManagementName.FEE_TABLE_LIST_SELECTION) TableListModelSelectionWrapper tableListModelSelectionWrapper,
+            @Named(ClerkFeeManagementName.FEE_SEARCH_INPUT) Document searchInput
             ) {
         tableModelWrapper.setModel(this.feeTable.getModel());
         tableListModelSelectionWrapper.setSelectionModel(this.feeTable.getSelectionModel());
@@ -184,10 +188,10 @@ public class FeeManagement_Admin extends javax.swing.JFrame {
 //    
     @Inject
     public void setListener(
-        FeeManagementBackDashboard feeManagementBackDashboard,
-        FeeManagementShowFee feeManagementShowFee,
-        FeeManagementSearchButtonListener feeManagementSearchButtonListener,
-        FeeManagementSearchBarKeyPress feeManagementSearchBarKeyPress
+        ClerkFeeManagementBackDashboard feeManagementBackDashboard,
+        ClerkFeeManagementShowFee feeManagementShowFee,
+        ClerkFeeManagementSearchButtonListener feeManagementSearchButtonListener,
+        ClerkFeeManagementSearchBarKeyPress feeManagementSearchBarKeyPress
     ) {
         this.backDashboardBtn.addMouseListener(feeManagementBackDashboard);
         this.addComponentListener(feeManagementShowFee);

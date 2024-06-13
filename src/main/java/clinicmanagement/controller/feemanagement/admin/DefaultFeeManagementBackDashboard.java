@@ -1,8 +1,7 @@
-package clinicmanagement.controller.feemanagement;
+package clinicmanagement.controller.feemanagement.admin;
 
 import clinicmanagement.view.manager.Dashboard_Admin;
 import clinicmanagement.view.manager.FeeManagement_Admin;
-import clinicmanagement.view.manager.PatientManagement_Admin;
 import com.google.inject.Inject;
 
 import java.awt.event.MouseAdapter;

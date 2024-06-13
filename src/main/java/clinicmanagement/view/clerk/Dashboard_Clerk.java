@@ -6,6 +6,8 @@ package clinicmanagement.view.clerk;
 
 import clinicmanagement.controller.dashboard.admin.DashboardFeeListener;
 import clinicmanagement.controller.dashboard.admin.DashboardLogoutListener;
+import clinicmanagement.controller.dashboard.clerk.ClerkDashboardFeeListener;
+import clinicmanagement.controller.dashboard.clerk.ClerkDashboardLogoutListener;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 
@@ -173,8 +175,8 @@ public class Dashboard_Clerk extends javax.swing.JFrame {
 
     @Inject
     public void setListeners(
-        DashboardLogoutListener dashboardLogoutListener,
-        DashboardFeeListener dashboardFeeListener
+        ClerkDashboardLogoutListener dashboardLogoutListener,
+        ClerkDashboardFeeListener dashboardFeeListener
     ) {
         this.logoutBtn.addMouseListener(dashboardLogoutListener);
         this.feePanel.addMouseListener(dashboardFeeListener);

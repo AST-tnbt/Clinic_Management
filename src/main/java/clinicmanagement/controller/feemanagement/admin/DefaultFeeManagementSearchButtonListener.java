@@ -1,9 +1,10 @@
-package clinicmanagement.controller.feemanagement;
+package clinicmanagement.controller.feemanagement.admin;
 
 import clinicmanagement.constant.admin.FeeManagementName;
-import clinicmanagement.controller.feemanagement.worker.ShowFeeWorker;
+import clinicmanagement.controller.feemanagement.admin.worker.ShowFeeWorker;
 import clinicmanagement.model.entity.Invoice;
 import clinicmanagement.model.service.InvoiceService;
+import clinicmanagement.model.service.MedicalRecordService;
 import clinicmanagement.model.service.PatientService;
 import clinicmanagement.util.DocumentUtil;
 import com.google.inject.Inject;
@@ -23,15 +24,19 @@ public class DefaultFeeManagementSearchButtonListener implements FeeManagementSe
     private Provider<ShowFeeWorker> showFeeWorkerProvider;
     @Inject
     private PatientService patientService;
+    @Inject
+    private MedicalRecordService medicalRecordService;
+
     @Override
     public void actionPerformed(ActionEvent e) {
         String emp_name = DocumentUtil.getText(searchInput);
         ArrayList<Invoice> listInvoice = invoiceService.getListInvoice();
         ArrayList<Invoice> listInvoiceFilter = new ArrayList<>();
         for (Invoice invoice : listInvoice) {
-//            if (patientService.getNameById(invoice.getPatientId()).toLowerCase().contains(emp_name.toLowerCase().trim())) {
-//                listInvoiceFilter.add(invoice);
-//            }
+            int patientId = medicalRecordService.getPatientIdById(invoice.getMedicalRecord());
+            if (patientService.getNameById(patientId).toLowerCase().contains(emp_name.toLowerCase().trim())) {
+                listInvoiceFilter.add(invoice);
+            }
         }
         showFeeWorkerProvider.get().refreshTable(listInvoiceFilter);
     }

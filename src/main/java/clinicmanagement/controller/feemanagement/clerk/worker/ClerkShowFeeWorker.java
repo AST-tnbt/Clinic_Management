@@ -2,9 +2,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package clinicmanagement.controller.feemanagement.worker;
+package clinicmanagement.controller.feemanagement.clerk.worker;
 
 import clinicmanagement.constant.admin.FeeManagementName;
+import clinicmanagement.constant.clerk.ClerkFeeManagementName;
 import clinicmanagement.model.base.TableModelWrapper;
 import clinicmanagement.model.entity.Invoice;
 import clinicmanagement.model.service.MedicalRecordService;
@@ -20,8 +21,8 @@ import java.util.ArrayList;
  *
  * @author tin-ast
  */
-public class ShowFeeWorker {
-    @Inject @Named(FeeManagementName.FEE_TABLE)
+public class ClerkShowFeeWorker {
+    @Inject @Named(ClerkFeeManagementName.FEE_TABLE)
     private TableModelWrapper tableModelWrapper;
     @Inject
     private PatientService patientService;

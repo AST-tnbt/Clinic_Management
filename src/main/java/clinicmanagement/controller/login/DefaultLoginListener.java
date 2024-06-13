@@ -99,6 +99,8 @@ public class DefaultLoginListener implements LoginListener {
                 login.setVisible(false);
                 dashboardClerk.setVisible(true);
                 invoiceService.getDatabase();
+                patientService.getDatabase();
+                medicalRecordService.getDatabase();
             }
             else if (employeeService.getAccount(username, password).equals("Sai thông tin đăng nhập")) {
                 JOptionPane.showMessageDialog(null, employeeService.getAccount(username, password));
