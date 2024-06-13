@@ -2,13 +2,17 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package clinicmanagement.view.manager;
+package clinicmanagement.view.doctor;
 
-import clinicmanagement.constant.admin.MedicalRecordManagementName;
+import clinicmanagement.constant.doctor.DoctorMedicalRecordManagementName;
 import clinicmanagement.controller.medicalrecordmanagement.admin.MedicalRecordManagementAddButtonListener;
 import clinicmanagement.controller.medicalrecordmanagement.admin.MedicalRecordManagementDeleteButtonListener;
 import clinicmanagement.controller.medicalrecordmanagement.admin.MedicalRecordManagementModifyButtonListener;
 import clinicmanagement.controller.medicalrecordmanagement.admin.MedicalRecordManagementShowMedicalRecord;
+import clinicmanagement.controller.medicalrecordmanagement.doctor.DoctorMedicalRecordManagementAddButtonListener;
+import clinicmanagement.controller.medicalrecordmanagement.doctor.DoctorMedicalRecordManagementDeleteButtonListener;
+import clinicmanagement.controller.medicalrecordmanagement.doctor.DoctorMedicalRecordManagementModifyButtonListener;
+import clinicmanagement.controller.medicalrecordmanagement.doctor.DoctorMedicalRecordManagementShowMedicalRecord;
 import clinicmanagement.model.base.TableListModelSelectionWrapper;
 import clinicmanagement.model.base.TableModelWrapper;
 import com.google.inject.Inject;
@@ -21,12 +25,12 @@ import javax.swing.text.Document;
  *
  * @author tin-ast
  */
-public class MedicalRecordManagement_Admin extends javax.swing.JFrame {
+public class MedicalRecordManagement_Doctor extends javax.swing.JFrame {
 
     /**
      * Creates new form MedicalRecordManagement_Admin
      */
-    public MedicalRecordManagement_Admin() {
+    public MedicalRecordManagement_Doctor() {
         initComponents();
         setTitle("TWP clinic management - Danh sách bệnh án");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -166,20 +170,21 @@ public class MedicalRecordManagement_Admin extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(MedicalRecordManagement_Admin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MedicalRecordManagement_Doctor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(MedicalRecordManagement_Admin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MedicalRecordManagement_Doctor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(MedicalRecordManagement_Admin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MedicalRecordManagement_Doctor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(MedicalRecordManagement_Admin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MedicalRecordManagement_Doctor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new MedicalRecordManagement_Admin().setVisible(true);
+                new MedicalRecordManagement_Doctor().setVisible(true);
             }
         });
     }
@@ -197,9 +202,9 @@ public class MedicalRecordManagement_Admin extends javax.swing.JFrame {
 
     @Inject
     public void setModels (
-            @Named(MedicalRecordManagementName.MEDICAL_RECORD_NAME) Document name ,
-            @Named(MedicalRecordManagementName.MEDICAL_RECORD_TABLE)TableModelWrapper tableModelWrapper,
-            @Named(MedicalRecordManagementName.MEDICAL_RECORD_TABLE_LIST_SELECTION)TableListModelSelectionWrapper tableListModelSelectionWrapper
+            @Named(DoctorMedicalRecordManagementName.MEDICAL_RECORD_NAME) Document name ,
+            @Named(DoctorMedicalRecordManagementName.MEDICAL_RECORD_TABLE)TableModelWrapper tableModelWrapper,
+            @Named(DoctorMedicalRecordManagementName.MEDICAL_RECORD_TABLE_LIST_SELECTION)TableListModelSelectionWrapper tableListModelSelectionWrapper
             ) {
         this.name.setDocument(name);
         tableModelWrapper.setModel(this.medicalRecordTable.getModel());
@@ -207,10 +212,10 @@ public class MedicalRecordManagement_Admin extends javax.swing.JFrame {
     }
     @Inject
     public void setListeners (
-        MedicalRecordManagementShowMedicalRecord medicalRecordManagementShowMedicalRecord,
-        MedicalRecordManagementAddButtonListener medicalRecordManagementAddButtonListener,
-        MedicalRecordManagementDeleteButtonListener medicalRecordManagementDeleteButtonListener,
-        MedicalRecordManagementModifyButtonListener medicalRecordManagementModifyButtonListener
+        DoctorMedicalRecordManagementShowMedicalRecord medicalRecordManagementShowMedicalRecord,
+        DoctorMedicalRecordManagementAddButtonListener medicalRecordManagementAddButtonListener,
+        DoctorMedicalRecordManagementDeleteButtonListener medicalRecordManagementDeleteButtonListener,
+        DoctorMedicalRecordManagementModifyButtonListener medicalRecordManagementModifyButtonListener
     ) {
         this.addComponentListener(medicalRecordManagementShowMedicalRecord);
         this.addBtn.addMouseListener(medicalRecordManagementAddButtonListener);

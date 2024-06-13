@@ -7,10 +7,16 @@ package clinicmanagement;
 import clinicmanagement.constant.expert.ExpertAddMedicineName;
 import clinicmanagement.model.factory.*;
 import clinicmanagement.model.factory.admin.*;
+import clinicmanagement.model.factory.doctor.DoctorAddMedicalRecordFactory;
+import clinicmanagement.model.factory.doctor.DoctorMedicalRecordManagementFactory;
+import clinicmanagement.model.factory.doctor.DoctorModifyMedicalRecordFactory;
+import clinicmanagement.model.factory.doctor.DoctorPatientManagementFactory;
 import clinicmanagement.model.factory.expert.*;
 import clinicmanagement.view.Login;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
+
+import javax.print.Doc;
 
 /**
  *
@@ -45,7 +51,11 @@ public class Main {
             new ExpertModifyMedicineFactory(),
             new ExpertPatientManagementFactory(),
             new ExpertAddPatientFactory(),
-            new ExpertModifyPatientFactory()
+            new ExpertModifyPatientFactory(),
+            new DoctorPatientManagementFactory(),
+            new DoctorAddMedicalRecordFactory(),
+            new DoctorMedicalRecordManagementFactory(),
+            new DoctorModifyMedicalRecordFactory()
         );
         java.awt.EventQueue.invokeLater(() -> injector.getInstance(Login.class).setVisible(true));
     }

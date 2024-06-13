@@ -10,9 +10,9 @@ package clinicmanagement.view.manager;
  */
 
 import clinicmanagement.constant.admin.AddMedicalRecordName;
-import clinicmanagement.controller.addprescription.AddMedicalRecordShowListener;
-import clinicmanagement.controller.addprescription.PrescriptionAddButtonListener;
-import clinicmanagement.controller.addprescription.PrescriptionSubmitListener;
+import clinicmanagement.controller.addprescription.admin.AddMedicalRecordShowListener;
+import clinicmanagement.controller.addprescription.admin.PrescriptionAddButtonListener;
+import clinicmanagement.controller.addprescription.admin.PrescriptionSubmitListener;
 import clinicmanagement.view.BaseView;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;

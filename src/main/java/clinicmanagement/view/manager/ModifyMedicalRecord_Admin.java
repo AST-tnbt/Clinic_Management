@@ -5,9 +5,9 @@
 package clinicmanagement.view.manager;
 
 import clinicmanagement.constant.admin.ModifyMedicalRecordName;
-import clinicmanagement.controller.modifymedicalrecord.ModifyMedicalRecordAddPrescriptionListener;
-import clinicmanagement.controller.modifymedicalrecord.ModifyMedicalRecordCancelListener;
-import clinicmanagement.controller.modifymedicalrecord.ModifyMedicalRecordSubmitListener;
+import clinicmanagement.controller.modifymedicalrecord.admin.ModifyMedicalRecordAddPrescriptionListener;
+import clinicmanagement.controller.modifymedicalrecord.admin.ModifyMedicalRecordCancelListener;
+import clinicmanagement.controller.modifymedicalrecord.admin.ModifyMedicalRecordSubmitListener;
 import clinicmanagement.view.BaseView;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;

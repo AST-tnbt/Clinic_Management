@@ -2,12 +2,15 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package clinicmanagement.view.manager;
+package clinicmanagement.view.doctor;
 
-import clinicmanagement.constant.admin.AddMedicalRecordName;
+import clinicmanagement.constant.doctor.DoctorAddMedicalRecordName;
 import clinicmanagement.controller.addmedicalrecord.admin.AddMedicalRecordAddPrescriptionListener;
 import clinicmanagement.controller.addmedicalrecord.admin.AddMedicalRecordCancelListener;
 import clinicmanagement.controller.addmedicalrecord.admin.AddMedicalRecordSubmitListener;
+import clinicmanagement.controller.addmedicalrecord.doctor.DoctorAddMedicalRecordAddPrescriptionListener;
+import clinicmanagement.controller.addmedicalrecord.doctor.DoctorAddMedicalRecordCancelListener;
+import clinicmanagement.controller.addmedicalrecord.doctor.DoctorAddMedicalRecordSubmitListener;
 import clinicmanagement.view.BaseView;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
@@ -23,12 +26,12 @@ import javax.swing.text.Document;
  * @author tin-ast
  */
 @Singleton
-public class AddMedicalRecord_Admin extends BaseView {
+public class AddMedicalRecord_Doctor extends BaseView {
 
     /**
      * Creates new form MedicalRecord_Admin
      */
-    public AddMedicalRecord_Admin() {
+    public AddMedicalRecord_Doctor() {
         initComponents();
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setTitle("TWP clinic management - Cập nhật bệnh án");
@@ -264,14 +267,22 @@ public class AddMedicalRecord_Admin extends BaseView {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(AddMedicalRecord_Admin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AddMedicalRecord_Doctor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(AddMedicalRecord_Admin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AddMedicalRecord_Doctor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(AddMedicalRecord_Admin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AddMedicalRecord_Doctor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(AddMedicalRecord_Admin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AddMedicalRecord_Doctor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -284,7 +295,7 @@ public class AddMedicalRecord_Admin extends BaseView {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new AddMedicalRecord_Admin().setVisible(true);
+                new AddMedicalRecord_Doctor().setVisible(true);
             }
         });
     }
@@ -316,14 +327,14 @@ public class AddMedicalRecord_Admin extends BaseView {
 
     @Inject
     public void setModels(
-        @Named(AddMedicalRecordName.P_NAME) Document p_name,
-        @Named(AddMedicalRecordName.P_DATEOFBIRTH) Document p_dateOfBirth,
-        @Named(AddMedicalRecordName.P_SEX) ComboBoxModel p_sex,
-        @Named(AddMedicalRecordName.P_DIAGNOSIS) Document p_diagnosis,
-        @Named(AddMedicalRecordName.P_APPOINTMENTDATE) Document p_appointmentDate,
-        @Named(AddMedicalRecordName.P_STATUS) ComboBoxModel p_status,
-        @Named(AddMedicalRecordName.P_ROOM) Document p_room,
-        @Named(AddMedicalRecordName.P_PRESCRIPTION_PREVIEW) Document p_prescriptionPreview
+        @Named(DoctorAddMedicalRecordName.P_NAME) Document p_name,
+        @Named(DoctorAddMedicalRecordName.P_DATEOFBIRTH) Document p_dateOfBirth,
+        @Named(DoctorAddMedicalRecordName.P_SEX) ComboBoxModel p_sex,
+        @Named(DoctorAddMedicalRecordName.P_DIAGNOSIS) Document p_diagnosis,
+        @Named(DoctorAddMedicalRecordName.P_APPOINTMENTDATE) Document p_appointmentDate,
+        @Named(DoctorAddMedicalRecordName.P_STATUS) ComboBoxModel p_status,
+        @Named(DoctorAddMedicalRecordName.P_ROOM) Document p_room,
+        @Named(DoctorAddMedicalRecordName.P_PRESCRIPTION_PREVIEW) Document p_prescriptionPreview
 
     ) {
         this.name.setDocument(p_name);
@@ -345,9 +356,9 @@ public class AddMedicalRecord_Admin extends BaseView {
     }
     @Inject
     public void setListeners(
-        AddMedicalRecordCancelListener addMedicalRecordCancelListener,
-        AddMedicalRecordAddPrescriptionListener addMedicalRecordAddPrescriptionListener,
-        AddMedicalRecordSubmitListener addMedicalRecordSubmitListener
+        DoctorAddMedicalRecordCancelListener addMedicalRecordCancelListener,
+        DoctorAddMedicalRecordAddPrescriptionListener addMedicalRecordAddPrescriptionListener,
+        DoctorAddMedicalRecordSubmitListener addMedicalRecordSubmitListener
     ) {
         this.cancelBtn.addActionListener(addMedicalRecordCancelListener);
         this.addPrescriptionBtn.addActionListener(addMedicalRecordAddPrescriptionListener);

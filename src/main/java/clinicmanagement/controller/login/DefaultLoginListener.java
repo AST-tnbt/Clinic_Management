@@ -93,6 +93,7 @@ public class DefaultLoginListener implements LoginListener {
                 medicalRecordService.getDatabase();
                 prescriptionService.getDatabase();
                 prescriptionDetailService.getDatabase();
+                medicineService.getDatabase();
             }
             else if (employeeService.getAccount(username, password).equals("Nhân viên kế toán")) {
                 login.setVisible(false);

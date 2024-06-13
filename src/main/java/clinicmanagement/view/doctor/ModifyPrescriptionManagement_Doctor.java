@@ -2,17 +2,20 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package clinicmanagement.view.manager;
+package clinicmanagement.view.doctor;
 
 /**
  *
  * @author tin-ast
  */
 
-import clinicmanagement.constant.admin.ModifyMedicalRecordName;
+import clinicmanagement.constant.doctor.DoctorModifyMedicalRecordName;
 import clinicmanagement.controller.modifyprescriptiondetail.admin.ModifyMedicalRecordShowListener;
 import clinicmanagement.controller.modifyprescriptiondetail.admin.ModifyPrescriptionAddButtonListener;
 import clinicmanagement.controller.modifyprescriptiondetail.admin.ModifyPrescriptionSubmitListener;
+import clinicmanagement.controller.modifyprescriptiondetail.doctor.DoctorModifyMedicalRecordShowListener;
+import clinicmanagement.controller.modifyprescriptiondetail.doctor.DoctorModifyPrescriptionAddButtonListener;
+import clinicmanagement.controller.modifyprescriptiondetail.doctor.DoctorModifyPrescriptionSubmitListener;
 import clinicmanagement.view.BaseView;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
@@ -22,12 +25,12 @@ import javax.swing.*;
 import javax.swing.text.Document;
 
 @Singleton
-public class ModifyPrescriptionManagement_Admin extends BaseView {
+public class ModifyPrescriptionManagement_Doctor extends BaseView {
 
     /**
      * Creates new form PrescriptionManagement_Admin
      */
-    public ModifyPrescriptionManagement_Admin() {
+    public ModifyPrescriptionManagement_Doctor() {
         initComponents();
         setTitle("TWP clinic management - Kê toa");
         setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
@@ -144,21 +147,27 @@ public class ModifyPrescriptionManagement_Admin extends BaseView {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ModifyPrescriptionManagement_Admin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ModifyPrescriptionManagement_Doctor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ModifyPrescriptionManagement_Admin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ModifyPrescriptionManagement_Doctor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ModifyPrescriptionManagement_Admin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ModifyPrescriptionManagement_Doctor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ModifyPrescriptionManagement_Admin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ModifyPrescriptionManagement_Doctor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ModifyPrescriptionManagement_Admin().setVisible(true);
+                new ModifyPrescriptionManagement_Doctor().setVisible(true);
             }
         });
     }
@@ -176,9 +185,9 @@ public class ModifyPrescriptionManagement_Admin extends BaseView {
     // End of variables declaration//GEN-END:variables
     @Inject
     public void setModels(
-            @Named(ModifyMedicalRecordName.P_MEDICINELIST) ComboBoxModel p_listMedicine,
-            @Named(ModifyMedicalRecordName.P_AMOUNT) Document p_amount,
-            @Named(ModifyMedicalRecordName.P_PRESCRIPTION) Document p_prescription
+            @Named(DoctorModifyMedicalRecordName.P_MEDICINELIST) ComboBoxModel p_listMedicine,
+            @Named(DoctorModifyMedicalRecordName.P_AMOUNT) Document p_amount,
+            @Named(DoctorModifyMedicalRecordName.P_PRESCRIPTION) Document p_prescription
     ) {
         this.inputAmount.setDocument(p_amount);
         this.medicineList.setModel(p_listMedicine);
@@ -190,9 +199,9 @@ public class ModifyPrescriptionManagement_Admin extends BaseView {
     }
     @Inject
     public void setListeners(
-            ModifyMedicalRecordShowListener modifyMedicalRecordShowListener,
-            ModifyPrescriptionAddButtonListener prescriptionAddButtonListener,
-            ModifyPrescriptionSubmitListener prescriptionSubmitListener
+            DoctorModifyMedicalRecordShowListener modifyMedicalRecordShowListener,
+            DoctorModifyPrescriptionAddButtonListener prescriptionAddButtonListener,
+            DoctorModifyPrescriptionSubmitListener prescriptionSubmitListener
     ) {
         this.addComponentListener(modifyMedicalRecordShowListener);
         this.addBtn.addActionListener(prescriptionAddButtonListener);
